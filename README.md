@@ -1,4 +1,4 @@
-# FresherNote
+# Meetup Clone
 
 [Heroku link][heroku] **Note:** This should be a link to your production site
 
@@ -72,10 +72,10 @@ the API.
 - [ ] create `Group` model
 - [ ] create memberships join table
 - [ ] seed the database with a small amount of test data
-- [ ] CRUD API for notes (`GroupsController`)
+- [ ] CRUD API for Groups (`GroupsController`)
 - [ ] jBuilder views for groups
 - [ ] test out API interaction in the console.
-- implement each note component, building out the flux loop as needed.
+- implement each Group component, building out the flux loop as needed.
   - [ ] `GroupsIndex`
   - [ ] `GroupDetail`
   - [ ] `GroupForm`
@@ -84,7 +84,7 @@ the API.
 
 # Phase 3: Events & RSVP's (2 days)
 
-**Objective:** Notes belong to Notebooks, and can be viewed by notebook.
+**Objective:** RSVPs belong to Events, and can be viewed by Event.
 
 - [ ] create `Event` and `RSVP` models
 - build out API, Flux loop, and components for:
