@@ -1,6 +1,8 @@
 const React          = require('react');
 const SessionActions = require('../actions/session_actions');
 const SessionStore   = require('../stores/session_store');
+const ErrorStore     = require('../stores/error_store');
+const ErrorActions   = require('../actions/error_actions');
 const ReactRouter    = require('react-router');
 const hashHistory    = ReactRouter.hashHistory;
 
@@ -8,7 +10,8 @@ const LoginForm = React.createClass({
   getInitialState() {
     return {
       email    : "",
-      password : ""
+      password : "",
+      errors   : [],
     };
   },
   _emailChange(e) {
@@ -32,8 +35,13 @@ const LoginForm = React.createClass({
       hashHistory.push("/");
     }
   },
+  _onErrorChange() {
+    ErrorActions.setErrors()
+    this.setState({errors: ErrorStore.errors()});
+  },
   componentDidMount() {
     this.listener = SessionStore.addListener(this._onChange);
+    this.errListener = ErrorStore.addListener(this._onErrorChange);
   },
   componentWillUnmount() {
     this.listener.remove();
@@ -41,6 +49,11 @@ const LoginForm = React.createClass({
   render() {
     return(
       <div className="form">
+        {
+          this.state.errors.map( error => {
+            return error;
+          })
+        }
         <h2>Log in</h2>
         <p>Not registered with us yet? <a href="/signup">Sign up</a></p>
         <form>
