@@ -30,12 +30,12 @@
 * `GroupAction.leaveGroup`
 
 ### ApiUtil
-* `ApiUtil.fetchAllGroups`
-* `ApiUtil.fetchSingleGroup`
-* `ApiUtil.createGroup`
-* `ApiUtil.editGroup`
-* `ApiUtil.destroyGroup`
-* `ApiUtil.joinGroup`
-* `ApiUtil.leaveGroup`
+* `GroupApiUtil.fetchAllGroups`
+* `GroupApiUtil.fetchSingleGroup`
+* `GroupApiUtil.createGroup`
+* `GroupApiUtil.editGroup`
+* `GroupApiUtil.destroyGroup`
+* `GroupApiUtil.joinGroup`
+* `GroupApiUtil.leaveGroup`
 
 ## Gems/Libraries

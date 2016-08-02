@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
   attr_reader :password
 
   def self.create_session_token
-    SecureRandom::urlencode_base64
+    SecureRandom::urlsafe_base64
   end
 
   def self.find_by_credentials(username, password)
