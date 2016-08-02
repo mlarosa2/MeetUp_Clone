@@ -1,8 +1,8 @@
 # Meetup Clone
 
-[Heroku link][heroku] **Note:** This should be a link to your production site
+[Heroku link][heroku]
 
-[heroku]: http://www.herokuapp.com
+[heroku]: http://www.meetupclone.herokuapp.com
 
 ## Minimum Viable Product
 
