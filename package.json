@@ -6,9 +6,6 @@
   "directories": {
     "test": "test"
   },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -24,6 +21,11 @@
     "webpack": "^1.13.1"
   },
   "scripts" : {
-    "webpack": "webpack -w"
+    "webpack": "webpack -w",
+    "postinstall": "./node_modules/.bin/webpack"
+  },
+  "engines": {
+    "node": "6.3.0",
+    "npm": "3.10.3"
   }
 }
