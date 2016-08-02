@@ -28,14 +28,6 @@
 * RSVP
 
 ### Actions
-* `ApiActions.receiveAllEvents`
-* `ApiActions.receiveSingleEvent`
-* `ApiActions.updateEvent`
-* `ApiActions.deleteEvent`
-* `ApiActions.receiveAllRSVPs`
-* `ApiActions.receiveSingleRSVP`
-* `ApiActions.updateRSVP`
-* `ApiActions.deleteRSVP`
 * `EventActions.fetchAllEvents`
 * `EventActions.fetchSingleEvent`
 * `EventActions.createEvent`

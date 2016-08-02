@@ -28,8 +28,8 @@
 * **component:** `App` **path:** `/`
   * **component:** `LoginForm` **path:** /login
   * **component:** `SignupForm` **path:** /signup
-  * **component:** `GroupsIndex` **path:** index
+  * **component:** `GroupsIndex` **path:** /groups
     * **component:** `GroupDetail` **path:** `groups/:groupId`
       * **component:** `Calendar`  **path:** `groups/:groupId/calendar`
-      * **component:** `EventsIndex`
-      * **component:** `EventDetail` **path:** `groups/events/:eventId`
+      * **component:** `EventsIndex` **path** `/groups/:groupId/events`
+      * **component:** `EventDetail` **path:** `/events/:eventId`
