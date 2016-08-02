@@ -2,7 +2,7 @@ const SessionApiUtil   = require('../util/session_api_util');
 const Dispatcher       = require('../dispatcher/dispatcher');
 const SessionConstants = require('../constants/session_constants');
 
-module.exports = {
+const SessionActions = {
   signup(user, callback) {
     SessionApiUtil.signup(user, this.receiveCurrentUser);
   },
@@ -20,3 +20,5 @@ module.exports = {
     });
   }
 };
+
+module.exports = SessionActions;
