@@ -33,7 +33,7 @@
 * `SessionActions.receiveCurrentUser`
 * `SessionActions.removeCurrentUser`
 * `ErrorActions.setErrors`
-* `ErrorActions.removeErrors`
+* `ErrorActions.clearErrors`
 
 ### ApiUtil
 * `SessionUtil.logIn`
