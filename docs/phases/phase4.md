@@ -1,30 +1,28 @@
-# Phase 4: Calendar and Search by Location and Group Info (1 days)
+# Phase 4: Calendar (1 days)
 
 ## Rails
 
 ### Models
-* Calendar
 
 ### Controllers
-* Api::CalendarsController (new, create, edit, show)
+Api::EventsController (index)
 
 ### Views
-* calendars/show.json.jbuilder
+* events/index.json.jbuilder
 
 ## Flux
 ### Views (React Components)
-* Calendars
-* SearchBar
+* Calendar
+ - Month
+ - Day
 
 ### Stores
 * Event
-* Group
 
 ### Actions
-* `ApiActions.receiveAllGroups`
-* `ApiActions.receiveAllEvents`
-* `GroupActions.fetchAllGroups`
 * `EventActions.fetchAllEvents`
+
+### ApiUtil
 * `ApiUtil.fetchAllEvents`
 
 ## Gems/Libraries

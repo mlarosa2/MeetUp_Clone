@@ -21,9 +21,6 @@
 * Group
 
 ### Actions
-* `ApiActions.receiveAllGroups`
-* `ApiActions.receiveSingleGroup`
-* `ApiActions.deleteGroup`
 * `GroupActions.fetchAllGroups`
 * `GroupActions.fetchSingleNote`
 * `GroupActions.createGroup`

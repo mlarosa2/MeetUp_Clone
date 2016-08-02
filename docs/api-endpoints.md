@@ -36,15 +36,15 @@
 - `GET /api/events/:id`
 - `PATCH /api/event/:id`
 - `DELETE /api/events/:id`
-- `GET /api/:id/events`
+- `GET /api/groups/:id/events`
   - index of all events for a group
 
 ### RSVPs
 
 - RSVP's will be included in the events show template
-- `GET /api/events/:event_id/rsvps`
-- `POST /api/events/:event_id/rsvps`: add RSVP to event by id
-- `DELETE /api/events/:event_id/rsvps/:id`: remove RSVP from event by id
+- `GET /api/rsvps`
+- `POST /api/rsvps`: add RSVP by id
+- `DELETE /api/rsvps/:id`: remove RSVP from event by id
 
 ### Calendars
 
