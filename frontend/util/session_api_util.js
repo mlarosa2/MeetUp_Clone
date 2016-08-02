@@ -19,7 +19,7 @@ const SessionApiUtil = {
       success(dat) {
         successCallback(dat);
       },
-      error(er){ errorCallback(er); }
+      error(er) { errorCallback(er); }
     });
   },
 
@@ -30,7 +30,7 @@ const SessionApiUtil = {
       success(dat) {
         successCallback(dat);
       },
-      error(er){ errorCallback(er); }
+      error(er) { errorCallback(er); }
     });
   }
 };

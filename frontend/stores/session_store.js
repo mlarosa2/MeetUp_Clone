@@ -27,6 +27,7 @@ function _login(user) {
 }
 function _logout() {
   _currentUser = {};
+  SessionStore.__emitChange();
 }
 
 
@@ -39,8 +40,6 @@ SessionStore.__onDispatch = function(payload) {
       _logout();
       break;
   }
-
-  SessionStore.__emitChange();
 };
 
 module.exports = SessionStore;
