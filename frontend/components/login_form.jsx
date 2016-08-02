@@ -5,6 +5,7 @@ const ErrorStore     = require('../stores/error_store');
 const ErrorActions   = require('../actions/error_actions');
 const ReactRouter    = require('react-router');
 const hashHistory    = ReactRouter.hashHistory;
+const Link           = ReactRouter.Link;
 
 const LoginForm = React.createClass({
   getInitialState() {
@@ -28,6 +29,7 @@ const LoginForm = React.createClass({
         password : this.state.password
       }
     };
+
     SessionActions.login(user);
   },
   _onChange() {
@@ -36,8 +38,7 @@ const LoginForm = React.createClass({
     }
   },
   _onErrorChange() {
-    ErrorActions.setErrors()
-    this.setState({errors: ErrorStore.errors()});
+    this.setState({errors: ErrorStore.errors("Login")});
   },
   componentDidMount() {
     this.listener = SessionStore.addListener(this._onChange);
@@ -45,17 +46,19 @@ const LoginForm = React.createClass({
   },
   componentWillUnmount() {
     this.listener.remove();
+    this.errListener.remove();
   },
   render() {
     return(
       <div className="form">
-        {
-          this.state.errors.map( error => {
-            return error;
-          })
-        }
+        <div className="errors">
+          { this.state.errors.map( err => {
+            return err;
+            })
+          }
+        </div>
         <h2>Log in</h2>
-        <p>Not registered with us yet? <a href="/signup">Sign up</a></p>
+        <p>Not registered with us yet? <Link to="/signup">Sign up</Link></p>
         <form>
           <label><p>Email address:</p>
             <input type="text" defaultValue={this.state.email} onChange={this._emailChange}/>
