@@ -22,7 +22,7 @@
 
 ### Actions
 * `GroupActions.fetchAllGroups`
-* `GroupActions.fetchSingleNote`
+* `GroupActions.fetchSingleGroup`
 * `GroupActions.createGroup`
 * `GroupActions.editGroup`
 * `GroupActions.destroyGroup`
