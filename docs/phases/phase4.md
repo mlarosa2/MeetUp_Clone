@@ -23,6 +23,6 @@ Api::EventsController (index)
 * `EventActions.fetchAllEvents`
 
 ### ApiUtil
-* `ApiUtil.fetchAllEvents`
+* `EventApiUtil.fetchAllEvents`
 
 ## Gems/Libraries

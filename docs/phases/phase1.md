@@ -36,11 +36,10 @@
 * `ErrorActions.removeErrors`
 
 ### ApiUtil
-* `ApiUtil.logIn`
-* `ApiUtil.logOut`
-* `ApiUtil.signUp`  
-* `ApiUtil.fetchCurrentUser`
-* `ApiUtil.editCurrentUser`
+* `SessionUtil.logIn`
+* `SessionUtil.logOut`
+* `SessionUtil.signUp`  
+* `SessionUtil.fetchCurrentUser`
 
 ## Gems/Libraries
 * BCrypt (Gem)

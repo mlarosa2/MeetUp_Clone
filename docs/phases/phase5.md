@@ -23,6 +23,6 @@
 * `GroupActions.fetchAllGroups`
 
 ### ApiUtil
-* `ApiUtil.receiveAllGroups`
+* `GroupApiUtil.receiveAllGroups`
 
 ## Gems/Libraries

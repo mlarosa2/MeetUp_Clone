@@ -1,1 +1,1 @@
-json.extract! @user, :username, :email, :created_at
+json.partial! '/api/users/user.json.jbuilder', locals: { user: @user }

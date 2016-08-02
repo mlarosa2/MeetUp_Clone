@@ -40,15 +40,15 @@
 * `RSVPActions.destroyRSVP`
 
 ### ApiUtil
-* `ApiUtil.fetchAllEvents`
-* `ApiUtil.fetchSingleEvent`
-* `ApiUtil.createEvent`
-* `ApiUtil.editEvent`
-* `ApiUtil.destroyEvent`
-* `ApiUtil.fetchAllRSVPs`
-* `ApiUtil.fetchSingleRSVP`
-* `ApiUtil.createRSVP`
-* `ApiUtil.editRSVP`
-* `ApiUtil.destroyRSVP`
+* `EventApiUtil.fetchAllEvents`
+* `EventApiUtil.fetchSingleEvent`
+* `EventApiUtil.createEvent`
+* `EventApiUtil.editEvent`
+* `EventApiUtil.destroyEvent`
+* `RSVPApiUtil.fetchAllRSVPs`
+* `RSVPApiUtil.fetchSingleRSVP`
+* `RSVPApiUtil.createRSVP`
+* `RSVPApiUtil.editRSVP`
+* `RSVPApiUtil.destroyRSVP`
 
 ## Gems/Libraries
