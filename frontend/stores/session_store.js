@@ -9,8 +9,8 @@ let _currentUser = {};
 SessionStore.currentUser = function () {
   return _currentUser;
 };
-SessionStore.isUserLoggedIn = function (user) {
-  if (user.id === _currentUser[id]) {
+SessionStore.isUserLoggedIn = function () {
+  if (!!Object.keys(_currentUser).length) {
     return true;
   } else {
     return false;
@@ -42,3 +42,5 @@ SessionStore.__onDispatch = function(payload) {
 
   SessionStore.__emitChange();
 };
+
+module.exports = SessionStore;
