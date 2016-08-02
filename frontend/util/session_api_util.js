@@ -7,7 +7,7 @@ const SessionApiUtil = {
       success(dat) {
         successCallback(dat);
       },
-      error(er){ errorCallback(er); }
+      error(er){ errorCallback(er, "Signup"); }
     });
   },
 
@@ -19,7 +19,7 @@ const SessionApiUtil = {
       success(dat) {
         successCallback(dat);
       },
-      error(er) { errorCallback(er); }
+      error(er) { errorCallback(er, "Login"); }
     });
   },
 
