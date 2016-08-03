@@ -52,16 +52,16 @@ It features, Users, Groups, Events, Search, and Calendar
 
 **Objective:** Functioning rails project with front-end Authentication
 
-- [ ] create new project
-- [ ] create `User` model
-- [ ] authentication backend setup
-- [ ] create `StaticPages` controller and root view
-- [ ] set up webpack & flux scaffold with skeleton files
-- [ ] setup `APIUtil` to interact with the API
-- [ ] set up flux cycle for frontend auth
-- [ ] user signup/signin components
-- [ ] blank landing component after signin
-- [ ] style signin/signup components
+- [x] create new project
+- [x] create `User` model
+- [x] authentication backend setup
+- [x] create `StaticPages` controller and root view
+- [x] set up webpack & flux scaffold with skeleton files
+- [x] setup `APIUtil` to interact with the API
+- [x] set up flux cycle for frontend auth
+- [x] user signup/signin components
+- [x] blank landing component after signin
+- [x] style signin/signup components
 - [ ] seed users
 
 # Phase 2: Flux Architecture, Groups and Joining Groups (2 days)
