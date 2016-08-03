@@ -71,7 +71,7 @@ the API.
 
 - [x] create `Group` model
 - [x] create memberships join table
-- [ ] seed the database with a small amount of test data
+- [x] seed the database with a small amount of test data
 - [x] CRUD API for Groups (`GroupsController`)
 - [x] jBuilder views for groups
 - [x] test out API interaction in the console.
