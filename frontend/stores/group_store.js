@@ -7,7 +7,13 @@ const GroupStore = new Store(Dispatcher);
 let _groups = {};
 
 GroupStore.all = function () {
-  return _groups;
+  let groups = [];
+  for (let prop in _groups) {
+    if (_groups.hasOwnProperty(prop)) {
+      groups.push(_groups[prop]);
+    }
+  }
+  return groups;
 };
 
 GroupStore.find = function (id) {
