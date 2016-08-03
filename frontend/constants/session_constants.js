@@ -1,5 +1,5 @@
 const SessionConstants = {
-  LOGIN: "LOGIN",
+  LOGIN : "LOGIN",
   LOGOUT: "LOGOUT"
 };
 
