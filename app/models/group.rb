@@ -9,8 +9,15 @@ class Group < ActiveRecord::Base
   )
 
   has_many(
+    :memberships,
+    class_name: "Membership",
+    foreign_key: :group_id,
+    primary_key: :id
+  )
+
+  has_many(
     :members,
     through: :memberships,
-    source: :member_id
+    source: :member
   )
 end

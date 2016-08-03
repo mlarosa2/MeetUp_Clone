@@ -6,9 +6,16 @@ class User < ActiveRecord::Base
   attr_reader :password
 
   has_many(
+    :memberships,
+    class_name: "Membership",
+    foreign_key: :member_id,
+    primary_key: :id
+  )
+
+  has_many(
     :groups,
     through: :memberships,
-    source: :group_id
+    source: :group
   )
 
   def self.create_session_token
