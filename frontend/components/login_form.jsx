@@ -35,7 +35,7 @@ const LoginForm = React.createClass({
 
     emailErrors = "";
     passwordErrors = "";
-    
+
     if (this.state.email === "") {
       emailErrors = "Please enter your email address.";
     }
