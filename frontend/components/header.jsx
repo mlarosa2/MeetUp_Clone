@@ -31,17 +31,17 @@ const Header = React.createClass({
   render() {
     const navLeft = (
       <nav className="nav-left">
-        <img src="" />
-        <ul>
-          <li><Link to="/groups"><span>Find</span> a Meetup Group</Link></li>
-          <li><Link to="/groups/new"><span>Start</span> a Meetup Group</Link></li>
+        <ul className="clearfix">
+          <li className="nav-logo">logo</li>
+          <li><Link className="nav-link" to="/groups"><span>Find</span> a Meetup Group</Link></li>
+          <li><Link className="nav-link" to="/groups/new"><span>Start</span> a Meetup Group</Link></li>
         </ul>
       </nav>
     );
 
     const loggedOutNavRight = (
       <nav className="nav-right">
-        <ul>
+        <ul className="clearfix">
           <li><Link to="/login">Log in</Link></li>
           <li><button onClick={this._signUp}>Sign up</button></li>
         </ul>
@@ -61,7 +61,7 @@ const Header = React.createClass({
       </nav>
     );
     return(
-      <header>
+      <header className="clearfix">
         { navLeft }
         { SessionStore.isUserLoggedIn() ? loggedInNavRight : loggedOutNavRight }
       </header>
