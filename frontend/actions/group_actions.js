@@ -15,37 +15,50 @@ const GroupActions = {
     GroupApiUtil.editGroup(data, this.receiveGroup);
   },
 
-  joinGroup(data, successCallback) {
-    GroupApiUtil.joinGroup(data, this.receiveGroup);
-  },
-
-  leaveGroup(data, successCallback) {
-    GroupApiUtil.leaveGroup(data, this.receiveGroup);
-  },
-
   createGroup(data, successCallback) {
-    GroupApiUtil.createGroup(data, this.receiveGroup);
+    GroupApiUtil.createGroup(data, this.addNewGroup);
   },
 
   deleteGroup(id, successCallback) {
-    GroupApiUtil.deleteGroup(id, this.receiveGroup);
+    GroupApiUtil.deleteGroup(id, this.destroyGroup);
   },
 
   receiveGroups(groups) {
-    console.log(groups);
-    // Dispatcher.dispatch({
-    //   actionType: GroupConstants.FETCH_GROUPS,
-    //   groups    : groups
-    // });
+    Dispatcher.dispatch({
+      actionType: GroupConstants.FETCH_GROUPS,
+      groups    : groups
+    });
   },
 
   receiveGroup(group) {
-    console.log(group);
-    // Dispatcher.dispatch({
-    //   actionType: GroupConstants.FETCH_GROUP,
-    //   group     : group
-    // });
+    Dispatcher.dispatch({
+      actionType: GroupConstants.FETCH_GROUP,
+      group     : group
+    });
+  },
+
+  destroyGroup(group) {
+    Dispatcher.dispatch({
+      actionType: GroupConstants.DELETE_GROUP,
+      group     : group
+    });
+  },
+
+  addNewGroup(group) {
+    Dispatcher.dispatch({
+      actionType: GroupConstants.CREATE_GROUP,
+      group     : group
+    });
   }
 };
 
 module.exports = GroupActions;
+
+// MOVE TO MEMBERSHIP ACTIONS
+// joinGroup(data, successCallback) {
+//   GroupApiUtil.joinGroup(data, this.receiveGroup);
+// },
+//
+// leaveGroup(data, successCallback) {
+//   GroupApiUtil.leaveGroup(data, this.receiveGroup);
+// },
