@@ -37,6 +37,7 @@ const SignupForm = React.createClass({
     };
     if (SessionActions.signup(user)) {
       SessionActions.login(user);
+      hashHistory.push("/");
     }
   },
   _onErrorChange() {

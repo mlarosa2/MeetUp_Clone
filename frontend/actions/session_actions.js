@@ -13,8 +13,8 @@ const SessionActions = {
   logout(user, callback, err) {
     SessionApiUtil.logout(this.receiveCurrentUser, ErrorActions.setErrors);
   },
-  receiveCurrentUser(user) {
-    let loginOrLogout = Object.keys(user) !== 0 ? SessionConstants.LOGIN : SessionConstants.LOGOUT;
+  receiveCurrentUser(user, logout) {
+    let loginOrLogout = logout === "Logout" ? SessionConstants.LOGOUT : SessionConstants.LOGIN;
     Dispatcher.dispatch({
       actionType: loginOrLogout,
       user: user

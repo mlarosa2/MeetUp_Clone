@@ -28,7 +28,7 @@ const SessionApiUtil = {
       url: "api/session",
       method: "DELETE",
       success(dat) {
-        successCallback(dat);
+        successCallback(dat, "Logout");
       },
       error(er) { errorCallback(er); }
     });

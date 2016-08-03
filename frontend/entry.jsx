@@ -7,11 +7,13 @@ const Router         = ReactRouter.Router;
 const Route          = ReactRouter.Route;
 const LoginForm      = require('./components/login_form');
 const SignupForm     = require('./components/signup_form');
+const Header         = require('./components/header');
 
 const App = React.createClass({
   render() {
     return(
       <div>
+        <Header />
         { this.props.children }
       </div>
     );
