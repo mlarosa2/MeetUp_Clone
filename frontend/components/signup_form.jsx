@@ -42,10 +42,9 @@ const SignupForm = React.createClass({
         password : this.state.password
       }
     };
-    if (SessionActions.signup(user)) {
-      SessionActions.login(user);
-      hashHistory.push("/");
-    }
+
+    SessionActions.signup(user);
+
     emailErrors        = "";
     emailErrorClass    = "";
     passwordErrors     = "";
@@ -68,6 +67,9 @@ const SignupForm = React.createClass({
       userNameErrors = "Please enter your name";
       userNameErrorClass = "error-input";
     }
+  },
+  _onChange() {
+    hashHistory.push("/");
   },
   _onErrorChange() {
     this.setState({errors: ErrorStore.errors("Signup")});
