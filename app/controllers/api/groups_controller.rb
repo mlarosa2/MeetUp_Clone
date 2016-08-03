@@ -32,9 +32,9 @@ class Api::GroupsController < ApplicationController
 
   def destroy
     @group = Group.find(params[:id])
-    title = @group.title
+    group = @group
     if @group.destroy
-      render json: "#{title} deleted"
+      render json: group
     else
       render json: @group.errors.full_messages, status: 412
     end
