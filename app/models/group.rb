@@ -7,4 +7,10 @@ class Group < ActiveRecord::Base
     foreign_key: :moderator_id,
     primary_key: :id
   )
+
+  has_many(
+    :members,
+    through: :memberships,
+    source: :member_id
+  )
 end

@@ -4,8 +4,10 @@ class User < ActiveRecord::Base
   after_initialize :generate_session_token
   attr_reader :password
 
-  belongs_to(
-    :group
+  has_many(
+    :groups,
+    through: :memberships,
+    source: :group_id
   )
 
   def self.create_session_token
