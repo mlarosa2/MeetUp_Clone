@@ -8,7 +8,14 @@ const Route          = ReactRouter.Route;
 const LoginForm      = require('./components/login_form');
 const SignupForm     = require('./components/signup_form');
 const Header         = require('./components/header');
-const GroupActions   = require('./actions/group_actions');
+const GroupIndex     = require('./components/group_index');
+const SessionStore   = require('./stores/session_store');
+
+function _ensureSignIn(nextState, replace) {
+  if (!SessionStore.isUserLoggedIn()) {
+    replace('/login');
+  }
+}
 
 const App = React.createClass({
   render() {
@@ -25,6 +32,7 @@ const App = React.createClass({
 
 const routes = (
   <Route path="/" component={App}>
+    <IndexRoute component={GroupIndex} onEnter={_ensureSignIn} />
     <Route path="/login" component={LoginForm} />
     <Route path="/signup" component={SignupForm} />
   </Route>
