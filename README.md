@@ -62,7 +62,7 @@ It features, Users, Groups, Events, Search, and Calendar
 - [x] user signup/signin components
 - [x] blank landing component after signin
 - [x] style signin/signup components
-- [ ] seed users
+- [x] seed users
 
 # Phase 2: Flux Architecture, Groups and Joining Groups (2 days)
 
