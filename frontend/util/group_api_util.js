@@ -1,5 +1,5 @@
 const GroupApiUtil = {
-  fetchAllGroups(data, successCallback, errorCallback) {
+  fetchAllGroups(successCallback) {
     $.ajax({
       url: "api/groups",
       method: "GET",
@@ -7,61 +7,73 @@ const GroupApiUtil = {
         successCallback(dat);
       },
       error(dat) {
-        errorCallback(dat);
+        return dat;
       }
     });
   },
-  fetchSingleGroup(data, successCallback, errorCallback) {
+  fetchSingleGroup(id, successCallback) {
     $.ajax({
-      url: `api/groups/${data[id]}`,
+      url: `api/groups/${id}`,
       method: "GET",
       success(dat) {
         successCallback(dat);
       },
       error(dat) {
-        errorCallback(dat);
+        return dat;
       }
     });
   },
-  editGroup(data, successCallback, errorCallback) {
+  editGroup(data, successCallback) {
     $.ajax({
-      url: `api/groups/${data[id]}`,
+      url: `api/groups/${data.group.id}`,
       method: "PATCH",
       data: data,
       success(dat) {
         successCallback(dat);
       },
       error(dat) {
-        errorCallback(dat);
+        return dat;
       }
     });
   },
-  joinGroup(data, successCallback, errorCallback) {
+  deleteGroup(id, successCallback) {
     $.ajax({
-      url: "api/memberships",
+      url: `api/groups/${id}`,
+      method: "DELETE",
+      success(dat) {
+        successCallback(dat);
+      },
+      error(dat) {
+        return dat;
+      }
+    });
+  },
+  joinGroup(data, successCallback) {
+    $.ajax({
+      url: "/api/memberships",
       method: "POST",
       data: data,
       success(dat) {
         successCallback(dat);
       },
       error(dat) {
-        errorCallback(dat);
+        return dat;
       }
     });
   },
-  leaveGroup(data, successCallback, errorCallback) {
+  leaveGroup(data, successCallback) {
     $.ajax({
-      url: `api/memberships/${data[id]}`,
+      url: `api/memberships/${data.membership.id}`,
       method: "DELETE",
       success(dat) {
         successCallback(dat);
       },
       error(dat) {
-        errorCallback(dat);
+        return dat;
       }
     });
   },
-  createGroup(data, successCallback, errorCallback) {
+  createGroup(data, successCallback) {
     $.ajax({
       url: "api/groups",
       method: "POST",
@@ -70,7 +82,7 @@ const GroupApiUtil = {
         successCallback(dat);
       },
       error(dat) {
-        errorCallback(dat);
+        return dat;
       }
     });
   }

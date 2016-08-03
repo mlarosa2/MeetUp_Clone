@@ -8,6 +8,9 @@ const Route          = ReactRouter.Route;
 const LoginForm      = require('./components/login_form');
 const SignupForm     = require('./components/signup_form');
 const Header         = require('./components/header');
+const GroupActions   = require('./actions/group_actions');
+
+window.GroupActions = GroupActions;
 
 const App = React.createClass({
   render() {

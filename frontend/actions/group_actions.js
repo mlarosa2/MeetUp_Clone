@@ -3,43 +3,49 @@ const GroupConstants = require('../constants/group_constants');
 const Dispatcher     = require('../dispatcher/dispatcher');
 
 const GroupActions = {
-  fetchAllGroups(groups, successCallback, errorCallback) {
-    GroupApiUtil.fetchAllGroups(groups, this.receiveGroups);
+  fetchAllGroups(successCallback) {
+    GroupApiUtil.fetchAllGroups(this.receiveGroups);
   },
 
-  fetchSingleGroup(group, successCallback, errorCallback) {
+  fetchSingleGroup(group, successCallback) {
     GroupApiUtil.fetchSingleGroup(group, this.receiveGroup);
   },
 
-  editGroup(data, successCallback, errorCallback) {
+  editGroup(data, successCallback) {
     GroupApiUtil.editGroup(data, this.receiveGroup);
   },
 
-  joinGroup(data, successCallback, errorCallback) {
+  joinGroup(data, successCallback) {
     GroupApiUtil.joinGroup(data, this.receiveGroup);
   },
 
-  leaveGroup(data, successCallback, errorCallback) {
+  leaveGroup(data, successCallback) {
     GroupApiUtil.leaveGroup(data, this.receiveGroup);
   },
 
-  createGroup(data, successCallback, errorCallback) {
+  createGroup(data, successCallback) {
     GroupApiUtil.createGroup(data, this.receiveGroup);
   },
 
+  deleteGroup(id, successCallback) {
+    GroupApiUtil.deleteGroup(id, this.receiveGroup);
+  },
+
   receiveGroups(groups) {
-    Dispatcher.dispatch({
-      actionType: GroupConstants.FETCH_GROUPS,
-      groups    : groups
-    });
+    console.log(groups);
+    // Dispatcher.dispatch({
+    //   actionType: GroupConstants.FETCH_GROUPS,
+    //   groups    : groups
+    // });
   },
 
   receiveGroup(group) {
-    Dispatcher.dispatch({
-      actionType: GroupConstants.FETCH_GROUP,
-      group     : group
-    });
+    console.log(group);
+    // Dispatcher.dispatch({
+    //   actionType: GroupConstants.FETCH_GROUP,
+    //   group     : group
+    // });
   }
 };
 
-moduel.exports = GroupActions;
+module.exports = GroupActions;
