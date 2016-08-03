@@ -69,12 +69,12 @@ It features, Users, Groups, Events, Search, and Calendar
 **Objective:** Groups can be created, read, edited, destroyed, joined, and left through
 the API.
 
-- [ ] create `Group` model
-- [ ] create memberships join table
+- [x] create `Group` model
+- [x] create memberships join table
 - [ ] seed the database with a small amount of test data
-- [ ] CRUD API for Groups (`GroupsController`)
-- [ ] jBuilder views for groups
-- [ ] test out API interaction in the console.
+- [x] CRUD API for Groups (`GroupsController`)
+- [x] jBuilder views for groups
+- [x] test out API interaction in the console.
 - implement each Group component, building out the flux loop as needed.
   - [ ] `GroupsIndex`
   - [ ] `GroupDetail`
