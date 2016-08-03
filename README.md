@@ -94,16 +94,15 @@ the API.
 - [ ] use CSS to style new components
 - [ ] seed events
 
-# Phase 4: Calendar and Search by Location and Group Info (1 days)
+# Phase 4: Calendar (1 day)
 
-- [ ] create calendar component that listens to thr `EventStore`
-- [ ] implement search for groups with query params
+- [ ] create Calendar component that listens to the `EventStore`
 - [ ] Style new elements
 
-# Phase 5: Allow Complex Styling Throughout (1 days)
+# Phase 5: Search by Location and Group Info (1 day)
 
-- [ ] polish styling
-- [ ] style components such as `header` and `footer`
+- [ ] create SearchBar component
+- [ ] implement search for groups with query params
 
 [phase-one]: docs/phases/phase1.md
 [phase-two]: docs/phases/phase2.md
