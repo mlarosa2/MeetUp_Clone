@@ -1,1 +1,1 @@
-json.partial! '/api/groups/group.json.jbuilder', locals: { group: @group }
+json.partial! '/api/groups/group.json.jbuilder', group: @group
