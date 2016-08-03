@@ -4,6 +4,10 @@ class User < ActiveRecord::Base
   after_initialize :generate_session_token
   attr_reader :password
 
+  belongs_to(
+    :group
+  )
+
   def self.create_session_token
     SecureRandom::urlsafe_base64
   end
