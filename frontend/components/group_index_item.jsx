@@ -4,12 +4,11 @@ const GroupStore     = require('../stores/session_store');
 const ReactRouter    = require('react-router');
 const hashHistory    = ReactRouter.hashHistory;
 const Link           = ReactRouter.Link;
-const GroupIndex     = require('./group_index');
 
 const GroupIndexItem = React.createClass({
   _goToGroup(e) {
     e.preventDefault();
-    hashHistory.push(`/groups/${this.props.group.id}`);
+    hashHistory.push(`/${this.props.group.id}`);
   },
   render() {
     return(
