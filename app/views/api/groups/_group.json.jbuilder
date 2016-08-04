@@ -7,4 +7,5 @@ json.group do
  json.city group.city
  json.state group.state
  json.members group.members.length
+ json.created group.created_at.strftime("%b %d, %Y")
 end
