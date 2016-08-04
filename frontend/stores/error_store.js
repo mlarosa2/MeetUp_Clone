@@ -1,6 +1,6 @@
 const Store            = require('flux/utils').Store;
 const Dispatcher       = require('../dispatcher/dispatcher');
-const ErrorConstants = require('../constants/session_constants');
+const ErrorConstants   = require('../constants/session_constants');
 
 const ErrorStore = new Store(Dispatcher);
 
@@ -16,12 +16,12 @@ ErrorStore.errors = function (form) {
 function _setErrors(form, errors) {
   _errors = [];
   _form   = "";
-  
+
   for (let i = 0; i < errors.responseJSON.length; i++) {
     _errors.push(errors.responseJSON[i]);
   }
   _form = form;
-
+  
   ErrorStore.__emitChange();
 }
 
