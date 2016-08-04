@@ -27,7 +27,7 @@ const GroupApiUtil = {
     $.ajax({
       url: `api/groups/${data.group.id}`,
       method: "PATCH",
-      data: data,
+      data: { group: data },
       success(dat) {
         successCallback(dat);
       },
@@ -73,16 +73,16 @@ const GroupApiUtil = {
       }
     });
   },
-  createGroup(data, successCallback) {
+  createGroup(data, successCallback, errorCallback) {
     $.ajax({
       url: "api/groups",
       method: "POST",
-      data: data,
+      data: { group: data },
       success(dat) {
         successCallback(dat);
       },
       error(dat) {
-        return dat;
+        errorCallback(dat);
       }
     });
   }
