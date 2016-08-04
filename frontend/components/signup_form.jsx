@@ -5,6 +5,7 @@ const ErrorStore     = require('../stores/error_store');
 const ReactRouter    = require('react-router');
 const hashHistory    = ReactRouter.hashHistory;
 const Link           = ReactRouter.Link;
+const ErrorActions   = require('../actions/error_actions');
 
 const SessionApiUtil = require('../util/session_api_util');
 
@@ -33,7 +34,7 @@ const SignupForm = React.createClass({
   _passwordChange(e) {
     this.setState({ password: e.target.value });
   },
-  _submit(e) {
+  _submit(e, handleErr) {
     e.preventDefault();
     let user = {
       user: {
@@ -44,7 +45,6 @@ const SignupForm = React.createClass({
     };
 
     SessionActions.signup(user);
-
     emailErrors        = "";
     emailErrorClass    = "";
     passwordErrors     = "";
@@ -68,11 +68,12 @@ const SignupForm = React.createClass({
       userNameErrorClass = "error-input";
     }
   },
+
   _onChange() {
     hashHistory.push("/");
   },
   _onErrorChange() {
-    this.setState({errors: ErrorStore.errors("Signup")});
+    this.setState({ errors: ErrorStore.errors("Signup")});
   },
   componentDidMount() {
     this.listener = SessionStore.addListener(this._onChange);
@@ -83,6 +84,12 @@ const SignupForm = React.createClass({
     this.errorListener.remove();
   },
   render() {
+    for (let i = 0; i < this.state.errors.length; i++) {
+      if (this.state.errors[i] === "Email has already been taken") {
+        emailErrors = "Email has already been taken.";
+        emailErrorClass = "error-input";
+      }
+    }
     return(
       <div className="form form-signup">
         <form>
