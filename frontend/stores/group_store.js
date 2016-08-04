@@ -18,7 +18,7 @@ GroupStore.all = function () {
 };
 
 GroupStore.find = function (id) {
-  return _groups.id;
+  return _groups[id];
 };
 
 function _resetGroups(groups) {
@@ -28,7 +28,7 @@ function _resetGroups(groups) {
       _groups[prop] = groups[prop];
     }
   }
-  
+
   GroupStore.__emitChange();
 }
 

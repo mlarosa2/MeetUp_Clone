@@ -12,12 +12,15 @@ const GroupIndex = React.createClass({
       groups: GroupStore.all()
     });
   },
-  componentWillMount() {
+  componentDidMount() {
     this.listener = GroupStore.addListener(this._onChange);
     GroupActions.fetchAllGroups();
   },
+  componentWillUnmount() {
+    this.listener.remove();
+  },
   _onChange() {
-    this.setState({groups: GroupStore.all()});
+    this.setState({ groups: GroupStore.all() });
   },
   render() {
     return(
