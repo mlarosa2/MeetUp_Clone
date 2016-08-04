@@ -9,6 +9,7 @@ const Link           = ReactRouter.Link;
 
 let emailErrors = "";
 let passwordErrors = "";
+let invalidErrors = "";
 
 const LoginForm = React.createClass({
   getInitialState() {
@@ -35,6 +36,7 @@ const LoginForm = React.createClass({
 
     emailErrors = "";
     passwordErrors = "";
+    invalidErrors = "";
 
     if (this.state.email === "") {
       emailErrors = "Please enter your email address.";
@@ -43,6 +45,8 @@ const LoginForm = React.createClass({
       passwordErrors = "Please enter your password";
     } else if (this.state.password.length < 6) {
       passwordErrors = "Password must be at least 6 characters.";
+    } else if (this.state.password.length > 0 && this.state.email.length > 0) {
+      invalidErrors = "Either username or password was invalid.";
     }
     SessionActions.login(user);
   },
@@ -91,12 +95,13 @@ const LoginForm = React.createClass({
         <form className="form">
           <label><p>Email address:</p>
             <input type="text" defaultValue={this.state.email} onChange={this._emailChange}/>
-            <p className="error">{ emailErrors }</p>
+            <p className="error">{emailErrors}</p>
           </label>
           <label><p>Password:</p>
             <input type="password" defaultValue={this.state.password} onChange={this._passwordChange} />
-            <p className="error">{ passwordErrors }</p>
+            <p className="error">{passwordErrors}</p>
           </label>
+          <p className="error">{invalidErrors}</p>
           <button onClick={this._submit}>Log in</button>
         </form>
       </div>
