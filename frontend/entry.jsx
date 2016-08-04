@@ -22,7 +22,7 @@ const App = React.createClass({
     return(
       <div>
         <Header />
-        <div className="main-content">
+        <div className="main-content clearfix">
           { this.props.children }
         </div>
       </div>
