@@ -39,8 +39,7 @@ function _showGroup(group) {
 }
 
 function _addGroup(group) {
-  let keyNumber = Object.keys(_groups).length;
-  _groups[keyNumber] = group;
+  _groups[group.group.id] = group;
 
   GroupStore.__emitChange();
 }
@@ -56,7 +55,7 @@ GroupStore.__onDispatch = function (payload) {
       _resetGroups(payload.groups);
       break;
     case GroupConstants.FETCH_GROUP:
-      _showGroup(payload.group);
+      _addGroup(payload.group);
       break;
     case GroupConstants.CREATE_GROUP:
       _addGroup(payload.group);

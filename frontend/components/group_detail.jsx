@@ -3,21 +3,26 @@ const GroupActions   = require('../actions/group_actions');
 const GroupStore     = require('../stores/group_store');
 const ReactRouter    = require('react-router');
 const hashHistory    = ReactRouter.hashHistory;
+const GroupApiUtil   = require('../util/group_api_util');
 
 const GroupDetail = React.createClass({
   getInitialState() {
-    return({ group: GroupStore.find(this.props.params.groupId) });
+    return({ group: GroupStore.find(parseInt(this.props.params.groupId)) });
   },
   componentDidMount() {
     this.listener = GroupStore.addListener(this._onChange);
+    GroupActions.fetchSingleGroup(this.props.params.groupId);
   },
   componentWillUnmount() {
     this.listener.remove();
   },
   _onChange() {
-    this.setState({ group: GroupStore.find(this.props.params.groupId) });
+    this.setState({ group: GroupStore.find(parseInt(this.props.params.groupId)) });
   },
   render() {
+    if (typeof this.state.group === "undefined") {
+      return (<div>loading</div>);
+    }
     return(
       <article className="group-detail">
         <header>
