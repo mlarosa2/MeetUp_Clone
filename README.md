@@ -76,7 +76,8 @@ the API.
 - [x] jBuilder views for groups
 - [x] test out API interaction in the console.
 - implement each Group component, building out the flux loop as needed.
-  - [ ] `GroupsIndex`
+  - [x] `GroupsIndex`
+  - [x] `GroupsIndexItem`
   - [ ] `GroupDetail`
   - [ ] `GroupForm`
 - [ ] style groups components
