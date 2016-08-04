@@ -15,7 +15,7 @@ const GroupIndexItem = React.createClass({
       <div className="group">
         <div className="group-title">
           <h2>{ this.props.group.title }</h2>
-          <p>We are { this.props.group.members.length() } Members</p>
+          <p>We are { this.props.group.members } Members</p>
         </div>
         <div className="group-link" onClick={this._goToGroup}></div>
       </div>

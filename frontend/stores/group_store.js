@@ -13,6 +13,7 @@ GroupStore.all = function () {
       groups.push(_groups[prop]);
     }
   }
+
   return groups;
 };
 
@@ -27,6 +28,8 @@ function _resetGroups(groups) {
       _groups[prop] = groups[prop];
     }
   }
+  
+  GroupStore.__emitChange();
 }
 
 function _showGroup(group) {
@@ -48,7 +51,6 @@ function _removeGroup(group) {
 }
 
 GroupStore.__onDispatch = function (payload) {
-  debugger
   switch (payload.actionType) {
     case GroupConstants.FETCH_GROUPS:
       _resetGroups(payload.groups);
