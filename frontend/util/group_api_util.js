@@ -25,7 +25,7 @@ const GroupApiUtil = {
   },
   editGroup(data, successCallback) {
     $.ajax({
-      url: `api/groups/${data.group.id}`,
+      url: `api/groups/${data.id}`,
       method: "PATCH",
       data: { group: data },
       success(dat) {
