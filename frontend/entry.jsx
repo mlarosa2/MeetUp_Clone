@@ -9,6 +9,7 @@ const LoginForm      = require('./components/login_form');
 const SignupForm     = require('./components/signup_form');
 const Header         = require('./components/header');
 const GroupIndex     = require('./components/group_index');
+const GroupDetail    = require('./components/group_detail');
 const SessionStore   = require('./stores/session_store');
 
 function _ensureSignIn(nextState, replace) {
@@ -35,6 +36,7 @@ const routes = (
     <IndexRoute component={GroupIndex} onEnter={_ensureSignIn} />
     <Route path="/login" component={LoginForm} />
     <Route path="/signup" component={SignupForm} />
+    <Route path="/groups/:groupId" component={GroupDetail} />
   </Route>
 );
 
