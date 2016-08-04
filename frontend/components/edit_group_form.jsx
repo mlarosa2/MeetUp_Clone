@@ -34,12 +34,14 @@ const CreateGroup = React.createClass({
   componentWillUnmount() {
     this.listener.remove();
     this.groupListener.remove();
+    jQuery('body').removeClass('white-background');
   },
   componentWillMount() {
     GroupActions.fetchAllGroups();
     if(SessionStore.currentUser().id !== GroupStore.find(this.props.params.groupId).group.moderator_id) {
       hashHistory.replace('/');
     }
+    jQuery('body').addClass('white-background');
   },
   _onGroupChange() {
     this.setState({
@@ -109,94 +111,104 @@ const CreateGroup = React.createClass({
   _updateDescription(e) {
     this.setState({ description: e.target.value });
   },
+  _goToIndex() {
+    hashHistory.replace("/");
+  },
   render() {
     return(
-      <form className="form form-create-group">
-        <div className="form-create-group-one">
-          <label>
-            <p>Step 1 of 3</p>
-            <h2>What&#39;s your new Meetup Group&#39;s hometown?</h2>
-            <input type="text" name="city" value={this.state.city} onChange={this._updateCity} className={cityErrorClass}/>
-            <p className="error">{cityError}</p>
-            <select name="state" value={this.state.state} onChange={this._updateState}>
-              <option disabled>--State--</option>
-            	<option value="AL">AL</option>
-            	<option value="AK">AK</option>
-            	<option value="AZ">AZ</option>
-            	<option value="AR">AR</option>
-            	<option value="CA">CA</option>
-            	<option value="CO">CO</option>
-            	<option value="CT">CT</option>
-            	<option value="DE">DE</option>
-            	<option value="DC">DC</option>
-            	<option value="FL">FL</option>
-            	<option value="GA">GA</option>
-            	<option value="HI">HI</option>
-            	<option value="ID">ID</option>
-            	<option value="IL">IL</option>
-            	<option value="IN">IN</option>
-            	<option value="IA">IA</option>
-            	<option value="KS">KS</option>
-            	<option value="KY">KY</option>
-            	<option value="LA">LA</option>
-            	<option value="ME">ME</option>
-            	<option value="MD">MD</option>
-            	<option value="MA">MA</option>
-            	<option value="MI">MI</option>
-            	<option value="MN">MN</option>
-            	<option value="MS">MS</option>
-            	<option value="MO">MO</option>
-            	<option value="MT">MT</option>
-            	<option value="NE">NE</option>
-            	<option value="NV">NV</option>
-            	<option value="NH">NH</option>
-            	<option value="NJ">NJ</option>
-            	<option value="NM">NM</option>
-            	<option value="NY">NY</option>
-            	<option value="NC">NC</option>
-            	<option value="ND">ND</option>
-            	<option value="OH">OH</option>
-            	<option value="OK">OK</option>
-            	<option value="OR">OR</option>
-            	<option value="PA">PA</option>
-            	<option value="RI">RI</option>
-            	<option value="SC">SC</option>
-            	<option value="SD">SD</option>
-            	<option value="TN">TN</option>
-            	<option value="TX">TX</option>
-            	<option value="UT">UT</option>
-            	<option value="VT">VT</option>
-            	<option value="VA">VA</option>
-            	<option value="WA">WA</option>
-            	<option value="WV">WV</option>
-            	<option value="WI">WI</option>
-            	<option value="WY">WY</option>
-            </select>
-          </label>
+      <div>
+        <div className="group-hero-form">
+          <div className="logo" onClick={this._goToIndex}></div>
+          <h1>Update your Meetup</h1>
+          <p>We&#39;ll help you find the right people to make it happen. Most Meetups <br /> start getting members within the first few days.</p>
         </div>
-        <div className="form-create-group-two">
-          <label>
-            <p>Step 2 of 3</p>
-            <h2>What will your Meetup&#39;s name be?</h2>
-            <input type="text" name="title" value={this.state.title} onChange={this._updateTitle} className={titleErrorClass}/>
-            <p className="error">{titleError}</p>
-            <h2>Describe who should join, and what your Meetup will do.</h2>
-            <textarea name="description" value={this.state.description} onChange={this._updateDescription} className={descriptionErrorClass} />
-            <p className="error">{descriptionError}</p>
-          </label>
-        </div>
-        <div className="form-create-group-three">
-          <p>Step 3 of 3</p>
-          <h2>What it means to be a Meetup</h2>
-          <ul>
-            <li>Real, in-person conversations</li>
-            <li>Open and honest intentions</li>
-            <li>Always safe and respectful</li>
-            <li>Put your members first</li>
-          </ul>
-          <button onClick={this._editGroup}>Agree &amp; Continue</button>
-        </div>
-      </form>
+        <form className="form form-group">
+          <div className="form-group-one">
+            <label>
+              <p>Step 1 of 3</p>
+              <h2>What&#39;s your new Meetup Group&#39;s hometown?</h2>
+              <input type="text" name="city" value={this.state.city} onChange={this._updateCity} className={cityErrorClass}/>
+              <p className="error">{cityError}</p>
+              <select name="state" value={this.state.state} onChange={this._updateState}>
+                <option disabled>--State--</option>
+              	<option value="AL">AL</option>
+              	<option value="AK">AK</option>
+              	<option value="AZ">AZ</option>
+              	<option value="AR">AR</option>
+              	<option value="CA">CA</option>
+              	<option value="CO">CO</option>
+              	<option value="CT">CT</option>
+              	<option value="DE">DE</option>
+              	<option value="DC">DC</option>
+              	<option value="FL">FL</option>
+              	<option value="GA">GA</option>
+              	<option value="HI">HI</option>
+              	<option value="ID">ID</option>
+              	<option value="IL">IL</option>
+              	<option value="IN">IN</option>
+              	<option value="IA">IA</option>
+              	<option value="KS">KS</option>
+              	<option value="KY">KY</option>
+              	<option value="LA">LA</option>
+              	<option value="ME">ME</option>
+              	<option value="MD">MD</option>
+              	<option value="MA">MA</option>
+              	<option value="MI">MI</option>
+              	<option value="MN">MN</option>
+              	<option value="MS">MS</option>
+              	<option value="MO">MO</option>
+              	<option value="MT">MT</option>
+              	<option value="NE">NE</option>
+              	<option value="NV">NV</option>
+              	<option value="NH">NH</option>
+              	<option value="NJ">NJ</option>
+              	<option value="NM">NM</option>
+              	<option value="NY">NY</option>
+              	<option value="NC">NC</option>
+              	<option value="ND">ND</option>
+              	<option value="OH">OH</option>
+              	<option value="OK">OK</option>
+              	<option value="OR">OR</option>
+              	<option value="PA">PA</option>
+              	<option value="RI">RI</option>
+              	<option value="SC">SC</option>
+              	<option value="SD">SD</option>
+              	<option value="TN">TN</option>
+              	<option value="TX">TX</option>
+              	<option value="UT">UT</option>
+              	<option value="VT">VT</option>
+              	<option value="VA">VA</option>
+              	<option value="WA">WA</option>
+              	<option value="WV">WV</option>
+              	<option value="WI">WI</option>
+              	<option value="WY">WY</option>
+              </select>
+            </label>
+          </div>
+          <div className="form-group-two">
+            <label>
+              <p>Step 2 of 3</p>
+              <h2>What will your Meetup&#39;s name be?</h2>
+              <input type="text" name="title" value={this.state.title} onChange={this._updateTitle} className={titleErrorClass}/>
+              <p className="error">{titleError}</p>
+              <h2>Describe who should join, and what your Meetup will do.</h2>
+              <textarea name="description" value={this.state.description} onChange={this._updateDescription} className={descriptionErrorClass} />
+              <p className="error">{descriptionError}</p>
+            </label>
+          </div>
+          <div className="form-group-three">
+            <p>Step 3 of 3</p>
+            <h2>What it means to be a Meetup</h2>
+            <ul>
+              <li>Real, in-person conversations</li>
+              <li>Open and honest intentions</li>
+              <li>Always safe and respectful</li>
+              <li>Put your members first</li>
+            </ul>
+            <button onClick={this._editGroup}>Agree &amp; Continue</button>
+          </div>
+        </form>
+      </div>
     );
   }
 });

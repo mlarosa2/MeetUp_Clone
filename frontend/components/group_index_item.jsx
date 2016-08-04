@@ -12,12 +12,17 @@ const GroupIndexItem = React.createClass({
   },
   render() {
     return(
-      <div className="group">
+      <div className="group" onClick={this._goToGroup}>
         <div className="group-title">
-          <h2>{ this.props.group.title }</h2>
+          <h3>{ this.props.group.title }</h3>
           <p>We are { this.props.group.members } Members</p>
         </div>
-        <div className="group-link" onClick={this._goToGroup}>clicky click</div>
+        <div className="group-link">
+          <span className="fa-stack">
+            <i className="fa fa-circle-thin fa-stack-2x"></i>
+            <i className="fa fa-plus fa-stack-1x"></i>
+          </span>
+        </div>
       </div>
     );
   }

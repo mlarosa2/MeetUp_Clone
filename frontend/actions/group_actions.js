@@ -54,12 +54,3 @@ const GroupActions = {
 };
 
 module.exports = GroupActions;
-
-// MOVE TO MEMBERSHIP ACTIONS
-// joinGroup(data, successCallback) {
-//   GroupApiUtil.joinGroup(data, this.receiveGroup);
-// },
-//
-// leaveGroup(data, successCallback) {
-//   GroupApiUtil.leaveGroup(data, this.receiveGroup);
-// },

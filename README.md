@@ -78,8 +78,8 @@ the API.
 - implement each Group component, building out the flux loop as needed.
   - [x] `GroupsIndex`
   - [x] `GroupsIndexItem`
-  - [ ] `GroupDetail`
-  - [ ] `GroupForm`
+  - [x] `GroupDetail`
+  - [x] `GroupForm`
 - [ ] style groups components
 
 

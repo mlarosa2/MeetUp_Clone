@@ -79,9 +79,13 @@ const SignupForm = React.createClass({
     this.listener = SessionStore.addListener(this._onChange);
     this.errorListener = ErrorStore.addListener(this._onErrorChange);
   },
+  componentWillMount() {
+    jQuery('body').addClass('white-background');
+  },
   componentWillUnmount() {
     this.listener.remove();
     this.errorListener.remove();
+    jQuery('body').removeClass('white-background');
   },
   render() {
     for (let i = 0; i < this.state.errors.length; i++) {

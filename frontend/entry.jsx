@@ -35,11 +35,11 @@ const App = React.createClass({
 
 const routes = (
   <Route path="/" component={App}>
-    <IndexRoute component={GroupIndex} onEnter={_ensureSignIn} />
+    <IndexRoute component={GroupIndex} />
     <Route path="login" component={LoginForm} />
     <Route path="signup" component={SignupForm} />
-    <Route path="groups" component={GroupIndex} onEnter={_ensureSignIn} />
-    <Route path="(groups)/new" component={CreateGroup} />
+    <Route path="groups" component={GroupIndex} />
+    <Route path="(groups)/new" component={CreateGroup} onEnter={_ensureSignIn} />
     <Route path="(groups)/edit/:groupId" component={EditGroup} />
     <Route path="(groups/):groupId" component={GroupDetail} />
   </Route>
