@@ -13,8 +13,8 @@ const GroupIndex = React.createClass({
     });
   },
   componentWillMount() {
-    GroupActions.fetchAllGroups();
     this.listener = GroupStore.addListener(this._onChange);
+    GroupActions.fetchAllGroups();
   },
   _onChange() {
     this.setState({groups: GroupStore.all()});
@@ -23,7 +23,9 @@ const GroupIndex = React.createClass({
     return(
       <section className="groups">
         {
-          this.state.groups
+          this.state.groups.map(function(group){
+            return <GroupIndexItem group={group.group} key={group.group.id} />;
+          })
         }
       </section>
     );
