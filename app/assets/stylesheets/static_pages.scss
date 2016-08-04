@@ -17,7 +17,7 @@ p, a, button {
 VARIABLES
 *************/
 $border-primary : 1px solid rgba(0, 0, 0, .12);
-
+$red-primary    : #ED1C40;
 /**************************
 GLOBAL
 **************************/
@@ -29,14 +29,20 @@ body {
   background  : #FAFAFA;
 }
 
+body.white-background {
+  background-color: #FFF
+}
+
 h1, h2, h3 {
   font-weight : 600;
 }
+
 a, a:active, a:hover,
 a:link, a:visited {
   color   : #1f24cc;
   cursor  : pointer;
 }
+
 a:hover {
   text-decoration: underline;
 }
@@ -49,15 +55,15 @@ button {
   margin-bottom : 16px;
   font-weight   : 600;
   line-height   : 1;
-  background    : #ED1C40;
-  border-color  : #ED1C40;
+  background    : $red-primary;
+  border-color  : $red-primary;
   border        : $border-primary;
   stroke        : transparent;
   vertical-align: middle;
   min-height    : 36px;
   text-align    : center;
   &:hover {
-    background-color: darken(#ED1C40, 10%);
+    background-color: darken($red-primary, 10%);
   }
 }
 .hide {
@@ -107,7 +113,7 @@ header {
       span {
         font-weight : 600;
         display     : block;
-        color       : #ED1C40;
+        color       : $red-primary;
         font-size   : 21px;
       }
     }
@@ -231,6 +237,200 @@ FORMS
       border-top  : $border-primary;
       margin-top  : 16px;
       padding     : 16px 0;
+    }
+  }
+}
+
+form.form-group {
+  max-width : 840px;
+  width     : 100%;
+  border    : none;
+  textarea {
+    width         : 100%;
+    height        : 200px;
+    border-radius : 3px;
+    border        : $border-primary;
+    background    : #FAFAFA;
+  }
+  select {
+    display        : block;
+    margin-bottom  : 20px;
+  }
+  .form-group-one, .form-group-two, .form-group-three {
+    border-bottom   : $border-primary;
+    padding         : 37px 90px 36px 90px;
+    position        : relative;
+    h2 {
+      font-size     : 28px;
+      font-weight   : 400;
+      margin-bottom : 16px;
+    }
+    p {
+      color          : rgba(0,0,0,.26);
+      font-size      : 13px;
+      line-height    : 1.6;
+      text-transform : uppercase;
+    }
+    p.error {
+      color          : #FF911A;
+      font-size      : 16px;
+      font-weight    : 300;
+      text-transform : none;
+    }
+    .error-input {
+      border-color : #FF911A;
+    }
+  }
+  .form-group-one::before {
+    width             : 50px;
+    height            : 50px;
+    content           : "";
+    background-image  : image-url("create-group-form-one.svg");
+    display           : block;
+    background-size   : cover;
+    padding-bottom    : 2px;
+    position          : absolute;
+    left              : 17px;
+  }
+  .form-group-two::before {
+    width             : 50px;
+    height            : 50px;
+    content           : "";
+    background-image  : image-url("create-group-form-two.svg");
+    display           : block;
+    background-size   : cover;
+    padding-bottom    : 2px;
+    position          : absolute;
+    left              : 17px;
+  }
+  .form-group-three {
+    border-bottom : none;
+    ul {
+      padding-left   : 18px;
+      padding-bottom : 20px;
+      line-height    : 1.45;
+    }
+    &::before {
+      width             : 50px;
+      height            : 50px;
+      content           : "";
+      background-image  : image-url("create-group-form-three.svg");
+      display           : block;
+      background-size   : 96%;
+      padding-bottom    : 2px;
+      position          : absolute;
+      left              : 17px;
+      background-repeat : no-repeat;
+    }
+  }
+}
+
+/***********************
+GROUPS
+***********************/
+.group-hero-user {
+  width      : 100%;
+  height     : 180px;
+  background : $red-primary;
+  h1 {
+    text-align  : center;
+    font-size   : 34px;
+    color       : #FFF;
+    padding-top  : 32px;
+  }
+}
+.group-hero-guest {
+  width            : 100%;
+  height           : 415px;
+  background-image : image-url("group-index-hero");
+  color            : #FFF;
+  background-size  : cover;
+  h1 {
+    padding-top : 32px;
+    text-shadow : 1px 1px 0 rgba(0,0,0,.54);
+    font-size   : 42px;
+    line-height : 1.25;
+    margin-left : 200px;
+  }
+  h2 {
+    padding-bottom: 16px;
+    margin-top    : 4px;
+    margin-left   : 200px;
+    line-height   : 1.25;
+    font-weight   : 400;
+    font-size     : 20px;
+    text-shadow   : 1px 1px 0 rgba(0,0,0,.54);
+  }
+  button {
+    color       : #000;
+    background  : #FFF;
+    border      : none;
+    margin-left : 200px;
+    &:hover {
+      background-color: darken(#FFF, 10%);
+    }
+  }
+}
+.group-hero-form {
+  text-align        : center;
+  color             : #FFF;
+  background-image  : image-url('group-form-hero.jpg');
+  background-size   : cover;
+  background-repeat : no-repeat;
+  width             : 100%;
+  height            : 275px;
+  .logo {
+    background-image   : image-url('logo.svg');
+    background-repeat  : no-repeat;
+    background-size    : cover;
+    width              : 75px;
+    height             : 50px;
+    margin             : 0px auto 48px;
+    cursor             : pointer;
+    position           : relative;
+    top                : 30px;
+  }
+  h1 {
+    font-size     : 42px;
+    margin-bottom : 16px;
+    font-weight   : 400;
+  }
+
+}
+.groups {
+  max-width : 990px;
+  width     : 100%;
+  margin    : 36px auto;
+  .group-wrap {
+    width  : 31.7%;
+    float  : left;
+    height : 180px;
+    margin : 0 8px;
+    cursor : pointer;
+    .group {
+      position         : relative;
+      padding          : 0 8px;
+      width            : 100%;
+      height           : 100%;
+      background-image : image-url("placeholder.jpeg");
+      color            : #FFF;
+      .group-title {
+        position   : absolute;
+        bottom     : 16px;
+        h3 {
+          font-size : 20px;
+        }
+        p {
+          color     : rgba(255,255,255,.7);
+          font-size : 13px;
+        }
+      }
+      .group-link {
+        font-size  : 20px;
+        position   : absolute;
+        bottom     : 8px;
+        right      : 16px;
+      }
     }
   }
 }

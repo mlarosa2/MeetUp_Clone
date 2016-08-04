@@ -27,12 +27,19 @@ const CreateGroup = React.createClass({
   },
   componentDidMount() {
     this.listener = ErrorStore.addListener(this._onErrorChange);
+    this.groupListener = GroupStore.addListener(this._onGroupChange);
   },
   componentWillUnmount() {
     this.listener.remove();
+    this.groupListener.remove();
   },
   _onErrorChange() {
     this.setState({errors: ErrorStore.errors("CreateGroup")});
+  },
+  _onGroupChange() {
+    let group = GroupStore.all();
+    group = GroupStore.all()[group.length - 1];
+    hashHistory.replace(`groups/${group.group.id}`);
   },
   _showStepTwo(e) {
     e.preventDefault();
@@ -83,9 +90,6 @@ const CreateGroup = React.createClass({
       descriptionError      = "Please provide a description of your Meetup.";
       descriptionErrorClass = "error-input";
       totalErrors++;
-    }
-    if (totalErrors === 0) {
-      Router.replace(`/groups/${this.props.params.groupId}`);
     }
   },
   _updateCity(e) {
