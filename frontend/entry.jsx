@@ -11,6 +11,8 @@ const Header         = require('./components/header');
 const GroupIndex     = require('./components/group_index');
 const GroupDetail    = require('./components/group_detail');
 const SessionStore   = require('./stores/session_store');
+const CreateGroup    = require('./components/create_group_form');
+const EditGroup      = require('./components/edit_group_form');
 
 function _ensureSignIn(nextState, replace) {
   if (!SessionStore.isUserLoggedIn()) {
@@ -34,9 +36,12 @@ const App = React.createClass({
 const routes = (
   <Route path="/" component={App}>
     <IndexRoute component={GroupIndex} onEnter={_ensureSignIn} />
-    <Route path="/login" component={LoginForm} />
-    <Route path="/signup" component={SignupForm} />
-    <Route path="/groups/:groupId" component={GroupDetail} />
+    <Route path="login" component={LoginForm} />
+    <Route path="signup" component={SignupForm} />
+    <Route path="groups" component={GroupIndex} onEnter={_ensureSignIn} />
+    <Route path="(groups)/new" component={CreateGroup} />
+    <Route path="(groups)/edit/:groupId" component={EditGroup} />
+    <Route path="(groups/):groupId" component={GroupDetail} />
   </Route>
 );
 
