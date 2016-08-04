@@ -19,24 +19,30 @@ const GroupDetail = React.createClass({
   },
   render() {
     return(
-      <article>
+      <article className="group-detail">
         <header>
           <h1>{this.state.group.group.title}</h1>
           <nav>
             <ul>
-              <li></li>
-              <li></li>
-              <li></li>
-              <li></li>
+              <li>Home</li>
+              <li>Members</li>
+              <li>Events</li>
+              <li>Calendar</li>
             </ul>
-            <button></button>
+            <button>Join</button>
           </nav>
         </header>
         <aside>
-
+          <div></div>
+          <ul>
+            <li>{this.state.group.group.city}, {this.state.group.group.state}</li>
+            <li>Founded {this.state.group.group.created}</li>
+            <li>Members <span className="group-detail-stats">{this.state.group.group.members}</span></li>
+            <li>Calendar<span className="group-detail-stats"></span><i className="fa fa-calendar"></i></li>
+          </ul>
         </aside>
         <section>
-
+          { this.state.group.group.description }
         </section>
       </article>
     );
