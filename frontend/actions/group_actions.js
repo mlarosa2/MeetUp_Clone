@@ -1,6 +1,7 @@
 const GroupApiUtil   = require('../util/group_api_util');
 const GroupConstants = require('../constants/group_constants');
 const Dispatcher     = require('../dispatcher/dispatcher');
+const ErrorActions   = require('./error_actions');
 
 const GroupActions = {
   fetchAllGroups(successCallback) {
@@ -15,8 +16,8 @@ const GroupActions = {
     GroupApiUtil.editGroup(data, this.receiveGroup);
   },
 
-  createGroup(data, successCallback) {
-    GroupApiUtil.createGroup(data, this.addNewGroup);
+  createGroup(data, successCallback, errorCallback) {
+    GroupApiUtil.createGroup(data, this.addNewGroup, ErrorActions.setErrors);
   },
 
   deleteGroup(id, successCallback) {
