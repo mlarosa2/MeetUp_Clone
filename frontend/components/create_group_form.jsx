@@ -56,6 +56,7 @@ const CreateGroup = React.createClass({
 
     GroupActions.createGroup(group);
 
+    let totalErrors       = 0;
     cityError             = "";
     cityErrorClass        = "";
     stateError            = "";
@@ -67,19 +68,25 @@ const CreateGroup = React.createClass({
     if (this.state.city === "") {
       cityError      = "Please provide a city.";
       cityErrorClass = "error-input";
+      totalErrors++;
     }
     if (this.state.state === "" || this.state.state === "--Select--") {
       stateError = "Please select a state";
+      totalErrors++;
     }
     if (this.state.title === "") {
       titleError      = "Please give your Meetup a name";
       titleErrorClass = "error-input";
+      totalErrors++;
     }
     if (this.state.description === "") {
       descriptionError      = "Please provide a description of your Meetup.";
       descriptionErrorClass = "error-input";
+      totalErrors++;
     }
-
+    if (totalErrors === 0) {
+      Router.replace(`/groups/${this.props.params.groupId}`);
+    }
   },
   _updateCity(e) {
     this.setState({ city: e.target.value });
