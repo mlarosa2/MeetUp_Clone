@@ -1,6 +1,6 @@
 const Store            = require('flux/utils').Store;
 const Dispatcher       = require('../dispatcher/dispatcher');
-const GroupConstants   = require('../constants/session_constants');
+const GroupConstants   = require('../constants/group_constants');
 
 const GroupStore = new Store(Dispatcher);
 
@@ -31,17 +31,24 @@ function _resetGroups(groups) {
 
 function _showGroup(group) {
   GroupStore.find(group.id);
+
+  GroupStore.__emitChange();
 }
 
 function _addGroup(group) {
   let keyNumber = Object.keys(_groups).length;
   _groups[keyNumber] = group;
+
+  GroupStore.__emitChange();
 }
 function _removeGroup(group) {
   delete _groups[group.id];
+
+  GroupStore.__emitChange();
 }
 
 GroupStore.__onDispatch = function (payload) {
+  debugger
   switch (payload.actionType) {
     case GroupConstants.FETCH_GROUPS:
       _resetGroups(payload.groups);
