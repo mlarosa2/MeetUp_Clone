@@ -56,6 +56,9 @@ button {
   vertical-align: middle;
   min-height    : 36px;
   text-align    : center;
+  &:hover {
+    background-color: darken(#ED1C40, 10%);
+  }
 }
 .hide {
   display: none;
