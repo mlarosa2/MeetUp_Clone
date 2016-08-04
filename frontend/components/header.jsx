@@ -22,6 +22,10 @@ const Header = React.createClass({
   _onChange() {
     this.setState({currentUser: SessionStore.currentUser()});
   },
+  _goHome(e) {
+    e.preventDefault();
+    hashHistory.push("/");
+  },
   componentDidMount() {
     this.listener = SessionStore.addListener(this._onChange);
   },
@@ -32,7 +36,7 @@ const Header = React.createClass({
     const navLeft = (
       <nav className="nav-left">
         <ul className="clearfix">
-          <li className="nav-logo">logo</li>
+          <li className="nav-logo" onClick={this._goHome}>logo</li>
           <li><Link className="nav-link" to="/groups"><span>Find</span> a Meetup Group</Link></li>
           <li><Link className="nav-link" to="/groups/new"><span>Start</span> a Meetup Group</Link></li>
         </ul>
