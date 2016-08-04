@@ -91,6 +91,9 @@ header {
       padding             : 8px;
       height              : 100%;
       color               : rgba(0, 0, 0, 0);
+      &::selection {
+        color : rgba(0, 0, 0, 0);
+      }
     }
     .nav-link {
       font-size: 13px;
