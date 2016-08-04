@@ -36,9 +36,9 @@ const GroupApiUtil = {
       }
     });
   },
-  deleteGroup(data, successCallback) {
+  deleteGroup(id, successCallback) {
     $.ajax({
-      url: `api/groups/${data.group.id}`,
+      url: `api/groups/${id}`,
       method: "DELETE",
       success(dat) {
         successCallback(dat);

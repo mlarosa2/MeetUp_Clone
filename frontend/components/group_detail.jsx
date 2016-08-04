@@ -4,6 +4,7 @@ const GroupStore     = require('../stores/group_store');
 const ReactRouter    = require('react-router');
 const hashHistory    = ReactRouter.hashHistory;
 const GroupApiUtil   = require('../util/group_api_util');
+const SessionStore   = require('../stores/session_store');
 
 const GroupDetail = React.createClass({
   getInitialState() {
@@ -19,9 +20,29 @@ const GroupDetail = React.createClass({
   _onChange() {
     this.setState({ group: GroupStore.find(parseInt(this.props.params.groupId)) });
   },
+  _editGroup() {
+    hashHistory.replace(`groups/edit/${this.props.params.groupId}`);
+  },
+  _destroyGroup() {
+    GroupActions.deleteGroup(this.props.params.groupId);
+    hashHistory.replace('/');
+  },
   render() {
     if (typeof this.state.group === "undefined") {
       return (<div>loading</div>);
+    }
+    let joinLeaveAdmin = "";
+    if (this.state.group.group.moderator_id === SessionStore.currentUser().id) {
+      joinLeaveAdmin = (
+        <ul>
+          <li><button onClick={this._editGroup}>Edit Group</button></li>
+          <li><button onClick={this._destroyGroup}>Delete Group</button></li>
+        </ul>
+      );
+    } else if (SessionStore.currentUser().isMember) {
+      joinLeaveAdmin = <ul><li><button>Leave Group</button></li></ul>;
+    } else {
+      joinLeaveAdmin = <ul><li><button>Join Group</button></li></ul>;
     }
     return(
       <article className="group-detail">
@@ -34,7 +55,7 @@ const GroupDetail = React.createClass({
               <li>Events</li>
               <li>Calendar</li>
             </ul>
-            <button>Join</button>
+            { joinLeaveAdmin }
           </nav>
         </header>
         <aside>
