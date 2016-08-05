@@ -21,6 +21,7 @@ const GroupIndex = React.createClass({
   },
   componentWillUnmount() {
     this.listener.remove();
+    this.sessionListener.remove();
   },
   _onChange() {
     this.setState({ groups: GroupStore.all() });

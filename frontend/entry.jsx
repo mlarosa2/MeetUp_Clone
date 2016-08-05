@@ -43,7 +43,7 @@ const routes = (
     <Route path="groups" component={GroupIndex} />
     <Route path="(groups)/new" component={CreateGroup} onEnter={_ensureSignIn} />
     <Route path="(groups)/edit/:groupId" component={EditGroup} />
-    <Route path="(groups/):groupId" component={GroupDetail}>
+    <Route path="(groups/):groupId" component={GroupDetail} onEnter={_ensureSignIn}>
       <IndexRoute component={GroupDescription} />
       <Route path="members" component={GroupMembership} />
     </Route>

@@ -5,11 +5,11 @@ const ErrorActions   = require('./error_actions');
 
 const MembershipActions = {
   joinGroup(data, successCallback) {
-    MemebershipApiUtil.joinGroup(data, this.receiveMembership);
+    MembershipApiUtil.joinGroup(data, this.receiveMembership);
   },
 
   leaveGroup(data, successCallback) {
-    MemebershipApiUtil.leaveGroup(data, this.abandonGroup);
+    MembershipApiUtil.leaveGroup(data, this.abandonGroup);
   },
 
   fetchAllMemberships(data, successCallback) {

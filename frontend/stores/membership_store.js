@@ -13,27 +13,42 @@ MembershipStore.all = function () {
       memberships.push(_memberships[membership]);
     }
   }
-  
+
   return memberships;
 };
 
-MembershipStore.isMember = function () {
-  console.log("mmmm");
+MembershipStore.findMembershipId = function(memberId) {
+  let members = this.all();
+  for (let i = 0; i < members.length; i++) {
+    if (memberId === members[i].user.id) {
+      return members[i].membership_id;
+    }
+  }
+};
+
+
+MembershipStore.isMember = function (memberId) {
+  let members = this.all();
+  for (let i = 0; i < members.length; i++) {
+    if (memberId === members[i].user.id) {
+      return true;
+    }
+  }
+
+  return false;
 };
 
 function _resetMemberships(memberships) {
   _memberships = {};
-  for (let membership in memberships.members) {
-    if (memberships.members.hasOwnProperty(membership)) {
-      _memberships[membership] = memberships.members[membership];
-    }
-  }
+  memberships.forEach(membership => {
+    _memberships[membership.membership_id] = membership;
+  });
 
   MembershipStore.__emitChange();
 }
 
 function _addMembership(membership) {
-  _memberships[membership.id] = membership;
+  _memberships[membership.membership_id] = membership;
 
   MembershipStore.__emitChange();
 }
