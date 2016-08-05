@@ -9,7 +9,8 @@ class User < ActiveRecord::Base
     :memberships,
     class_name: "Membership",
     foreign_key: :member_id,
-    primary_key: :id
+    primary_key: :id,
+    dependent: :destroy
   )
 
   has_many(
