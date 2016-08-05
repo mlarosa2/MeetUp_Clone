@@ -4,5 +4,3 @@ json.user do
   json.email user.email
   json.joined user.created_at.strftime("%b %d, %Y")
 end
-
-json.extract! user, :id, :username, :email, :created_at
