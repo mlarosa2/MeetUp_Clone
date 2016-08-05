@@ -12,7 +12,8 @@ class Group < ActiveRecord::Base
     :memberships,
     class_name: "Membership",
     foreign_key: :group_id,
-    primary_key: :id
+    primary_key: :id,
+    dependent: :destroy
   )
 
   has_many(

@@ -7,7 +7,6 @@ class Membership < ActiveRecord::Base
     class_name: "Group",
     foreign_key: :group_id,
     primary_key: :id,
-    dependent: :destroy
   )
 
   belongs_to(
@@ -15,6 +14,5 @@ class Membership < ActiveRecord::Base
     class_name: "User",
     foreign_key: :member_id,
     primary_key: :id,
-    dependent: :destroy
   )
 end
