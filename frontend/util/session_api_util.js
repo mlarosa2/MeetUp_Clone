@@ -1,9 +1,9 @@
 const SessionApiUtil = {
   signup(data, successCallback, errorCallback) {
     $.ajax({
-      url: "api/users",
-      method: "POST",
-      data: data,
+      url    : "api/users",
+      method : "POST",
+      data   : data,
       success(dat) {
         successCallback(dat);
       },
@@ -13,9 +13,9 @@ const SessionApiUtil = {
 
   login(data, successCallback, errorCallback) {
     $.ajax({
-      url: "api/session",
-      method: "POST",
-      data: data,
+      url    : "api/session",
+      method : "POST",
+      data   : data,
       success(dat) {
         successCallback(dat);
       },
@@ -25,8 +25,8 @@ const SessionApiUtil = {
 
   logout(successCallback, errorCallback) {
     $.ajax({
-      url: "api/session",
-      method: "DELETE",
+      url    : "api/session",
+      method : "DELETE",
       success(dat) {
         successCallback(dat, "Logout");
       },
