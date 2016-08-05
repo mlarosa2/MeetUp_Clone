@@ -15,4 +15,10 @@ class Membership < ActiveRecord::Base
     foreign_key: :member_id,
     primary_key: :id,
   )
+
+  def self.get_members_for_group(id)
+    Membership.where(group_id: id).map do |membership|
+      membership.member
+    end
+  end
 end
