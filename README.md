@@ -80,7 +80,7 @@ the API.
   - [x] `GroupsIndexItem`
   - [x] `GroupDetail`
   - [x] `GroupForm`
-- [ ] style groups components
+- [x] style groups components
 
 
 # Phase 3: Events & RSVP's (2 days)

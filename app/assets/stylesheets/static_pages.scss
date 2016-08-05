@@ -16,8 +16,10 @@ p, a, button {
 /*************
 VARIABLES
 *************/
-$border-primary : 1px solid rgba(0, 0, 0, .12);
-$red-primary    : #ED1C40;
+$border-primary   : 1px solid rgba(0, 0, 0, .12);
+$border-secondary : 1px solid rgba(0, 0, 0, .07);
+$red-primary      : #ED1C40;
+$main-max-width   : 990px;
 /**************************
 GLOBAL
 **************************/
@@ -143,7 +145,7 @@ FORMS
 ***************************/
 .errors {
   border-radius     : 3px;
-  border            : 1px solid rgba(0, 0, 0, .07);
+  border            : $border-secondary;
   border-bottom     : 1px solid rgba(0, 0, 0, .20);
   background        : #FBE1E3;
   max-width         : 720px;
@@ -398,7 +400,7 @@ GROUPS
 
 }
 .groups {
-  max-width : 990px;
+  max-width : $main-max-width;;
   width     : 100%;
   margin    : 36px auto;
   .group-wrap {
@@ -430,6 +432,161 @@ GROUPS
         position   : absolute;
         bottom     : 8px;
         right      : 16px;
+      }
+    }
+  }
+}
+
+.group-detail {
+  max-width: $main-max-width;
+  margin   : 16px auto;
+  header {
+    border-bottom-left-radius   : 3px;
+    border-bottom-right-radius  : 3px;
+    border                      : $border-secondary;
+    border-bottom               : $border-primary;
+    margin                      : 16px 0;
+    padding                     : 0;
+    h1 {
+      padding-left   : 5px;
+      font-size      : 42px;
+      border-bottom  : 5px solid $red-primary;
+    }
+    nav {
+      width   : 100%;
+      padding : 0 5px;
+      .left-nav {
+        float        : left;
+        padding-left : 0;
+        li {
+          cursor       : pointer;
+          padding-left : 5px;
+          max-height   : 36px;
+          button {
+            background  : #FFF;
+            color       : rgba(0, 0, 0, .5);
+            font-weight : 400;
+            border      : none;
+            &:hover {
+              background : $red-primary;
+              color      : #FFF;
+            }
+          }
+          &.selected button {
+            background: $red-primary;
+            color     : #FFF;
+          }
+        }
+      }
+      .right-nav {
+        float         : right;
+        padding-right : 16px;
+        max-height    : 53px;
+      }
+    }
+  }
+  .group-sub-title {
+    border-bottom : $border-primary;
+    h2 {
+      font-size    : 20px;
+      font-weight  : 400;
+      padding      : 8px 0 8px 16px;
+    }
+  }
+  aside {
+    float         : left;
+    border-radius : 3px;
+    width         : 200px;
+    border        : $border-secondary;
+    border-bottom : $border-primary;
+    margin-right  : 11px;
+    .group-detail-image {
+      margin-top    : 16px;
+      border-bottom : $border-primary;
+    }
+    ul {
+      padding : 16px;
+      li {
+        &:first-child {
+          margin : 0 0 16px;
+          line-height: 1.25;
+        }
+        .location {
+          font-size : 16px;
+          color     : $red-primary;
+        }
+        color: rgba(0, 0, 0, .87);
+        font-size: 13px;
+        &.clickable {
+          cursor: pointer;
+          &:hover {
+            color: $red-primary;
+          }
+        }
+        list-style: none;
+        .group-detail-stats {
+          float: right;
+        }
+      }
+    }
+    .group-detail-moderator {
+      border-top : $border-primary;
+      h3 {
+        font-weight  : 300;
+        padding-left : 16px;
+        padding-top  : 8px;
+      }
+      p {
+        color         : $red-primary;
+        text-align    : center;
+        margin-bottom : 8px;
+      }
+      button {
+        display          : block;
+        text-align       : center;
+        background-color : #FFF;
+        margin           : 0 auto 16px;
+        &:hover {
+          background-color : darken(#FFF, 10%);
+        }
+        a {
+          color     : $red-primary;
+          font-size : 13px;
+          &:hover {
+            text-decoration: none;
+          }
+          .fa {
+            margin-right : 8px;
+          }
+        }
+      }
+    }
+  }
+  section {
+    float         : left;
+    border-radius : 3px;
+    width         : 711px;
+    border        : $border-secondary;
+    border-bottom : $border-primary;
+    .members-list {
+      padding: 16px;
+      .member {
+        border-bottom : $border-primary;
+        line-height   : 1.45;
+        list-style    : none;
+        font-size     : 13px;
+        color         : rgba(0, 0, 0, .87);
+        padding       : 16px 0;
+        &:first-child {
+          border-top  : $border-primary;
+        }
+        p {
+          padding-left: 68px;
+        }
+        .name {
+          font-size : 16px;
+          color     : $red-primary;
+        }
       }
     }
   }

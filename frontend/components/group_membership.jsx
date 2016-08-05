@@ -22,15 +22,25 @@ const GroupMembership = React.createClass({
   },
   render () {
     return(
-      <ul className="members">
-        <li>
-          {
-            this.state.memberships.map(membership => {
-              return membership.user.username;
-            })
-          }
-        </li>
-      </ul>
+      <div className="members">
+        <div className="group-sub-title">
+          <h2>Members</h2>
+        </div>
+        <ul className="members-list">
+            {
+              this.state.memberships.map(membership => {
+                return (
+                  <li key={membership.user.id} className="member">
+                    <p>
+                      <span className="name">{membership.user.username}</span>
+                      <br /> Joined: {membership.user.joined}
+                    </p>
+                  </li>
+                );
+              })
+            }
+        </ul>
+      </div>
     );
   }
 });
