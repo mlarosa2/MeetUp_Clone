@@ -10,9 +10,9 @@ const MembershipApiUtil = {
       error(dat) { return dat; }
     });
   },
-  leaveGroup(data, successCallback) {
+  leaveGroup(id, successCallback) {
     $.ajax({
-      url    : `api/memberships/${data.membership.id}`,
+      url    : `api/memberships/${id}`,
       method : "DELETE",
       success(dat) {
         successCallback(dat);

@@ -1,31 +1,41 @@
-const React            = require('react');
-const GroupActions     = require('../actions/group_actions');
-const GroupStore       = require('../stores/group_store');
-const ReactRouter      = require('react-router');
-const hashHistory      = ReactRouter.hashHistory;
-const GroupApiUtil     = require('../util/group_api_util');
-const SessionStore     = require('../stores/session_store');
-const MembershipStore  = require('../stores/membership_store');
-const GroupDescription = require('./group_description');
+const React             = require('react');
+const GroupActions      = require('../actions/group_actions');
+const GroupStore        = require('../stores/group_store');
+const ReactRouter       = require('react-router');
+const hashHistory       = ReactRouter.hashHistory;
+const GroupApiUtil      = require('../util/group_api_util');
+const SessionStore      = require('../stores/session_store');
+const MembershipStore   = require('../stores/membership_store');
+const GroupDescription  = require('./group_description');
+const MembershipActions = require('../actions/membership_actions');
 
 const GroupDetail = React.createClass({
   getInitialState() {
     return({
       group : GroupStore.find(parseInt(this.props.params.groupId)),
-      user  : SessionStore.currentUser()
+      user  : SessionStore.currentUser(),
+      member: false
     });
   },
   componentDidMount() {
-    this.listener        = GroupStore.addListener(this._onChange);
-    this.sessionListener = SessionStore.addListener(this._onSessionChange);
+    this.listener           = GroupStore.addListener(this._onChange);
+    this.sessionListener    = SessionStore.addListener(this._onSessionChange);
+    this.membershipListener = MembershipStore.addListener(this._onMembershipChange);
     GroupActions.fetchSingleGroup(this.props.params.groupId);
+    MembershipActions.fetchAllMemberships(this.props.params.groupId);
+
   },
   componentWillUnmount() {
     this.listener.remove();
     this.sessionListener.remove();
+    this.membershipListener.remove();
   },
   _onSessionChange() {
     this.setState({ user: SessionStore.currentUser() });
+  },
+  _onMembershipChange() {
+    this.setState({ member: MembershipStore.isMember(this.state.user.user.id) });
+    GroupActions.fetchSingleGroup(this.props.params.groupId);
   },
   _onChange() {
     this.setState({ group: GroupStore.find(parseInt(this.props.params.groupId)) });
@@ -36,6 +46,20 @@ const GroupDetail = React.createClass({
   _destroyGroup() {
     GroupActions.deleteGroup(this.props.params.groupId);
     hashHistory.replace('/');
+  },
+  _joinGroup() {
+    const data = {
+      membership: {
+        group_id  : this.props.params.groupId,
+        member_id : this.state.user.user.id
+      }
+    };
+
+    MembershipActions.joinGroup(data);
+  },
+  _leaveGroup() {
+    let membershipId = MembershipStore.findMembershipId(this.state.user.user.id);
+    MembershipActions.leaveGroup(membershipId);
   },
   _goToMembers() {
     hashHistory.push(`${this.props.params.groupId}/members`);
@@ -48,17 +72,20 @@ const GroupDetail = React.createClass({
       return (<div>loading</div>);
     }
     let joinLeaveAdmin = "";
-    if (this.state.group.group.moderator_id === SessionStore.currentUser().id) {
+
+    if (this.state.group.group.moderator_id === this.state.user) {
       joinLeaveAdmin = (
         <ul>
           <li><button onClick={this._editGroup}>Edit Group</button></li>
           <li><button onClick={this._destroyGroup}>Delete Group</button></li>
         </ul>
       );
-    } else if (MembershipStore.isMember(this.state.user)) {
-      joinLeaveAdmin = <ul><li><button>Leave Group</button></li></ul>;
+    }
+
+    if (this.state.member) {
+      joinLeaveAdmin = <ul><li><button onClick={this._leaveGroup}>Leave Group</button></li></ul>;
     } else {
-      joinLeaveAdmin = <ul><li><button>Join Group</button></li></ul>;
+      joinLeaveAdmin = <ul><li><button onClick={this._joinGroup}>Join Group</button></li></ul>;
     }
     return(
       <article className="group-detail">
