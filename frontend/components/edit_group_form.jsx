@@ -38,7 +38,7 @@ const CreateGroup = React.createClass({
   },
   componentWillMount() {
     GroupActions.fetchAllGroups();
-    if(SessionStore.currentUser().id !== GroupStore.find(this.props.params.groupId).group.moderator_id) {
+    if(SessionStore.currentUser().user.id !== GroupStore.find(this.props.params.groupId).group.moderator_id) {
       hashHistory.replace('/');
     }
     jQuery('body').addClass('white-background');
