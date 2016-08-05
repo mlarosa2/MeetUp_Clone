@@ -5,11 +5,35 @@ const ErrorActions   = require('./error_actions');
 
 const MembershipActions = {
   joinGroup(data, successCallback) {
-    GroupApiUtil.joinGroup(data, this.receiveGroup);
+    MemebershipApiUtil.joinGroup(data, this.receiveMembership);
   },
 
   leaveGroup(data, successCallback) {
-    GroupApiUtil.leaveGroup(data, this.receiveGroup);
+    MemebershipApiUtil.leaveGroup(data, this.abandonGroup);
+  },
+
+  fetchAllMemberships(data, successCallback) {
+    MembershipApiUtil.fetchAllMemberships(data, this.receiveMemberships);
+  },
+
+  receiveMemberships(memberships) {
+    Dispatcher.dispatch({
+      actionType : MembershipConstants.RECEIVE_MEMBERSHIPS,
+      memberships: memberships
+    });
+  },
+
+  receiveMembership(membership) {
+    Dispatcher.dispatch({
+      actionType: MembershipConstants.JOIN_GROUP,
+      membership: membership
+    });
+  },
+  abandonGroup(membership) {
+    Dispatcher.dispatch({
+      actionType: MembershipConstants.LEAVE_GROUP,
+      membership: membership
+    });
   }
 };
 
