@@ -1,10 +1,11 @@
-const React          = require('react');
-const GroupActions   = require('../actions/group_actions');
-const GroupStore     = require('../stores/group_store');
-const SessionStore   = require('../stores/session_store');
-const ErrorStore     = require('../stores/error_store');
-const ReactRouter    = require('react-router');
-const hashHistory    = ReactRouter.hashHistory;
+const React             = require('react');
+const GroupActions      = require('../actions/group_actions');
+const GroupStore        = require('../stores/group_store');
+const SessionStore      = require('../stores/session_store');
+const ErrorStore        = require('../stores/error_store');
+const ReactRouter       = require('react-router');
+const hashHistory       = ReactRouter.hashHistory;
+const MembershipActions = require('../actions/membership_actions');
 
 let cityError             = "";
 let cityErrorClass        = "";
@@ -21,7 +22,7 @@ const CreateGroup = React.createClass({
       state        : "",
       title        : "",
       description  : "",
-      moderator_id : SessionStore.currentUser().id,
+      moderator_id : SessionStore.currentUser().user.id,
       errors       : []
     });
   },
@@ -43,6 +44,13 @@ const CreateGroup = React.createClass({
   _onGroupChange() {
     let group = GroupStore.all();
     group = GroupStore.all()[group.length - 1];
+    let data = {
+      membership: {
+        group_id  : group.group.id,
+        member_id : this.state.moderator_id
+      }
+    };
+    MembershipActions.joinGroup(data);
     hashHistory.replace(`groups/${group.group.id}`);
   },
   _showStepTwo(e) {
