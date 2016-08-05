@@ -12,9 +12,9 @@ const MembershipActions = require('../actions/membership_actions');
 const GroupDetail = React.createClass({
   getInitialState() {
     return({
-      group : GroupStore.find(parseInt(this.props.params.groupId)),
-      user  : SessionStore.currentUser(),
-      member: false
+      group     : GroupStore.find(parseInt(this.props.params.groupId)),
+      user      : SessionStore.currentUser(),
+      member    : false
     });
   },
   componentDidMount() {
@@ -73,42 +73,63 @@ const GroupDetail = React.createClass({
     }
     let joinLeaveAdmin = "";
 
-    if (this.state.group.group.moderator_id === this.state.user) {
+    if (this.state.group.group.moderator_id === this.state.user.user.id) {
       joinLeaveAdmin = (
-        <ul>
+        <ul className="right-nav">
           <li><button onClick={this._editGroup}>Edit Group</button></li>
           <li><button onClick={this._destroyGroup}>Delete Group</button></li>
         </ul>
       );
+    } else if (this.state.member) {
+      joinLeaveAdmin = <ul className="right-nav"><li><button onClick={this._leaveGroup}>Leave Group</button></li></ul>;
+    } else {
+      joinLeaveAdmin = <ul className="right-nav"><li><button onClick={this._joinGroup}>Join Us!</button></li></ul>;
+    }
+    let homeSelected     = "";
+    let membersSelected  = "";
+    let calendarSelected = "";
+    let eventsSelected   = "";
+
+    if (this.props.location.pathname.indexOf("members") !== -1) {
+      membersSelected = "selected";
+    } else {
+      homeSelected = "selected";
     }
 
-    if (this.state.member) {
-      joinLeaveAdmin = <ul><li><button onClick={this._leaveGroup}>Leave Group</button></li></ul>;
-    } else {
-      joinLeaveAdmin = <ul><li><button onClick={this._joinGroup}>Join Group</button></li></ul>;
+    let admin = MembershipStore.findMemberById(this.state.group.group.moderator_id);
+    let adminBlock = "";
+    if (admin !== undefined) {
+      adminBlock = (
+        <div className="group-detail-moderator">
+          <h3>Organizer:</h3>
+          <p>{admin.user.username}</p>
+          <button><a href="mailto:{admin.user.email}"><i className="fa fa-envelope"></i>Contact</a></button>
+        </div>
+      );
     }
     return(
       <article className="group-detail">
-        <header>
+        <header className="clearfix">
           <h1>{this.state.group.group.title}</h1>
-          <nav>
-            <ul>
-              <li onClick={this._goHome}>Home</li>
-              <li onClick={this._goToMembers}>Members</li>
-              <li>Events</li>
-              <li>Calendar</li>
+          <nav className="clearfix">
+            <ul className="left-nav">
+              <li className={homeSelected} onClick={this._goHome}><button>Home</button></li>
+              <li className={membersSelected} onClick={this._goToMembers}><button>Members</button></li>
+              <li className={eventsSelected}><button>Events</button></li>
+              <li className={calendarSelected}><button>Calendar</button></li>
             </ul>
             { joinLeaveAdmin }
           </nav>
         </header>
         <aside>
-          <div></div>
+          <div className="group-detail-image"></div>
           <ul>
-            <li>{this.state.group.group.city}, {this.state.group.group.state}</li>
-            <li>Founded {this.state.group.group.created}</li>
-            <li>Members <span className="group-detail-stats">{this.state.group.group.members}</span></li>
-            <li>Calendar<span className="group-detail-stats"></span><i className="fa fa-calendar"></i></li>
+            <li><span className="location">{this.state.group.group.city}, {this.state.group.group.state}</span>
+            <br />Founded {this.state.group.group.created}</li>
+            <li className="clickable" onClick={this._goToMembers}>Members <span className="group-detail-stats">{this.state.group.group.members}</span></li>
+            <li className="clickable" onClick={this._goToCalendar}>Calendar<span className="group-detail-stats"><i className="fa fa-calendar"></i></span></li>
           </ul>
+          { adminBlock }
         </aside>
         <section>
           { this.props.children }

@@ -26,6 +26,14 @@ MembershipStore.findMembershipId = function(memberId) {
   }
 };
 
+MembershipStore.findMemberById = function(memberId) {
+  let members = this.all();
+  for (let i = 0; i < members.length; i++ ) {
+    if (memberId === members[i].user.id) {
+      return members[i];
+    }
+  }
+};
 
 MembershipStore.isMember = function (memberId) {
   let members = this.all();
