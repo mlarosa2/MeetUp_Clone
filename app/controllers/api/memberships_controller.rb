@@ -1,8 +1,12 @@
 class Api::MembershipsController < ApplicationController
+  def index
+    @memberships = Membership.where(group_id: params[:group_id])
+    render :index
+  end
   def create
     @membership = Membership.new(membership_params)
     if @membership.save
-      render Group.find(@membership.group_id)
+      render @membership
     else
       render json: @membership.errors.full_messages
     end
@@ -10,9 +14,9 @@ class Api::MembershipsController < ApplicationController
 
   def destroy
     @membership = Membership.find(params[:id])
-    group = Group.find(@membership.group_id)
+    membership = @membership
     if @membership.destroy
-      render group
+      render membership
     else
       render json: @membership.errors.full_messages
     end
