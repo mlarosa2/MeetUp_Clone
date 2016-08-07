@@ -1,9 +1,12 @@
 const SessionApiUtil = {
   signup(data, successCallback, errorCallback) {
     $.ajax({
-      url    : "api/users",
-      method : "POST",
-      data   : data,
+      url         : "api/users",
+      method      : "POST",
+      processData : false,
+      contentType : false,
+      dataType    : 'json',
+      data        : data,
       success(dat) {
         successCallback(dat);
       },
