@@ -19,10 +19,12 @@ let userNameErrorClass = "";
 const SignupForm = React.createClass({
   getInitialState() {
     return {
-      email    : "",
-      username : "",
-      password : "",
-      errors   : []
+      email     : "",
+      username  : "",
+      password  : "",
+      imageUrl  : "",
+      imageFile : null,
+      errors    : []
     };
   },
   _usernameChange(e) {
@@ -75,6 +77,25 @@ const SignupForm = React.createClass({
   _onErrorChange() {
     this.setState({ errors: ErrorStore.errors("Signup")});
   },
+  _updateFile(e) {
+    let reader = new FileReader();
+    let file   = e.currentTarget.files[0];
+    reader.onloadend = function () {
+      this.setState({
+        imageUrl  : reader.result,
+        imageFile : file
+      });
+    }.bind(this);
+
+    if (file) {
+      reader.readAsDataURL(file);
+    } else {
+      this.setState({
+        imageUrl  : "",
+        imageFile : null
+      });
+    }
+  },
   componentDidMount() {
     this.listener = SessionStore.addListener(this._onChange);
     this.errorListener = ErrorStore.addListener(this._onErrorChange);
@@ -108,6 +129,10 @@ const SignupForm = React.createClass({
           <label><p>Password</p>
             <input className={passwordErrorClass} type="password" defaultValue={this.state.password} onChange={this._passwordChange} />
             <p className="error">{ passwordErrors }</p>
+          </label>
+          <label><p>Upload an avatar</p>
+            <input type="file" onChange={this._updateFile} />
+            <img src={this.state.imageUrl} />
           </label>
           <button className="full" onClick={this._submit}>Sign up</button>
         </form>
