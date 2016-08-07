@@ -11,6 +11,7 @@ const Header           = require('./components/header');
 const GroupIndex       = require('./components/group_index');
 const GroupDetail      = require('./components/group_detail');
 const SessionStore     = require('./stores/session_store');
+const SessionActions   = require('./actions/session_actions');
 const CreateGroup      = require('./components/create_group_form');
 const EditGroup        = require('./components/edit_group_form');
 const GroupDescription = require('./components/group_description');
@@ -51,6 +52,7 @@ const routes = (
 );
 
 document.addEventListener('DOMContentLoaded', function () {
+  SessionActions.receiveCurrentUser(window.currentUser);
   ReactDOM.render(
     <Router history={hashHistory}>{routes}</Router>,
     document.getElementById("root")
