@@ -38,15 +38,14 @@ const SignupForm = React.createClass({
   },
   _submit(e, handleErr) {
     e.preventDefault();
-    let user = {
-      user: {
-        email    : this.state.email,
-        username : this.state.username,
-        password : this.state.password
-      }
-    };
+    let formData = new FormData();
+    fromData.append("user[username]", this.state.username);
+    fromData.append("user[email]", this.state.email);
+    formData.append("user[password]", this.state.password);
+    formData.append("user[image]", this.state.imageFile);
+  
 
-    SessionActions.signup(user);
+    SessionActions.signup(formData);
     emailErrors        = "";
     emailErrorClass    = "";
     passwordErrors     = "";
