@@ -2,6 +2,8 @@ class User < ActiveRecord::Base
   validates :email, :username, :session_token, :password_digest, presence: true
   validates :password, length: { minimum: 6, allow_nil: true }
   validates :email, uniqueness: true
+  has_attached_file: :image, default_url: "default_avatar.png"
+  validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
   after_initialize :generate_session_token
   attr_reader :password
 
