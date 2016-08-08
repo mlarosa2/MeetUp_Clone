@@ -17,7 +17,7 @@ const EventActions = {
   },
 
   editEvent(data) {
-    EventApiUtil.editEvent(data, this.updateEvent);
+    EventApiUtil.editEvent(data, this.receveEvent);
   },
 
   deleteEvent(data) {
@@ -41,13 +41,6 @@ const EventActions = {
   addNewEvent(event) {
     Dispatcher.dispatch({
       actionType : EventConstants.CREATE_EVENT,
-      event      : event
-    });
-  },
-
-  updateEvent(event) {
-    Dispatcher.dispatch({
-      actionType : EventConstants.EDIT_EVENT,
       event      : event
     });
   },
