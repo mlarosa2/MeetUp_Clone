@@ -4,15 +4,15 @@ const Dispatcher     = require('../dispatcher/dispatcher');
 const ErrorActions   = require('./error_actions');
 
 const MembershipActions = {
-  joinGroup(data, successCallback) {
+  joinGroup(data) {
     MembershipApiUtil.joinGroup(data, this.receiveMembership);
   },
 
-  leaveGroup(data, successCallback) {
+  leaveGroup(data) {
     MembershipApiUtil.leaveGroup(data, this.abandonGroup);
   },
 
-  fetchAllMemberships(data, successCallback) {
+  fetchAllMemberships(data) {
     MembershipApiUtil.fetchAllMemberships(data, this.receiveMemberships);
   },
 
