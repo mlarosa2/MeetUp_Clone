@@ -1,10 +1,6 @@
 const React            = require('react');
 const ReactDOM         = require('react-dom');
 const ReactRouter      = require('react-router');
-const hashHistory      = ReactRouter.hashHistory;
-const IndexRoute       = ReactRouter.IndexRoute;
-const Router           = ReactRouter.Router;
-const Route            = ReactRouter.Route;
 const LoginForm        = require('./components/login_form');
 const SignupForm       = require('./components/signup_form');
 const Header           = require('./components/header');
@@ -16,6 +12,10 @@ const CreateGroup      = require('./components/create_group_form');
 const EditGroup        = require('./components/edit_group_form');
 const GroupDescription = require('./components/group_description');
 const GroupMembership  = require('./components/group_membership');
+const hashHistory      = ReactRouter.hashHistory;
+const IndexRoute       = ReactRouter.IndexRoute;
+const Router           = ReactRouter.Router;
+const Route            = ReactRouter.Route;
 
 function _ensureSignIn(nextState, replace) {
   if (!SessionStore.isUserLoggedIn()) {

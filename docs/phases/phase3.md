@@ -6,8 +6,8 @@
 * RSVP
 
 ### Controllers
-* Api::EventsController (create, destroy, index, show, update, edit)
-* Api::RSVPsController (create, destroy, edit, update, index)
+* Api::EventsController (create, destroy, index, show, update)
+* Api::RSVPsController (create, destroy, update, index)
 
 ### Views
 * events/index.json.jbuilder
