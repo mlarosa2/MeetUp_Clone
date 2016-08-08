@@ -8,11 +8,11 @@ const GroupActions = {
     GroupApiUtil.fetchAllGroups(this.receiveGroups);
   },
 
-  fetchSingleGroup(group, successCallback) {
+  fetchSingleGroup(group) {
     GroupApiUtil.fetchSingleGroup(group, this.receiveGroup);
   },
 
-  editGroup(data, successCallback) {
+  editGroup(data) {
     GroupApiUtil.editGroup(data, this.receiveGroup);
   },
 
