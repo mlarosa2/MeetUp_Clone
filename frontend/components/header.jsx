@@ -1,6 +1,7 @@
 const React          = require('react');
 const SessionActions = require('../actions/session_actions');
 const SessionStore   = require('../stores/session_store');
+const GroupActions   = require('../actions/group_actions');
 const ReactRouter    = require('react-router');
 const hashHistory    = ReactRouter.hashHistory;
 const Link           = ReactRouter.Link;
@@ -13,7 +14,9 @@ const Header = React.createClass({
   },
   _signOut() {
     SessionActions.logout(this.state.currentUser);
+    jQuery('.user-menu').addClass('hide');
     this.setState({currentUser: SessionStore.currentUser()});
+    hashHistory.replace("/");
   },
   _signUp(e) {
     e.preventDefault();
@@ -25,6 +28,16 @@ const Header = React.createClass({
   _goHome(e) {
     e.preventDefault();
     hashHistory.push("/");
+  },
+  _toggleMenu(e) {
+    e.preventDefault();
+    jQuery('.user-menu').toggleClass('hide');
+  },
+  _goToGroup(id, e) {
+    e.preventDefault();
+    jQuery('.user-menu').addClass('hide');
+    hashHistory.replace(`/${id}`);
+    GroupActions.fetchSingleGroup(id);
   },
   componentDidMount() {
     this.listener = SessionStore.addListener(this._onChange);
@@ -43,6 +56,13 @@ const Header = React.createClass({
       </nav>
     );
 
+    let imgUrl = "";
+    let groups = [];
+    if (SessionStore.isUserLoggedIn()) {
+      imgUrl = this.state.currentUser.user.image_url;
+      groups = this.state.currentUser.user.groups;
+    }
+
     const loggedOutNavRight = (
       <nav className="nav-right">
         <ul className="clearfix">
@@ -54,11 +74,19 @@ const Header = React.createClass({
 
     const loggedInNavRight = (
       <nav className="nav-right">
-        <div className="user-avatar"></div>
-        <div className="user-menu">
-          <ul className="user-groups"></ul>
-          <ul>
-            <li><Link to="/user/{currentUser.id}"> Profile </Link></li>
+        <div className="user-avatar clearfix" onClick={this._toggleMenu}>
+          <img src={imgUrl} />
+        </div>
+        <div className="user-menu hide">
+          <ul className="user-groups">
+            {
+              groups.map( group => {
+                let bindId = this._goToGroup.bind(this, group.id);
+                return <li key={group.id} onClick={bindId}>{group.title}</li>;
+              })
+            }
+          </ul>
+          <ul className="logout">
             <li onClick={this._signOut}>Log out</li>
           </ul>
         </div>
