@@ -32,6 +32,7 @@ class Api::GroupsController < ApplicationController
 
   def destroy
     @group = Group.find(params[:id])
+    
     group = @group
     if @group.destroy
       render json: group
