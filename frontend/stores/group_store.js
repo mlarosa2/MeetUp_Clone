@@ -8,6 +8,7 @@ let _groups = {};
 
 GroupStore.all = function () {
   let groups = [];
+
   for (let prop in _groups) {
     if (_groups.hasOwnProperty(prop)) {
       groups.push(_groups[prop]);
@@ -23,6 +24,7 @@ GroupStore.find = function (id) {
 
 function _resetGroups(groups) {
   _groups = {};
+
   for (let prop in groups) {
     if (groups.hasOwnProperty(prop)) {
       _groups[prop] = groups[prop];
