@@ -4,7 +4,7 @@ const Dispatcher     = require('../dispatcher/dispatcher');
 const ErrorActions   = require('./error_actions');
 
 const GroupActions = {
-  fetchAllGroups(successCallback) {
+  fetchAllGroups() {
     GroupApiUtil.fetchAllGroups(this.receiveGroups);
   },
 
@@ -16,11 +16,11 @@ const GroupActions = {
     GroupApiUtil.editGroup(data, this.receiveGroup);
   },
 
-  createGroup(data, successCallback, errorCallback) {
+  createGroup(data) {
     GroupApiUtil.createGroup(data, this.addNewGroup, ErrorActions.setErrors);
   },
 
-  deleteGroup(id, successCallback) {
+  deleteGroup(id) {
     GroupApiUtil.deleteGroup(id, this.destroyGroup);
   },
 

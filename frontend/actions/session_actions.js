@@ -4,13 +4,13 @@ const SessionConstants = require('../constants/session_constants');
 const ErrorActions     = require('../actions/error_actions');
 
 const SessionActions = {
-  signup(user, callback, err) {
+  signup(user) {
     SessionApiUtil.signup(user, this.receiveCurrentUser, ErrorActions.setErrors);
   },
-  login(user, callback, err) {
+  login(user) {
     SessionApiUtil.login(user, this.receiveCurrentUser, ErrorActions.setErrors);
   },
-  logout(user, callback, err) {
+  logout(user) {
     SessionApiUtil.logout(this.receiveCurrentUser, ErrorActions.setErrors);
   },
   receiveCurrentUser(user, logout) {

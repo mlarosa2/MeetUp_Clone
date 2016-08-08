@@ -23,7 +23,7 @@ const SignupForm = React.createClass({
       username  : "",
       password  : "",
       imageUrl  : "",
-      imageFile : null,
+      imageFile : "",
       errors    : []
     };
   },
@@ -36,14 +36,14 @@ const SignupForm = React.createClass({
   _passwordChange(e) {
     this.setState({ password: e.target.value });
   },
-  _submit(e, handleErr) {
+  _submit(e) {
     e.preventDefault();
     let formData = new FormData();
-    fromData.append("user[username]", this.state.username);
-    fromData.append("user[email]", this.state.email);
+    formData.append("user[username]", this.state.username);
+    formData.append("user[email]", this.state.email);
     formData.append("user[password]", this.state.password);
     formData.append("user[image]", this.state.imageFile);
-  
+
 
     SessionActions.signup(formData);
     emailErrors        = "";
@@ -69,7 +69,6 @@ const SignupForm = React.createClass({
       userNameErrorClass = "error-input";
     }
   },
-
   _onChange() {
     hashHistory.push("/");
   },
@@ -85,13 +84,12 @@ const SignupForm = React.createClass({
         imageFile : file
       });
     }.bind(this);
-
     if (file) {
       reader.readAsDataURL(file);
     } else {
       this.setState({
         imageUrl  : "",
-        imageFile : null
+        imageFile : ""
       });
     }
   },
@@ -108,10 +106,12 @@ const SignupForm = React.createClass({
     jQuery('body').removeClass('white-background');
   },
   render() {
-    for (let i = 0; i < this.state.errors.length; i++) {
-      if (this.state.errors[i] === "Email has already been taken") {
-        emailErrors = "Email has already been taken.";
-        emailErrorClass = "error-input";
+    if (this.state.errors) {
+      for (let i = 0; i < this.state.errors.length; i++) {
+        if (this.state.errors[i] === "Email has already been taken") {
+          emailErrors = "Email has already been taken.";
+          emailErrorClass = "error-input";
+        }
       }
     }
     return(
