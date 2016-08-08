@@ -34,12 +34,6 @@ function _resetGroups(groups) {
   GroupStore.__emitChange();
 }
 
-function _showGroup(group) {
-  GroupStore.find(group.id);
-
-  GroupStore.__emitChange();
-}
-
 function _addGroup(group) {
   _groups[group.group.id] = group;
 
