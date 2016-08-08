@@ -99,11 +99,12 @@ const GroupDetail = React.createClass({
     let admin = MembershipStore.findMemberById(this.state.group.group.moderator_id);
     let adminBlock = "";
     if (admin !== undefined) {
+      let mailto = "mailto:" + admin.user.email;
       adminBlock = (
         <div className="group-detail-moderator">
           <h3>Organizer:</h3>
           <p>{admin.user.username}</p>
-          <button><a href="mailto:{admin.user.email}"><i className="fa fa-envelope"></i>Contact</a></button>
+          <button><a href={mailto}><i className="fa fa-envelope"></i>Contact</a></button>
         </div>
       );
     }
