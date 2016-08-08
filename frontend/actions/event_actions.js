@@ -5,34 +5,59 @@ const ErrorActions   = require('./error_actions');
 
 const EventActions = {
   fetchAllEvents() {
-    EventApiUtil.fetchAllEvents();
+    EventApiUtil.fetchAllEvents(this.receiveEvents);
   },
 
-  fetchSingleEvent() {
-    EventApiUtil.fetchSingleEvent();
+  fetchSingleEvent(data) {
+    EventApiUtil.fetchSingleEvent(data, this.receveEvent);
   },
 
-  createEvent() {
-    EventApiUtil.createEvent();
+  createEvent(data) {
+    EventApiUtil.createEvent(data, this.addNewEvent);
   },
 
-  editEvent() {
-    EventApiUtil.editEvent();
+  editEvent(data) {
+    EventApiUtil.editEvent(data, this.updateEvent);
   },
 
-  deleteEvent() {
-    EventApiUtil.deleteEvent();
+  deleteEvent(data) {
+    EventApiUtil.deleteEvent(data, this.destroyEvent);
   },
 
-  receiveGroups() {},
+  receiveEvents(events) {
+    Dispatcher.dispatch({
+      actionType : EventConstants.RECEIVE_EVENTS,
+      events     : events
+    });
+  },
 
-  receiveGroup() {},
+  receiveEvent(event) {
+    Dispatcher.dispatch({
+      actionType : EventConstants.RECEIVE_EVENT,
+      event      : event
+    });
+  },
 
-  addNewEvent() {},
+  addNewEvent(event) {
+    Dispatcher.dispatch({
+      actionType : EventConstants.CREATE_EVENT,
+      event      : event
+    });
+  },
 
-  updateEvent() {},
+  updateEvent(event) {
+    Dispatcher.dispatch({
+      actionType : EventConstants.EDIT_EVENT,
+      event      : event
+    });
+  },
 
-  destroyGroup() {}
+  destroyEvent(event) {
+    Dispatcher.dispatch({
+      actionType : EventConstants.DELETE_EVENT,
+      event      : event
+    });
+  }
 };
 
 module.exports = EventActions;
