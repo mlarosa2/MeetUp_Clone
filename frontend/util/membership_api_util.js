@@ -12,7 +12,7 @@ const MembershipApiUtil = {
   },
   leaveGroup(id, successCallback) {
     $.ajax({
-      url    : `api/memberships/${id}`,
+      url    : `/api/memberships/${id}`,
       method : "DELETE",
       success(dat) {
         successCallback(dat);
@@ -22,7 +22,7 @@ const MembershipApiUtil = {
   },
   fetchAllMemberships(groupId, successCallback) {
     $.ajax({
-      url    : `api/memberships?group_id=${(groupId)}`,
+      url    : `/api/memberships?group_id=${(groupId)}`,
       method : "GET",
       success(dat) {
         successCallback(dat);

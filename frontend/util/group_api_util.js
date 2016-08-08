@@ -1,7 +1,7 @@
 const GroupApiUtil = {
   fetchAllGroups(successCallback) {
     $.ajax({
-      url    : "api/groups",
+      url    : "/api/groups",
       method : "GET",
       success(dat) {
         successCallback(dat);
@@ -13,7 +13,7 @@ const GroupApiUtil = {
   },
   fetchSingleGroup(id, successCallback) {
     $.ajax({
-      url    : `api/groups/${id}`,
+      url    : `/api/groups/${id}`,
       method : "GET",
       success(dat) {
         successCallback(dat);
@@ -25,7 +25,7 @@ const GroupApiUtil = {
   },
   editGroup(data, successCallback) {
     $.ajax({
-      url    : `api/groups/${data.id}`,
+      url    : `/api/groups/${data.id}`,
       method : "PATCH",
       data   : { group: data },
       success(dat) {
@@ -38,7 +38,7 @@ const GroupApiUtil = {
   },
   deleteGroup(id, successCallback) {
     $.ajax({
-      url    : `api/groups/${id}`,
+      url    : `/api/groups/${id}`,
       method : "DELETE",
       success(dat) {
         successCallback(dat);
@@ -50,7 +50,7 @@ const GroupApiUtil = {
   },
   createGroup(data, successCallback, errorCallback) {
     $.ajax({
-      url    : "api/groups",
+      url    : "/api/groups",
       method : "POST",
       data   : { group: data },
       success(dat) {

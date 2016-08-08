@@ -1,7 +1,7 @@
 const SessionApiUtil = {
   signup(data, successCallback, errorCallback) {
     $.ajax({
-      url         : "api/users",
+      url         : "/api/users",
       method      : "POST",
       processData : false,
       contentType : false,
@@ -16,7 +16,7 @@ const SessionApiUtil = {
 
   login(data, successCallback, errorCallback) {
     $.ajax({
-      url    : "api/session",
+      url    : "/api/session",
       method : "POST",
       data   : data,
       success(dat) {
@@ -30,7 +30,7 @@ const SessionApiUtil = {
 
   logout(successCallback, errorCallback) {
     $.ajax({
-      url    : "api/session",
+      url    : "/api/session",
       method : "DELETE",
       success(dat) {
         successCallback(dat, "Logout");
