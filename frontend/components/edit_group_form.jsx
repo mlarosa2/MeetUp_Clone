@@ -53,7 +53,7 @@ const CreateGroup = React.createClass({
     });
   },
   _onErrorChange() {
-    this.setState({errors: ErrorStore.errors("CreateGroup")});
+    this.setState({errors: ErrorStore.errors("EditGroup")});
   },
   _editGroup(e) {
     e.preventDefault();

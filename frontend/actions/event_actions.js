@@ -9,7 +9,7 @@ const EventActions = {
   },
 
   fetchSingleEvent(data) {
-    EventApiUtil.fetchSingleEvent(data, this.receveEvent);
+    EventApiUtil.fetchSingleEvent(data, this.receiveEvent);
   },
 
   createEvent(data) {
@@ -17,7 +17,7 @@ const EventActions = {
   },
 
   editEvent(data) {
-    EventApiUtil.editEvent(data, this.receveEvent, ErrorActions.setErrors);
+    EventApiUtil.editEvent(data, this.receiveEvent, ErrorActions.setErrors);
   },
 
   deleteEvent(data) {
