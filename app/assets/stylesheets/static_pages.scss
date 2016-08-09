@@ -711,11 +711,11 @@ EVENTS
         }
       }
       .admin-edit {
+        padding    : 16px;
         text-align : center;
         width      : 743px;
         left       : -677px;
         top        : -16px;
-        height     : 96px;
         color      : #FFF;
         background : rgba(0, 0, 0, .8);
         position   : absolute;
@@ -727,9 +727,9 @@ EVENTS
         cursor       : pointer;
       }
       .options {
-        cursor: pointer;
-        margin-top : 30px;
-        width      :  60px;
+        margin-top : 50px;
+        cursor     : pointer;
+        width      : 60px;
         display    : inline-block;
         &:first-of-type:hover {
           color      : #0C0;
