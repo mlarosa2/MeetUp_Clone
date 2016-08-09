@@ -94,6 +94,10 @@ const EventIndexItem = React.createClass({
       <div className="event-index-item clearfix">
         <Modal style={modalStyle} isOpen={this.state.modalOpen} onRequestClose={this.closeModal}>
           <i className="fa fa-times-circle-o" onClick={this._closeModal}></i>
+          <h1>Will you be attending {this.props.event.title}?</h1>
+          <form className="form">
+
+          </form>
         </Modal>
         <div className="event-header clearfix">
           <h2 onClick={this._goToEvent}>{this.props.event.title}</h2>
