@@ -2,6 +2,7 @@ const React          = require('react');
 const EventActions   = require('../actions/event_actions');
 const EventStore     = require('../stores/event_store');
 const ReactRouter    = require('react-router');
+const Modal          = require('react-modal');
 const hashHistory    = ReactRouter.hashHistory;
 
 const ShowEvent = React.createClass({
@@ -12,6 +13,7 @@ const ShowEvent = React.createClass({
       description : "",
       start_time  : "",
       end_time    : "",
+      modalOpen   : false
     });
   },
   _goToEvent() {
@@ -31,6 +33,14 @@ const ShowEvent = React.createClass({
       start_time  : EventStore.find(this.state.id).event.start_time,
       end_time    : EventStore.find(this.state.id).event.end_time,
     });
+  },
+  _openModal() {
+    this.setState({ modalOpen : true });
+    jQuery('body').addClass('stop-scrolling');
+  },
+  _closeModal() {
+    this.setState({ modalOpen : false });
+    jQuery('body').removeClass("stop-scrolling");
   },
   render() {
     let date = "";
@@ -59,9 +69,33 @@ const ShowEvent = React.createClass({
         time   += " AM";
       }
     }
+
+    let modalStyle = {
+      overlay : {
+        position        : 'fixed',
+        top             : 0,
+        left            : 0,
+        right           : 0,
+        bottom          : 0,
+        backgroundColor : 'rgba(0, 0, 0, 0.75)'
+      },
+      content : {
+        position        : 'fixed',
+        top             : '100px',
+        left            : '50%',
+        transform       : 'translateX(-50%)',
+        width           : '537px',
+        bottom          : '100px',
+        border          : '1px solid #ccc',
+        padding         : '20px',
+      }
+    };
     return (
       <div className="group-detail-section">
         <div className="event-index-item clearfix">
+          <Modal style={modalStyle} isOpen={this.state.modalOpen} onRequestClose={this.closeModal}>
+            <i className="fa fa-times-circle-o" onClick={this._closeModal}></i>
+          </Modal>
           <div className="event-header clearfix">
             <h2 onClick={this._goToEvent}>{this.state.title}</h2>
           </div>
@@ -71,6 +105,7 @@ const ShowEvent = React.createClass({
           <div className="event-time">
             <h3>{date}</h3>
             <h4>{time}</h4>
+            <h4 className="rsvp" onClick={this._openModal}>RSVP</h4>
           </div>
         </div>
       </div>

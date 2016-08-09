@@ -29,10 +29,11 @@ body {
   font-family : Helvetica;
   font-weight : 400;
   background  : #FAFAFA;
-}
-
-body.white-background {
-  background-color: #FFF
+  &.white-background { background-color: #FFF; }
+  &.stop-scrolling {
+    height: 100%;
+    overflow: hidden;
+  }
 }
 
 h1, h2, h3 {
