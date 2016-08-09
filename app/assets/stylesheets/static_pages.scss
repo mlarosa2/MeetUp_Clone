@@ -745,10 +745,10 @@ EVENTS
     }
   }
   .event-body {
-    width: 575px;
+    width: 565px;
     float: left;
     p {
-      word-break: break-all;
+      word-wrap: normal;
     }
     .learn {
       font-size : 13px;
@@ -758,8 +758,9 @@ EVENTS
     }
   }
   .event-time {
-    float     : left;
-    font-size : 16px;
+    float        : left;
+    padding-left : 10px;
+    font-size    : 16px;
     h3 {
       font-weight : 400;
       color       : #333;
