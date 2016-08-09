@@ -21,6 +21,12 @@ class User < ActiveRecord::Base
     source: :group
   )
 
+  has_many(
+    :events,
+    through: :rsvps,
+    source: :event
+  )
+
   def self.create_session_token
     SecureRandom::urlsafe_base64
   end
