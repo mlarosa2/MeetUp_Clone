@@ -17,10 +17,11 @@
     "flux": "^2.1.1",
     "react": "^15.2.1",
     "react-dom": "^15.2.1",
+    "react-modal": "^1.4.0",
     "react-router": "^2.6.1",
     "webpack": "^1.13.1"
   },
-  "scripts" : {
+  "scripts": {
     "webpack": "webpack -w",
     "postinstall": "./node_modules/.bin/webpack"
   },
