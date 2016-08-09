@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     resources :groups, only: [:create, :show, :update, :index, :destroy]
     resources :memberships, only: [:create, :destroy, :index, :show]
     resources :events, only: [:create, :destroy, :index, :show, :update]
+    resources :rsvps, only: [:create, :destroy, :index, :update]
     resource :session, only: [:create, :destroy]
   end
 
