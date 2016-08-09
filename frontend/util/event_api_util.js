@@ -6,7 +6,9 @@ const EventApiUtil = {
       success(dat) {
         successCallback(dat);
       },
-      error(dat) { return dat; }
+      error(dat) {
+        return dat;
+      }
     });
   },
 
@@ -21,7 +23,7 @@ const EventApiUtil = {
     });
   },
 
-  createEvent(data, successCallback, errorCallback) { 
+  createEvent(data, successCallback, errorCallback) {
     $.ajax({
       url    : "/api/events",
       method : "POST",
