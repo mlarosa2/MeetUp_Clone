@@ -25,9 +25,26 @@ const EventIndexItem = React.createClass({
       time  = time.join(":");
       time += " AM";
     }
+    let admin = "hide";
+    if (currentUser.user.id === this.props.admin) {
+      admin = "admin-options";
+    }
 
     return (
       <div>
+        <div className={admin}>
+          <i className="fa fa-pencil"></i>
+          <div className="admin-edit">
+            <div>
+              <i className="fa fa-pencil"></i>
+              <span onClick={this._goToEdit}>Edit</span>
+            </div>
+            <div>
+              <i className="fa fa-trash-o"></i>
+              <span>Delete</span>
+            </div>
+          </div>
+        </div>
         <h2>{this.props.event.title}</h2>
         <div className="event-body">
           <p>{this.props.event.description}</p>
