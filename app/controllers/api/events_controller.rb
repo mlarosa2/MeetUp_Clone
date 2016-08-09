@@ -10,9 +10,8 @@ class Api::EventsController < ApplicationController
   end
 
   def create
-    event_params[:start_time] = Time.parse(event_params[:start_time])
-    event_params[:end_time] = Time.parse(event_params[:end_time])
     @event = Event.new(event_params)
+    
     if @event.save
       render @event
     else
