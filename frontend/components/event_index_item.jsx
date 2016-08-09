@@ -8,6 +8,8 @@ const EventIndexItem = React.createClass({
   _revealAdminOpts(e) {
     e.preventDefault();
     jQuery(e.currentTarget).addClass('hide');
+    let height = (jQuery(e.currentTarget).parents('.event-index-item').height()) + 33;
+    jQuery(e.currentTarget).siblings().css('height', height);
     jQuery(e.currentTarget).siblings().removeClass('hide');
   },
   _hideAdminOpts(e) {
