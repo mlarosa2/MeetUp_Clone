@@ -30,7 +30,7 @@ const CreateEvent = React.createClass({
     this.listener.remove();
   },
   _onChange() {
-    hashHistory.replace("/" + this.state.group_id);
+    hashHistory.push("/" + this.state.group_id);
   },
   _onErrorChange() {
     this.setState({errors: ErrorStore.errors("CreateEvent")});
