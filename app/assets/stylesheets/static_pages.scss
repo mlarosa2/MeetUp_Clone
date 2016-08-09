@@ -727,7 +727,9 @@ EVENTS
         cursor       : pointer;
       }
       .options {
-        margin-top : 50px;
+        position   : relative;
+        top        : 50%;
+        transform  : translateY(-50%);
         cursor     : pointer;
         width      : 60px;
         display    : inline-block;
