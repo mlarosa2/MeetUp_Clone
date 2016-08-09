@@ -22,42 +22,28 @@ const CreateEvent = React.createClass({
     });
   },
   componentDidMount() {
+    this.listener    = EventStore.addListener(this._onChange);
     this.errListener = ErrorStore.addListener(this._onErrorChange);
   },
   componentWillUnmount() {
     this.errListener.remove();
+    this.listener.remove();
+  },
+  _onChange() {
+    hashHistory.replace("/" + this.state.group_id);
   },
   _onErrorChange() {
     this.setState({errors: ErrorStore.errors("CreateEvent")});
   },
   _createEvent(e) {
     e.preventDefault();
-    let timeZone = (function () {
-      //retrieve Ruby friendly timezone from JavaScript Date Object.
-      let getTimeZone    = new Date().toString().split(" ");
-      getTimeZone        = getTimeZone[getTimeZone.length - 2];
-      getTimeZone        = getTimeZone.split("-");
-
-      if (getTimeZone.length === 1) {
-        getTimeZone    = getTimeZone.split("+");
-        getTimeZone[0] = "+";
-        getTimeZone    = getTimeZone.join("");
-      } else {
-        getTimeZone[0] = "-";
-        getTimeZone    = getTimeZone.join("");
-      }
-
-      return getTimeZone;
-    })();
 
     let splitStart = this.state.start_time.split("T");
-    splitStart.push(timeZone);
     let startTimeForRuby = splitStart.join(" ");
 
     let splitEnd = this.state.end_time.split("T");
-    splitEnd.push(timeZone);
     let endtimeForRuby = splitEnd.join(" ");
-    debugger
+
     const event = {
       title       : this.state.title,
       description : this.state.description,
