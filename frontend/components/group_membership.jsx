@@ -22,7 +22,7 @@ const GroupMembership = React.createClass({
   },
   render () {
     return(
-      <div className="members">
+      <div className="members group-detail-section">
         <div className="group-sub-title">
           <h2>Members</h2>
         </div>
