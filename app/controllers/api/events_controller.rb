@@ -20,7 +20,7 @@ class Api::EventsController < ApplicationController
   end
 
   def update
-    @event = Event.find(params[:id])
+    @event = Event.find(params[:event][:id])
 
     if @event.update(event_params)
       render @event
@@ -42,6 +42,6 @@ class Api::EventsController < ApplicationController
 
   private
   def event_params
-    params.require(:event).permit(:group_id, :title, :description, :start_time, :end_time)
+    params.require(:event).permit(:id, :group_id, :title, :description, :start_time, :end_time)
   end
 end

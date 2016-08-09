@@ -41,7 +41,7 @@ function _addEvent(event) {
 
 function _removeEvent(event) {
   delete _events[event.id];
-  
+
   EventStore.__emitChange();
 }
 
