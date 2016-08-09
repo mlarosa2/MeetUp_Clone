@@ -3,6 +3,22 @@ const EventActions   = require('../actions/event_actions');
 const EventStore     = require('../stores/event_store');
 
 const EventIndexItem = React.createClass({
+  _revealAdminOpts(e) {
+    e.preventDefault();
+    jQuery(e.currentTarget).addClass('hide');
+    jQuery(e.currentTarget).siblings().removeClass('hide');
+  },
+  _hideAdminOpts(e) {
+    e.preventDefault();
+    jQuery(e.currentTarget).parent().addClass('hide');
+    jQuery(e.currentTarget).parent().siblings().removeClass('hide');
+  },
+  _goToEdit() {},
+  _delete(e) {
+    e.preventDefault();
+    jQuery(e.currentTarget).parent().siblings().removeClass('hide');
+    EventActions.deleteEvent(this.props.event.id);
+  },
   render() {
     let startTime = this.props.event.start_time;
     let date      = new Date(startTime.split("T")[0]);
@@ -22,8 +38,9 @@ const EventIndexItem = React.createClass({
       time    = time.join(":");
       time   += " AM";
     } else {
-      time  = time.join(":");
-      time += " AM";
+      time[0] = parseInt(time[0]);
+      time    = time.join(":");
+      time   += " AM";
     }
     let admin = "hide";
     if (currentUser.user.id === this.props.admin) {
@@ -31,23 +48,26 @@ const EventIndexItem = React.createClass({
     }
 
     return (
-      <div>
-        <div className={admin}>
-          <i className="fa fa-pencil"></i>
-          <div className="admin-edit">
-            <div>
-              <i className="fa fa-pencil"></i>
-              <span onClick={this._goToEdit}>Edit</span>
+      <div className="event-index-item clearfix">
+        <div className="event-header clearfix">
+          <h2>{this.props.event.title}</h2>
+            <div className={admin}>
+              <i className="fa fa-pencil top-pencil" onClick={this._revealAdminOpts}></i>
+              <div className="admin-edit hide">
+                <i className="fa fa-times-circle-o" onClick={this._hideAdminOpts}></i>
+                <div className="options" onClick={this._goToEdit}>
+                  <i className="fa fa-pencil"></i><br />
+                  <span>Edit</span>
+                </div>
+                <div className="options" onClick={this._delete}>
+                  <i className="fa fa-trash-o"></i><br />
+                  <span>Delete</span>
+                </div>
+              </div>
             </div>
-            <div>
-              <i className="fa fa-trash-o"></i>
-              <span>Delete</span>
-            </div>
-          </div>
         </div>
-        <h2>{this.props.event.title}</h2>
         <div className="event-body">
-          <p>{this.props.event.description}</p>
+          <p>{this.props.event.description.slice(0,341)}...<span className="learn">Learn More</span></p>
         </div>
         <div className="event-time">
           <h3>{date}</h3>
