@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160808192011) do
+ActiveRecord::Schema.define(version: 20160809192220) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,6 +52,16 @@ ActiveRecord::Schema.define(version: 20160808192011) do
   add_index "memberships", ["group_id"], name: "index_memberships_on_group_id", using: :btree
   add_index "memberships", ["member_id"], name: "index_memberships_on_member_id", using: :btree
 
+  create_table "rsvps", force: :cascade do |t|
+    t.integer  "event_id",   null: false
+    t.integer  "user_id",    null: false
+    t.boolean  "attending"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "rsvps", ["event_id", "user_id"], name: "index_rsvps_on_event_id_and_user_id", unique: true, using: :btree
+
   create_table "users", force: :cascade do |t|
     t.string   "email",              null: false
     t.string   "username",           null: false
@@ -73,4 +83,6 @@ ActiveRecord::Schema.define(version: 20160808192011) do
   add_foreign_key "groups", "users", column: "moderator_id"
   add_foreign_key "memberships", "groups"
   add_foreign_key "memberships", "users", column: "member_id"
+  add_foreign_key "rsvps", "events"
+  add_foreign_key "rsvps", "users"
 end
