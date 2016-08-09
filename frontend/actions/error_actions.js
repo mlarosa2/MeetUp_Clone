@@ -1,4 +1,3 @@
-const ErrorApiUtil   = require('../util/session_api_util');
 const Dispatcher     = require('../dispatcher/dispatcher');
 const ErrorConstants = require('../constants/session_constants');
 
