@@ -2,6 +2,7 @@ const React           = require('react');
 const GroupActions    = require('../actions/group_actions');
 const GroupStore      = require('../stores/group_store');
 const ReactRouter     = require('react-router');
+const EventIndex      = require('./event_index');
 
 const GroupDescription = React.createClass({
   getInitialState() {
@@ -19,7 +20,10 @@ const GroupDescription = React.createClass({
   },
   render() {
     return(
-      <div>{this.state.group.group.description}</div>
+      <div>
+        <div>{this.state.group.group.description}</div>
+        <EventIndex groupId={this.props.params.groupId} />
+      </div>
     );
   }
 });

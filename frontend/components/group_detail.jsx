@@ -67,6 +67,9 @@ const GroupDetail = React.createClass({
   _goHome() {
     hashHistory.push(this.props.params.groupId);
   },
+  _createNewEvent() {
+    hashHistory.push(this.props.params.groupId + '/new-event');
+  },
   render() {
     if (typeof this.state.group === "undefined") {
       return (<div>loading</div>);
@@ -88,10 +91,12 @@ const GroupDetail = React.createClass({
     let homeSelected     = "";
     let membersSelected  = "";
     let calendarSelected = "";
-    let eventsSelected   = "";
+    let newEventSelected   = "";
 
     if (this.props.location.pathname.indexOf("members") !== -1) {
       membersSelected = "selected";
+    } else if(this.props.location.pathname.indexOf("new-event") !== -1) {
+      newEventSelected = "selected"; 
     } else {
       homeSelected = "selected";
     }
@@ -115,8 +120,8 @@ const GroupDetail = React.createClass({
           <nav className="clearfix">
             <ul className="left-nav">
               <li className={homeSelected} onClick={this._goHome}><button>Home</button></li>
+              <li className={newEventSelected} onClick={this._createNewEvent}><button>New Event</button></li>
               <li className={membersSelected} onClick={this._goToMembers}><button>Members</button></li>
-              <li className={eventsSelected}><button>Events</button></li>
               <li className={calendarSelected}><button>Calendar</button></li>
             </ul>
             { joinLeaveAdmin }

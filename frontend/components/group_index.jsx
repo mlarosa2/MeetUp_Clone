@@ -10,7 +10,7 @@ const SessionStore   = require('../stores/session_store');
 const GroupIndex = React.createClass({
   getInitialState() {
     return({
-      groups   : GroupStore.all(),
+      groups   : [],
       loggedIn : SessionStore.isUserLoggedIn()
     });
   },
@@ -57,7 +57,7 @@ const GroupIndex = React.createClass({
           { hero }
           <div className="groups">
             {
-              this.state.groups.map(function(group){
+              this.state.groups.map(function(group) {
                 return <div className="group-wrap" key={group.group.id}><GroupIndexItem group={group.group} /></div>;
               })
             }

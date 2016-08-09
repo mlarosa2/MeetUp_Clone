@@ -25,7 +25,6 @@ id          | integer   | not null, primary key
 group_id    | integer   | not null, foreign key (references groups), indexed
 title       | string    | not null
 description | text      | not null
-start_date  | integer   | not null
 start_time  | integer   | not null
 end_time    | integer   | not null
 

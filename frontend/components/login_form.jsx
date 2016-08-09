@@ -68,7 +68,7 @@ const LoginForm = React.createClass({
   },
   render() {
     let ErrorBlock;
-    if (this.state.errors.length > 0) {
+    if (this.state.errors && this.state.errors.length > 0) {
       ErrorBlock = (
         <div className="errors">
           <h2>Sorry, there was a problem </h2>
