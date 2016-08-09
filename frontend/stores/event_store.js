@@ -34,12 +34,13 @@ function _resetEvents(events) {
 }
 
 function _addEvent(event) {
-  
+  _events[event.event.id] = event;
 
   EventStore.__emitChange();
 }
 
 function _removeEvent(event) {
+  delete _events[event.id];
 
   EventStore.__emitChange();
 }

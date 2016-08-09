@@ -12,6 +12,8 @@ const CreateGroup      = require('./components/create_group_form');
 const EditGroup        = require('./components/edit_group_form');
 const GroupDescription = require('./components/group_description');
 const GroupMembership  = require('./components/group_membership');
+const CreateEventForm  = require('./components/create_event_form');
+const EventIndex       = require('./components/event_index');
 const hashHistory      = ReactRouter.hashHistory;
 const IndexRoute       = ReactRouter.IndexRoute;
 const Router           = ReactRouter.Router;
@@ -47,6 +49,7 @@ const routes = (
     <Route path="(groups/):groupId" component={GroupDetail} onEnter={_ensureSignIn}>
       <IndexRoute component={GroupDescription} />
       <Route path="members" component={GroupMembership} />
+      <Route path="new-event" component={CreateEventForm} />
     </Route>
   </Route>
 );

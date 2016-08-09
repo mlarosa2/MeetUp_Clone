@@ -1,4 +1,3 @@
-
 users = Membership.get_members_for_group(params[:group_id])
 
 json.array! @memberships do |mem|

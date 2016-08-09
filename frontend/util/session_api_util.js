@@ -8,9 +8,9 @@ const SessionApiUtil = {
       dataType    : 'json',
       data        : data,
       success(dat) {
-        successCallback(dat, "Login");
+        successCallback(dat);
       },
-      error(er){ errorCallback(er); }
+      error(er){ errorCallback(er, "Login"); }
     });
   },
 
@@ -20,10 +20,10 @@ const SessionApiUtil = {
       method : "POST",
       data   : data,
       success(dat) {
-        successCallback(dat, "Login");
+        successCallback(dat);
       },
       error(er) {
-        errorCallback(er);
+        errorCallback(er, "Login");
       }
     });
   },

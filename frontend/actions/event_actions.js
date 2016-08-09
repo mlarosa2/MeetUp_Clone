@@ -4,8 +4,8 @@ const Dispatcher     = require('../dispatcher/dispatcher');
 const ErrorActions   = require('./error_actions');
 
 const EventActions = {
-  fetchAllEvents() {
-    EventApiUtil.fetchAllEvents(this.receiveEvents);
+  fetchAllEvents(groupId) {
+    EventApiUtil.fetchAllEvents(groupId, this.receiveEvents);
   },
 
   fetchSingleEvent(data) {
@@ -13,11 +13,11 @@ const EventActions = {
   },
 
   createEvent(data) {
-    EventApiUtil.createEvent(data, this.addNewEvent);
+    EventApiUtil.createEvent(data, this.addNewEvent, ErrorActions.setErrors);
   },
 
   editEvent(data) {
-    EventApiUtil.editEvent(data, this.receveEvent);
+    EventApiUtil.editEvent(data, this.receveEvent, ErrorActions.setErrors);
   },
 
   deleteEvent(data) {
