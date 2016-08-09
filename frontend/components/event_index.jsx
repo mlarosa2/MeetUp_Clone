@@ -13,7 +13,7 @@ const EventIndex = React.createClass({
   },
   componentDidMount() {
     this.listener = EventStore.addListener(this._onChange);
-    EventActions.fetchAllEvents();
+    EventActions.fetchAllEvents(this.props.groupId);
   },
   componentWillUnmount() {
     this.listener.remove();
@@ -22,12 +22,19 @@ const EventIndex = React.createClass({
     this.setState({ events: EventStore.all() });
   },
   render() {
+    if (this.props.admin !== undefined) {
+      let admin = this.props.admin;
+       for (let i = 0; i < this.state.events.length; i++) {
+         this.state.events[i].event.admin = admin;
+       }
+    }
+    //  debugger
     return(
       <div className="event-wrap">
         <div className="event-index">
           {
-            this.state.events.map(function(event) {
-              return <EventIndexItem event={event.event} key={event.event.id} />;
+            this.state.events.map( event => {
+              return <EventIndexItem event={event.event} key={event.event.id} admin={event.event.admin}/>;
             })
           }
         </div>
