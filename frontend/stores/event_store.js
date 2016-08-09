@@ -8,6 +8,7 @@ let _events = {};
 
 EventStore.all = function () {
   let events = [];
+
   for (let prop in _events) {
     if (_events.hasOwnProperty(prop)) {
       events.push(_events[prop]);
