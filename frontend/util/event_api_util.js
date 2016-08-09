@@ -52,7 +52,7 @@ const EventApiUtil = {
   deleteEvent(id, successCallback) {
     $.ajax({
       url: `/api/events/${id}`,
-      method: DELETE,
+      method: "DELETE",
       success(dat) {
         successCallback(dat);
       },
