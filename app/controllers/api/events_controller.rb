@@ -11,7 +11,7 @@ class Api::EventsController < ApplicationController
 
   def create
     @event = Event.new(event_params)
-    
+
     if @event.save
       render @event
     else
@@ -32,9 +32,9 @@ class Api::EventsController < ApplicationController
   def destroy
     @event = Event.find(params[:id])
 
-    group = Group.find(@event.group_id)
+    event = @event
     if @event.destroy
-      render json: group
+      render json: event
     else
       render json: @event.errors.full_messages, status: 412
     end
