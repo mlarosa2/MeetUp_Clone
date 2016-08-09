@@ -30,6 +30,7 @@ const EventIndex = React.createClass({
     }
     return(
       <div className="group-detail-section">
+        <h2>Events</h2>
         <div className="event-index">
           {
             this.state.events.map( event => {

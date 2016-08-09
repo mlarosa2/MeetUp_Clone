@@ -1,6 +1,8 @@
 const React          = require('react');
 const EventActions   = require('../actions/event_actions');
 const EventStore     = require('../stores/event_store');
+const ReactRouter    = require('react-router');
+const hashHistory    = ReactRouter.hashHistory;
 
 const EventIndexItem = React.createClass({
   _revealAdminOpts(e) {
@@ -13,7 +15,12 @@ const EventIndexItem = React.createClass({
     jQuery(e.currentTarget).parent().addClass('hide');
     jQuery(e.currentTarget).parent().siblings().removeClass('hide');
   },
-  _goToEdit() {},
+  _goToEvent() {
+    hashHistory.push(this.props.event.group_id + "/show-event/" + this.props.event.id);
+  },
+  _goToEdit() {
+    hashHistory.push( this.props.event.group_id + '/edit-event/' + this.props.event.id);
+  },
   _delete(e) {
     e.preventDefault();
     jQuery(e.currentTarget).parent().siblings().removeClass('hide');
@@ -50,7 +57,7 @@ const EventIndexItem = React.createClass({
     return (
       <div className="event-index-item clearfix">
         <div className="event-header clearfix">
-          <h2>{this.props.event.title}</h2>
+          <h2 onClick={this._goToEvent}>{this.props.event.title}</h2>
             <div className={admin}>
               <i className="fa fa-pencil top-pencil" onClick={this._revealAdminOpts}></i>
               <div className="admin-edit hide">
@@ -67,7 +74,7 @@ const EventIndexItem = React.createClass({
             </div>
         </div>
         <div className="event-body">
-          <p>{this.props.event.description.slice(0,341)}...<span className="learn">Learn More</span></p>
+          <p>{this.props.event.description.slice(0,341)}...<span onClick={this._goToEvent} className="learn">Learn More</span></p>
         </div>
         <div className="event-time">
           <h3>{date}</h3>
