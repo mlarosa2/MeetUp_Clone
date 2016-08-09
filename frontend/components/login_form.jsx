@@ -56,7 +56,7 @@ const LoginForm = React.createClass({
     }
   },
   _onErrorChange() {
-    this.setState({errors: ErrorStore.errors("Login")});
+    this.setState({ errors : ErrorStore.errors("Login") });
   },
   componentDidMount() {
     this.listener = SessionStore.addListener(this._onChange);

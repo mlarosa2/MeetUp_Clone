@@ -1,6 +1,8 @@
 const React          = require('react');
 const EventActions   = require('../actions/event_actions');
 const EventStore     = require('../stores/event_store');
+const CreateRsvp     = require('./create_rsvp_form');
+const RsvpStore      = require('../stores/rsvp_store');
 const ReactRouter    = require('react-router');
 const Modal          = require('react-modal');
 const hashHistory    = ReactRouter.hashHistory;
@@ -20,11 +22,13 @@ const ShowEvent = React.createClass({
     hashHistory.push(this.props.event.group_id + "/show-event/" + this.props.event.id);
   },
   componentDidMount() {
-    this.listener = EventStore.addListener(this._onChange);
+    this.listener     = EventStore.addListener(this._onChange);
+    this.rsvpListener = RsvpStore.addListener(this._onRsvpChange);
     EventActions.fetchSingleEvent(this.state.id);
   },
   componentWillUnmount() {
     this.listener.remove();
+    this.rsvpListener.remove();
   },
   _onChange() {
     this.setState({
@@ -33,6 +37,9 @@ const ShowEvent = React.createClass({
       start_time  : EventStore.find(this.state.id).event.start_time,
       end_time    : EventStore.find(this.state.id).event.end_time,
     });
+  },
+  _onRsvpChange() {
+    this.setState({ modalOpen : false });
   },
   _openModal() {
     this.setState({ modalOpen : true });
@@ -96,9 +103,7 @@ const ShowEvent = React.createClass({
           <Modal style={modalStyle} isOpen={this.state.modalOpen} onRequestClose={this.closeModal}>
             <i className="fa fa-times-circle-o" onClick={this._closeModal}></i>
             <h1>Will you be attending {this.state.title}?</h1>
-            <form className="form">
-
-            </form>
+            <CreateRsvp event={this.props.params.eventId} group={this.props.event.group_id}/>
           </Modal>
           <div className="event-header clearfix">
             <h2 onClick={this._goToEvent}>{this.state.title}</h2>

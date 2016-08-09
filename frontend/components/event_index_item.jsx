@@ -1,6 +1,7 @@
 const React          = require('react');
 const EventActions   = require('../actions/event_actions');
 const EventStore     = require('../stores/event_store');
+const CreateRsvp     = require('./create_rsvp_form');
 const ReactRouter    = require('react-router');
 const Modal          = require('react-modal');
 const hashHistory    = ReactRouter.hashHistory;
@@ -95,9 +96,7 @@ const EventIndexItem = React.createClass({
         <Modal style={modalStyle} isOpen={this.state.modalOpen} onRequestClose={this.closeModal}>
           <i className="fa fa-times-circle-o" onClick={this._closeModal}></i>
           <h1>Will you be attending {this.props.event.title}?</h1>
-          <form className="form">
-
-          </form>
+          <CreateRsvp event={this.props.event.id} group={this.props.event.group_id} />
         </Modal>
         <div className="event-header clearfix">
           <h2 onClick={this._goToEvent}>{this.props.event.title}</h2>
