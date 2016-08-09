@@ -28,9 +28,8 @@ const EventIndex = React.createClass({
          this.state.events[i].event.admin = admin;
        }
     }
-    //  debugger
     return(
-      <div className="event-wrap">
+      <div className="group-detail-section">
         <div className="event-index">
           {
             this.state.events.map( event => {
