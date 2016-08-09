@@ -37,4 +37,5 @@ class Api::RsvpsController < ApplicationController
   private
   def rsvp_params
     params.require(:rsvp).permit(:event_id, :user_id, :attending)
+  end
 end
