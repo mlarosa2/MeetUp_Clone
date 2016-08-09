@@ -18,7 +18,7 @@ RsvpStore.all = function () {
   return rsvps;
 };
 
-RsvpSore.find = function (id) {
+RsvpStore.find = function (id) {
   return _rsvps[id];
 };
 
@@ -50,3 +50,5 @@ RsvpStore.__onDispatch = function (payload) {
       break;
   }
 };
+
+module.exports = RsvpStore;
