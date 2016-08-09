@@ -2,9 +2,15 @@ const React          = require('react');
 const EventActions   = require('../actions/event_actions');
 const EventStore     = require('../stores/event_store');
 const ReactRouter    = require('react-router');
+const Modal          = require('react-modal');
 const hashHistory    = ReactRouter.hashHistory;
 
 const EventIndexItem = React.createClass({
+  getInitialState () {
+    return({
+      modalOpen: false
+    });
+  },
   _revealAdminOpts(e) {
     e.preventDefault();
     jQuery(e.currentTarget).addClass('hide');
@@ -27,6 +33,14 @@ const EventIndexItem = React.createClass({
     e.preventDefault();
     jQuery(e.currentTarget).parent().siblings().removeClass('hide');
     EventActions.deleteEvent(this.props.event.id);
+  },
+  _openModal() {
+    this.setState({ modalOpen : true });
+    jQuery('body').addClass('stop-scrolling');
+  },
+  _closeModal() {
+    this.setState({ modalOpen : false });
+    jQuery('body').removeClass("stop-scrolling");
   },
   render() {
     let startTime = this.props.event.start_time;
@@ -56,8 +70,31 @@ const EventIndexItem = React.createClass({
       admin = "admin-options";
     }
 
+    let modalStyle = {
+      overlay : {
+        position        : 'fixed',
+        top             : 0,
+        left            : 0,
+        right           : 0,
+        bottom          : 0,
+        backgroundColor : 'rgba(0, 0, 0, 0.75)'
+      },
+      content : {
+        position        : 'fixed',
+        top             : '100px',
+        left            : '50%',
+        transform       : 'translateX(-50%)',
+        width           : '537px',
+        bottom          : '100px',
+        border          : '1px solid #ccc',
+        padding         : '20px',
+      }
+    };
     return (
       <div className="event-index-item clearfix">
+        <Modal style={modalStyle} isOpen={this.state.modalOpen} onRequestClose={this.closeModal}>
+          <i className="fa fa-times-circle-o" onClick={this._closeModal}></i>
+        </Modal>
         <div className="event-header clearfix">
           <h2 onClick={this._goToEvent}>{this.props.event.title}</h2>
             <div className={admin}>
@@ -81,8 +118,10 @@ const EventIndexItem = React.createClass({
         <div className="event-time">
           <h3>{date}</h3>
           <h4>{time}</h4>
+          <h4 className="rsvp" onClick={this._openModal}>RSVP</h4>
         </div>
       </div>
+
     );
   }
 });
