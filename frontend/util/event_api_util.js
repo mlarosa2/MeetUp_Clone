@@ -14,8 +14,8 @@ const EventApiUtil = {
 
   fetchSingleEvent(id, successCallback) {
     $.ajax({
-      url: `/api/events/${id}`,
-      method: "GET",
+      url    : `/api/events/${id}`,
+      method : "GET",
       success(dat) {
         successCallback(dat);
       },
@@ -51,8 +51,8 @@ const EventApiUtil = {
 
   deleteEvent(id, successCallback) {
     $.ajax({
-      url: `/api/events/${id}`,
-      method: "DELETE",
+      url    : `/api/events/${id}`,
+      method : "DELETE",
       success(dat) {
         successCallback(dat);
       },
