@@ -22,7 +22,7 @@ const GroupDescription = React.createClass({
     return(
       <div>
         <div>{this.state.group.group.description}</div>
-        <EventIndex groupId={this.props.params.groupId} />
+        <EventIndex groupId={this.props.params.groupId} admin={this.props.params.moderator_id} />
       </div>
     );
   }
