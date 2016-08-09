@@ -69,18 +69,16 @@ button {
     background-color: darken($red-primary, 10%);
   }
 }
-.hide {
-  display: none;
-}
+.hide { display: none; }
 .clearfix::after {
   content: "";
   display: block;
   clear  : both;
 
 }
-.full {
-  width: 100%;
-}
+.full { width: 100%; }
+
+.fa-times-circle-o { cursor: pointer; }
 /**************************
 HEADER
 **************************/
@@ -769,6 +767,10 @@ EVENTS
     h4 {
       font-size   : 13px;
       line-height : 1.45;
+    }
+    .rsvp {
+      color  : $red-primary;
+      cursor : pointer;
     }
   }
 }
