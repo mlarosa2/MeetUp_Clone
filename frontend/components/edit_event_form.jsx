@@ -102,29 +102,27 @@ const CreateEvent = React.createClass({
   },
   render() {
     return(
-      <div>
-        <h1>Edit Event</h1>
-        <form className="form">
-          <label>Start Time/Date
-            <input type="datetime-local" value={this.state.start_time} onChange={this._updateStartTime} />
-            <p className="error">{startTimeError}</p>
-          </label>
-          <label>End Time/Date
-            <input type="datetime-local" value={this.state.end_time} onChange={this._updateEndTime} />
-            <p className="error">{endTimeError}</p>
-          </label>
-          <label>What is the name of your event?
-            <input type="text" value={this.state.title} onChange={this._updateTitle} />
-            <p className="error">{titleError}</p>
-          </label>
-          <label>Describe your event
-            <textarea value={this.state.description} onChange={this._updateDescription} />
-            <p className="error">{descriptionError}</p>
-          </label>
+      <form className="form event-form">
+        <h1 className="edit-event-title">Edit Event</h1>
+        <label>Start Time/Date
+          <input type="datetime-local" value={this.state.start_time} onChange={this._updateStartTime} />
+          <p className="error">{startTimeError}</p>
+        </label>
+        <label>End Time/Date
+          <input type="datetime-local" value={this.state.end_time} onChange={this._updateEndTime} />
+          <p className="error">{endTimeError}</p>
+        </label>
+        <label>What is the name of your event?
+          <input type="text" value={this.state.title} onChange={this._updateTitle} />
+          <p className="error">{titleError}</p>
+        </label>
+        <label>Describe your event
+          <textarea value={this.state.description} onChange={this._updateDescription} />
+          <p className="error">{descriptionError}</p>
+        </label>
 
-          <button onClick={this._editEvent}>Edit Event</button>
-        </form>
-      </div>
+        <button onClick={this._editEvent}>Edit Event</button>
+      </form>
     );
   }
 });

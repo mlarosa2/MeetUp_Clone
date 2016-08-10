@@ -86,7 +86,7 @@ const CreateEvent = React.createClass({
   },
   render() {
     return(
-      <form className="form">
+      <form className="form event-form">
         <label>Start Time/Date
           <input type="datetime-local" defaultValue={this.state.start_time} onChange={this._updateStartTime} />
           <p className="error">{startTimeError}</p>

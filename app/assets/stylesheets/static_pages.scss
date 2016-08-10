@@ -18,6 +18,7 @@ VARIABLES
 *************/
 $border-primary   : 1px solid rgba(0, 0, 0, .12);
 $border-secondary : 1px solid rgba(0, 0, 0, .07);
+$border-tertiary  : 1px solid rgba(0, 0, 0, .20);
 $red-primary      : #ED1C40;
 $main-max-width   : 990px;
 /**************************
@@ -222,7 +223,7 @@ FORMS
 .errors {
   border-radius     : 3px;
   border            : $border-secondary;
-  border-bottom     : 1px solid rgba(0, 0, 0, .20);
+  border-bottom     : $border-tertiary;
   background        : #FBE1E3;
   max-width         : 720px;
   margin            : 32px auto 48px;
@@ -793,3 +794,34 @@ EVENTS
     }
   }
 }
+.edit-event-title {
+  font-size  : 24px;
+  text-align : center;
+}
+.event-form {
+  border-top: $border-secondary;
+  label {
+    font-size   : 13px;
+    font-weight : 600;
+  }
+  textarea {
+    height       : 150px;
+    width        : 100%;
+    background   : #FAFAFA;
+    border-radius: 3px;
+    border       : $border-tertiary;
+    display      : block;
+    line-height  : 1.45;
+    padding      : 4px;
+    margin-bottom: 16px;
+    color        : rgba(0, 0, 0, .87);
+    &:focus {
+      background   : #FFF;
+      border-color : #1f24cc;
+    }
+  }
+}
+
+/***********
+RSVPS
+***********/
