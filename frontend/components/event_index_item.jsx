@@ -185,8 +185,8 @@ const EventIndexItem = React.createClass({
                 if (rsvp.rsvp.user_id === SessionStore.currentUser().user.id) {
                   hideForCurrentUser = "hide";
                   return (
-                    <div key={rsvp.rsvp.id}>
-                      <img src={rsvp.rsvp.image_url} className="current-user-rsvp"/>
+                    <div key={rsvp.rsvp.id} className="current-user-rsvp">
+                      <img src={rsvp.rsvp.image_url} />
                       <div className="tooltip">
                         <p>Will you still be attending?</p>
                         <span onClick={this._destroyRsvp}>No</span>
