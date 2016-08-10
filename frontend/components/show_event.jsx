@@ -56,7 +56,7 @@ const ShowEvent = React.createClass({
     let rsvp = {
         event_id: this.state.id,
         user_id:  SessionStore.currentUser().user.id,
-        attending: this.state.attending
+        attending: true
     };
 
     attendanceError = "";
@@ -153,16 +153,7 @@ const ShowEvent = React.createClass({
           <Modal style={modalStyle} isOpen={this.state.modalOpen} onRequestClose={this.closeModal}>
             <i className="fa fa-times-circle-o" onClick={this._closeModal}></i>
             <h1>Will you be attending {this.state.title}?</h1>
-              <form>
-                <label>
-                  Yes
-                  <input type="radio" value={true} onClick={this._attending} />
-                </label>
-                <label>
-                  No
-                  <input type="radio" value={false} onClick={this._notAttending} />
-                </label>
-                <p className="error">{attendanceError}</p>
+              <form className="rsvp-form">
                 <button onClick={this._confirmation}>Confirm</button>
               </form>
           </Modal>
