@@ -2,6 +2,7 @@ const React          = require('react');
 const GroupActions   = require('../actions/group_actions');
 const GroupStore     = require('../stores/group_store');
 const GroupIndexItem = require('./group_index_item');
+const SearchBar      = require('./search_bar');
 const ReactRouter    = require('react-router');
 const hashHistory    = ReactRouter.hashHistory;
 const Link           = ReactRouter.Link;
@@ -55,7 +56,8 @@ const GroupIndex = React.createClass({
       <div>
         <section className="groupsContainer clearfix">
           { hero }
-          <div className="groups">
+          <div className="groups clearfix">
+            <SearchBar />
             {
               this.state.groups.map(function(group) {
                 return <div className="group-wrap" key={group.group.id}><GroupIndexItem group={group.group} /></div>;

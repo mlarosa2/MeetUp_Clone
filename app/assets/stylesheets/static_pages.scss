@@ -489,9 +489,10 @@ GROUPS
 
 }
 .groups {
-  max-width : $main-max-width;;
+  max-width : $main-max-width;
   width     : 100%;
-  margin    : 36px auto;
+  margin    : 100px auto 36px;
+  position  : relative;
   .group-wrap {
     width  : 31.7%;
     float  : left;
@@ -906,5 +907,49 @@ RSVPS
     padding       : 5px 10px;
     border-radius : 3px;
     &:hover { background : darken($red-primary, 10%); }
+  }
+}
+/***********
+SEARCH BAR
+***********/
+.search-bar {
+  position    : absolute;
+  max-width   : $main-max-width;
+  width       : 100%;
+  left        : 50%;
+  top         : -125px;
+  transform   : translateX(-50%);
+  background  : #000;
+  color       : #FFF;
+  padding     : 12px;
+  line-height : 1.3;
+  font-size   : 17px;
+  .fa-search {
+    font-size : 24px;
+    color     : #888;
+    position  : absolute;
+    left      : 253px;
+    top       : 21px;
+  }
+  input {
+    width         : 280px;
+    background    : #FFF;
+    border-radius : 3px;
+    height        : 45px;
+    padding       : 0 10px;
+    margin-right  : 8px;
+    &[placeholder] {
+      font-style  : italic;
+      font-weight : 200;
+    }
+  }
+  .fa-pulse { font-size : 13px; }
+  span {
+    border-bottom  : 1px solid #999;
+    cursor         : pointer;
+    padding-bottom : 2px;
+    &:hover {
+      border-bottom : 1px solid #FFF;
+    }
   }
 }
