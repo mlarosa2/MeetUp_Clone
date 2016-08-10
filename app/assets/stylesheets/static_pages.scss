@@ -78,6 +78,8 @@ button {
 }
 .full { width: 100%; }
 
+.bold { font-weight: 600; }
+
 .fa-times-circle-o { cursor: pointer; }
 /**************************
 HEADER
@@ -753,6 +755,16 @@ EVENTS
   .event-body {
     width: 565px;
     float: left;
+    .attendees {
+      img {
+        width      : 30px;
+        height     : auto;
+        max-height : 30px;
+        &.current-user-rsvp {
+          cursor   : pointer;
+        }
+      }
+    }
     p {
       word-wrap: normal;
     }

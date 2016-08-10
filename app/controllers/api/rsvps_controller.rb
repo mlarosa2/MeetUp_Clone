@@ -15,15 +15,6 @@ class Api::RsvpsController < ApplicationController
 
   end
 
-  def update
-    @rsvp = Rsvp.find(params[:rsvp][:id])
-    if @rsvp.update(rsvp_params)
-      render @rsvp
-    else
-      render json: @rsvp.errors.full_messages, status: 412
-    end
-  end
-
   def destroy
     @rsvp = Rsvp.find(params[:id])
     rsvp = @rsvp
