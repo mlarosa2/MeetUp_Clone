@@ -97,13 +97,14 @@ const ShowEvent = React.createClass({
         padding         : '20px',
       }
     };
+
     return (
       <div className="group-detail-section">
         <div className="event-index-item clearfix">
           <Modal style={modalStyle} isOpen={this.state.modalOpen} onRequestClose={this.closeModal}>
             <i className="fa fa-times-circle-o" onClick={this._closeModal}></i>
             <h1>Will you be attending {this.state.title}?</h1>
-            <CreateRsvp event={this.props.params.eventId} group={this.props.event.group_id}/>
+            <CreateRsvp event={this.props.params.eventId} group={this.props.params.groupId}/>
           </Modal>
           <div className="event-header clearfix">
             <h2 onClick={this._goToEvent}>{this.state.title}</h2>

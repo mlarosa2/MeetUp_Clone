@@ -4,8 +4,10 @@ const Modal        = require('react-modal');
 const hashHistory  = ReactRouter.hashHistory;
 const SessionStore = require('../stores/session_store');
 const ErrorStore   = require('../stores/error_store');
+const RsvpStore    = require('../stores/rsvp_store');
 const ErrorActions = require('../actions/error_actions');
-const RsvpAction   = require('../actions/rsvp_actions');
+const ModalActions = require('../actions/modal_actions');
+const RsvpActions  = require('../actions/rsvp_actions');
 
 let attendanceError = "";
 
@@ -28,9 +30,14 @@ const CreateRsvp = React.createClass({
   },
   componentDidMount() {
     this.errorListener = ErrorStore.addListener(this._onErrorChange);
+    this.rsvpListener  = RsvpStore.addListener(this._onRsvpChange);
   },
   componentWillUnmount() {
     this.errorListener.remove();
+    this.rsvpListener.remove();
+  },
+  _onRsvpChange() {
+    ModalActions.closeModal();
   },
   _confirmation(e) {
     e.preventDefault();
@@ -46,7 +53,7 @@ const CreateRsvp = React.createClass({
       attendanceError = "Please confirm whether you are attending or not.";
     }
 
-    RsvpAction.createRsvp(rsvp);
+    RsvpActions.createRsvp(rsvp);
   },
   render() {
     return(

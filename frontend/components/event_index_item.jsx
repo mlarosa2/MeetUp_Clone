@@ -1,6 +1,8 @@
 const React          = require('react');
 const EventActions   = require('../actions/event_actions');
 const EventStore     = require('../stores/event_store');
+const ModalStore     = require('../stores/modal_store');
+const SessionStore   = require('../stores/session_store');
 const CreateRsvp     = require('./create_rsvp_form');
 const ReactRouter    = require('react-router');
 const Modal          = require('react-modal');
@@ -11,6 +13,15 @@ const EventIndexItem = React.createClass({
     return({
       modalOpen: false
     });
+  },
+  componentDidMount() {
+    this.modalListener = ModalStore.addListener(this._onModalClose);
+  },
+  componentWillUnmount() {
+    this.modalListener.remove();
+  },
+  _onModalClose() {
+    this.setState({ modalOpen: false });
   },
   _revealAdminOpts(e) {
     e.preventDefault();
@@ -67,7 +78,7 @@ const EventIndexItem = React.createClass({
       time   += " AM";
     }
     let admin = "hide";
-    if (currentUser.user.id === this.props.admin) {
+    if (SessionStore.currentUser().user.id === this.props.admin) {
       admin = "admin-options";
     }
 
