@@ -135,11 +135,10 @@ const EventIndexItem = React.createClass({
       },
       content : {
         position        : 'fixed',
-        top             : '100px',
+        top             : '50%',
         left            : '50%',
-        transform       : 'translateX(-50%)',
+        transform       : 'translateX(-50%) translateY(-50%)',
         width           : '537px',
-        bottom          : '100px',
         border          : '1px solid #ccc',
         padding         : '20px',
       }

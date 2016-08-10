@@ -825,3 +825,15 @@ EVENTS
 /***********
 RSVPS
 ***********/
+.ReactModal__Content {
+  text-align: center;
+  .fa-times-circle-o {
+    position : absolute;
+    left     : 10px;
+    top      : 7px
+  }
+  h1 {
+    margin-top    : 40px;
+    margin-bottom : 10px;
+  }
+}

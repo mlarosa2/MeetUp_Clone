@@ -128,11 +128,10 @@ const ShowEvent = React.createClass({
       },
       content : {
         position        : 'fixed',
-        top             : '100px',
+        top             : '50%',
         left            : '50%',
-        transform       : 'translateX(-50%)',
+        transform       : 'translateX(-50%) translateY(-50%)',
         width           : '537px',
-        bottom          : '100px',
         border          : '1px solid #ccc',
         padding         : '20px',
       }
@@ -187,7 +186,7 @@ const ShowEvent = React.createClass({
             <h3>{date}</h3>
             <h4>{time}</h4>
               <h4 className={"rsvp " + hideForCurrentUser} onClick={this._openModal}>RSVP</h4>
-            <h4><span className="bold">{this.state.attendees.length}</span> going</h4>
+            <h4><span className="bold">{this.state.rsvps.length}</span> going</h4>
           </div>
         </div>
       </div>
