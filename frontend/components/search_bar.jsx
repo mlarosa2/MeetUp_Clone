@@ -30,7 +30,7 @@ const SearchBar = React.createClass({
         success(dat) {
           dat               = JSON.parse(dat);
           locationString   += dat.city.toLowerCase();
-          locationString = locationString.split(" ");
+          locationString    = locationString.split(" ");
           for (let i = 0; i < locationString.length; i++) {
             let splitWord     = locationString[i].split("");
             splitWord[0]      = splitWord[0].toUpperCase();
