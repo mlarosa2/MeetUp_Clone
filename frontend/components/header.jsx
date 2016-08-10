@@ -92,6 +92,11 @@ const Header = React.createClass({
         </div>
       </nav>
     );
+    jQuery(document).on('click', function(e) {
+      if (jQuery(e.target).is('.user-menu') === false) {
+        jQuery('.user-menu').addClass('hide');
+      }
+    });
     return(
       <header className="clearfix">
         { navLeft }
