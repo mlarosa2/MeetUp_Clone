@@ -19,8 +19,8 @@ const ShowEvent = React.createClass({
       description : "",
       start_time  : "",
       end_time    : "",
-      errors    : [],
-      attending : "",
+      errors      : [],
+      attending   : "",
       modalOpen   : false
     });
   },
@@ -28,8 +28,8 @@ const ShowEvent = React.createClass({
     hashHistory.push(this.props.event.group_id + "/show-event/" + this.props.event.id);
   },
   componentDidMount() {
-    this.listener     = EventStore.addListener(this._onChange);
-    this.rsvpListener = RsvpStore.addListener(this._onRsvpChange);
+    this.listener      = EventStore.addListener(this._onChange);
+    this.rsvpListener  = RsvpStore.addListener(this._onRsvpChange);
     this.errorListener = ErrorStore.addListener(this._onErrorChange);
     EventActions.fetchSingleEvent(this.state.id);
   },
