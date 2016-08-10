@@ -1,6 +1,6 @@
 class Api::RsvpsController < ApplicationController
   def index
-    @rsvps = Rsvp.where(event_id: params[:event_id])
+    @rsvps = Rsvp.where(event_id: params[:eventId])
     render :index
   end
 

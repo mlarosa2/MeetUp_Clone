@@ -19,13 +19,11 @@ const ShowEvent = React.createClass({
       description : "",
       start_time  : "",
       end_time    : "",
+      attendees   : [],
       errors      : [],
       attending   : "",
       modalOpen   : false
     });
-  },
-  _goToEvent() {
-    hashHistory.push(this.props.event.group_id + "/show-event/" + this.props.event.id);
   },
   componentDidMount() {
     this.listener      = EventStore.addListener(this._onChange);
@@ -44,6 +42,7 @@ const ShowEvent = React.createClass({
       description : EventStore.find(this.state.id).event.description,
       start_time  : EventStore.find(this.state.id).event.start_time,
       end_time    : EventStore.find(this.state.id).event.end_time,
+      attendees   : EventStore.find(this.state.id).event.attendees
     });
   },
   _onRsvpChange() {
@@ -130,7 +129,16 @@ const ShowEvent = React.createClass({
         padding         : '20px',
       }
     };
+    const attendeesForDisplay = [];
 
+    if (this.state.attendees !== []) {
+        for (let i = 0; i < 10; i++) {
+          if (this.state.attendees[i] !== undefined) {
+            attendeesForDisplay.push(this.state.attendees[i]);
+          }
+        }
+    }
+    let currentUserRsvp = "";
     return (
       <div className="group-detail-section">
         <div className="event-index-item clearfix">
@@ -151,15 +159,24 @@ const ShowEvent = React.createClass({
               </form>
           </Modal>
           <div className="event-header clearfix">
-            <h2 onClick={this._goToEvent}>{this.state.title}</h2>
+            <h2>{this.state.title}</h2>
           </div>
           <div className="event-body">
+            <div className="attendees">
+              {
+                attendeesForDisplay.map( (attendee, index) =>{
+                  if (attendee.id === SessionStore.currentUser().user.id) currentUserRsvp = "current-user-rsvp";
+                  return <img src={attendee.image_url} key={attendee.id} className={currentUserRsvp} />;
+                })
+              }
+            </div>
             <p>{this.state.description}</p>
           </div>
           <div className="event-time">
             <h3>{date}</h3>
             <h4>{time}</h4>
             <h4 className="rsvp" onClick={this._openModal}>RSVP</h4>
+            <h4><span className="bold">{this.state.attendees.length}</span> going</h4>
           </div>
         </div>
       </div>

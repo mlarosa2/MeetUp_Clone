@@ -10,6 +10,9 @@ const RsvpActions = {
   createRsvp(data) {
     RsvpApiUtil.createRsvp(data, this.addNewRsvp, ErrorActions.setErrors);
   },
+  deleteRsvp(id) {
+    RsvpApiUtil.destroyRsvp(id, this.destroyRsvp);
+  },
   receiveRsvps(rsvps) {
     Dispatcher.dispatch({
       actionType : RsvpConstants.RECEIVE_RSVPS,
@@ -19,6 +22,12 @@ const RsvpActions = {
   addNewRsvp(rsvp) {
     Dispatcher.dispatch({
       actionType : RsvpConstants.CREATE_RSVP,
+      rsvp       : rsvp
+    });
+  },
+  destroyRsvp(rsvp) {
+    Dispatcher.dispatch({
+      actionType : RsvpConstants.DELETE_RSVP,
       rsvp       : rsvp
     });
   }

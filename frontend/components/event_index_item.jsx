@@ -17,18 +17,23 @@ const EventIndexItem = React.createClass({
       modalOpen : false,
       errors    : [],
       attending : "",
+      rsvps     : []
     });
   },
   componentDidMount() {
     this.errorListener = ErrorStore.addListener(this._onErrorChange);
     this.rsvpListener  = RsvpStore.addListener(this._onRsvpChange);
+    RsvpActions.fetchAllRsvps(this.props.event.id);
   },
   componentWillUnmount() {
     this.errorListener.remove();
     this.rsvpListener.remove();
   },
   _onRsvpChange() {
-    this.setState({ modalOpen: false });
+    this.setState({
+      modalOpen : false,
+      rsvps     : RsvpStore.all()
+    });
   },
   _confirmation(e) {
     e.preventDefault();
@@ -45,6 +50,7 @@ const EventIndexItem = React.createClass({
     }
 
     RsvpActions.createRsvp(rsvp);
+    RsvpActions.fetchAllRsvps(this.props.event.id);
   },
   _attending() {
     this.setState({ attending : true });
@@ -85,6 +91,11 @@ const EventIndexItem = React.createClass({
   _closeModal() {
     this.setState({ modalOpen : false });
     jQuery('body').removeClass("stop-scrolling");
+  },
+  _destroyRsvp() {
+    let rsvp = RsvpStore.findByUser(SessionStore.currentUser().user.id);
+    RsvpActions.deleteRsvp(rsvp.rsvp.id);
+    RsvpActions.fetchAllRsvps(this.props.event.id);
   },
   render() {
     let startTime = this.props.event.start_time;
@@ -134,6 +145,15 @@ const EventIndexItem = React.createClass({
         padding         : '20px',
       }
     };
+    const attendeesForDisplay = [];
+    let hideForCurrentUser = "";
+    if (this.state.rsvps !== []) {
+        for (let i = 0; i < 10; i++) {
+          if (this.state.rsvps[i] !== undefined) {
+            attendeesForDisplay.push(this.state.rsvps[i]);
+          }
+        }
+    }
     return (
       <div className="event-index-item clearfix">
         <Modal style={modalStyle} isOpen={this.state.modalOpen} onRequestClose={this.closeModal}>
@@ -170,12 +190,33 @@ const EventIndexItem = React.createClass({
             </div>
         </div>
         <div className="event-body">
+          <div className="attendees">
+            {
+              attendeesForDisplay.map( (rsvp, index) =>{
+                if (rsvp.rsvp.user_id === SessionStore.currentUser().user.id) {
+                  hideForCurrentUser = "hide";
+                  return (
+                    <div key={rsvp.rsvp.id}>
+                      <img src={rsvp.rsvp.image_url} className="current-user-rsvp"/>
+                      <div className="tooltip">
+                        <p>Will you still be attending?</p>
+                        <span onClick={this._destroyRsvp}>No</span>
+                      </div>
+                    </div>
+                );
+                } else {
+                  return <img src={rsvp.rsvp.image_url} key={rsvp.rsvp.id} />;
+                }
+              })
+            }
+          </div>
           <p>{this.props.event.description.slice(0,341)}...<span onClick={this._goToEvent} className="learn">Learn More</span></p>
         </div>
         <div className="event-time">
           <h3>{date}</h3>
           <h4>{time}</h4>
-          <h4 className="rsvp" onClick={this._openModal}>RSVP</h4>
+          <h4 className={"rsvp " + hideForCurrentUser} onClick={this._openModal}>RSVP</h4>
+          <h4><span className="bold">{this.state.rsvps.length}</span> going</h4>
         </div>
       </div>
 

@@ -16,9 +16,20 @@ const RsvpApiUtil = {
       method : "POST",
       data   : { rsvp : data },
       success(dat) {
-        successCallback(dat); 
+        successCallback(dat);
       },
       error(err) { errorCallback(err); }
+    });
+  },
+
+  destroyRsvp(id, successCallback) {
+    $.ajax({
+      url    : `/api/rsvps/${id}`,
+      method : "DELETE",
+      success(dat) {
+        successCallback(dat);
+      },
+      error(err) { return err; }
     });
   }
 };

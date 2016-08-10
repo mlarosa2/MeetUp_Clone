@@ -18,8 +18,17 @@ RsvpStore.all = function () {
   return rsvps;
 };
 
-RsvpStore.find = function (id) {
-  return _rsvps[id];
+RsvpStore.findByUser = function (id) {
+  let rsvp = "";
+  for (let prop in _rsvps) {
+    if (_rsvps.hasOwnProperty(prop)) {
+      if (_rsvps[prop].rsvp.user_id === id) {
+        rsvp = _rsvps[prop];
+      }
+    }
+  }
+
+  return rsvp;
 };
 
 function _resetRsvps(rsvps) {
@@ -27,7 +36,7 @@ function _resetRsvps(rsvps) {
 
   for (let prop in rsvps) {
     if (rsvps.hasOwnProperty(prop)) {
-      _rsvps[prop] = events[prop];
+      _rsvps[prop] = rsvps[prop];
     }
   }
 
@@ -40,6 +49,12 @@ function _addRsvp (rsvp) {
   RsvpStore.__emitChange();
 }
 
+function _deleteRsvp(rsvp) {
+  delete _rsvps[rsvp.rsvp.id];
+
+  RsvpStore.__emitChange();
+}
+
 RsvpStore.__onDispatch = function (payload) {
   switch (payload.actionType) {
     case RsvpConstants.RECEIVE_RSVPS:
@@ -47,6 +62,9 @@ RsvpStore.__onDispatch = function (payload) {
       break;
     case RsvpConstants.CREATE_RSVP:
       _addRsvp(payload.rsvp);
+      break;
+    case RsvpConstants.DELETE_RSVP:
+      _deleteRsvp(payload.rsvp);
       break;
   }
 };
