@@ -1,11 +1,15 @@
 const React          = require('react');
 const EventActions   = require('../actions/event_actions');
+const RsvpActions    = require('../actions/rsvp_actions');
+const SessionStore   = require('../stores/session_store');
 const EventStore     = require('../stores/event_store');
-const CreateRsvp     = require('./create_rsvp_form');
+const ErrorStore     = require('../stores/error_store');
 const RsvpStore      = require('../stores/rsvp_store');
 const ReactRouter    = require('react-router');
 const Modal          = require('react-modal');
 const hashHistory    = ReactRouter.hashHistory;
+
+let attendanceError = "";
 
 const ShowEvent = React.createClass({
   getInitialState() {
@@ -15,6 +19,8 @@ const ShowEvent = React.createClass({
       description : "",
       start_time  : "",
       end_time    : "",
+      errors    : [],
+      attending : "",
       modalOpen   : false
     });
   },
@@ -24,11 +30,13 @@ const ShowEvent = React.createClass({
   componentDidMount() {
     this.listener     = EventStore.addListener(this._onChange);
     this.rsvpListener = RsvpStore.addListener(this._onRsvpChange);
+    this.errorListener = ErrorStore.addListener(this._onErrorChange);
     EventActions.fetchSingleEvent(this.state.id);
   },
   componentWillUnmount() {
     this.listener.remove();
     this.rsvpListener.remove();
+    this.errorListener.remove();
   },
   _onChange() {
     this.setState({
@@ -40,6 +48,31 @@ const ShowEvent = React.createClass({
   },
   _onRsvpChange() {
     this.setState({ modalOpen : false });
+  },
+  _confirmation(e) {
+    e.preventDefault();
+    let rsvp = {
+        event_id: this.state.id,
+        user_id:  SessionStore.currentUser().user.id,
+        attending: this.state.attending
+    };
+
+    attendanceError = "";
+
+    if (this.state.attending === "") {
+      attendanceError = "Please confirm whether you are attending or not.";
+    }
+
+    RsvpActions.createRsvp(rsvp);
+  },
+  _attending() {
+    this.setState({ attending : true });
+  },
+  _notAttending() {
+    this.setState({ attending : false });
+  },
+  _onErrorChange() {
+    this.setState({ errors : ErrorStore.errors("Rsvp") });
   },
   _openModal() {
     this.setState({ modalOpen : true });
@@ -104,7 +137,18 @@ const ShowEvent = React.createClass({
           <Modal style={modalStyle} isOpen={this.state.modalOpen} onRequestClose={this.closeModal}>
             <i className="fa fa-times-circle-o" onClick={this._closeModal}></i>
             <h1>Will you be attending {this.state.title}?</h1>
-            <CreateRsvp event={this.props.params.eventId} group={this.props.params.groupId}/>
+              <form>
+                <label>
+                  Yes
+                  <input type="radio" value={true} onClick={this._attending} />
+                </label>
+                <label>
+                  No
+                  <input type="radio" value={false} onClick={this._notAttending} />
+                </label>
+                <p className="error">{attendanceError}</p>
+                <button onClick={this._confirmation}>Confirm</button>
+              </form>
           </Modal>
           <div className="event-header clearfix">
             <h2 onClick={this._goToEvent}>{this.state.title}</h2>
