@@ -21,7 +21,7 @@ const ShowEvent = React.createClass({
       end_time    : "",
       attendees   : [],
       errors      : [],
-      attending   : "",
+      rsvps       : [],
       modalOpen   : false
     });
   },
@@ -30,6 +30,7 @@ const ShowEvent = React.createClass({
     this.rsvpListener  = RsvpStore.addListener(this._onRsvpChange);
     this.errorListener = ErrorStore.addListener(this._onErrorChange);
     EventActions.fetchSingleEvent(this.state.id);
+    RsvpActions.fetchAllRsvps(this.state.id);
   },
   componentWillUnmount() {
     this.listener.remove();
@@ -42,11 +43,13 @@ const ShowEvent = React.createClass({
       description : EventStore.find(this.state.id).event.description,
       start_time  : EventStore.find(this.state.id).event.start_time,
       end_time    : EventStore.find(this.state.id).event.end_time,
-      attendees   : EventStore.find(this.state.id).event.attendees
     });
   },
   _onRsvpChange() {
-    this.setState({ modalOpen : false });
+    this.setState({
+      modalOpen : false,
+      rsvps     : RsvpStore.all()
+     });
   },
   _confirmation(e) {
     e.preventDefault();
@@ -63,6 +66,11 @@ const ShowEvent = React.createClass({
     }
 
     RsvpActions.createRsvp(rsvp);
+  },
+  _destroyRsvp() {
+    let rsvp = RsvpStore.findByUser(SessionStore.currentUser().user.id);
+    RsvpActions.deleteRsvp(rsvp.rsvp.id);
+    RsvpActions.fetchAllRsvps(this.state.id);
   },
   _attending() {
     this.setState({ attending : true });
@@ -130,11 +138,11 @@ const ShowEvent = React.createClass({
       }
     };
     const attendeesForDisplay = [];
-
-    if (this.state.attendees !== []) {
+    let hideForCurrentUser = "";
+    if (this.state.rsvps !== []) {
         for (let i = 0; i < 10; i++) {
-          if (this.state.attendees[i] !== undefined) {
-            attendeesForDisplay.push(this.state.attendees[i]);
+          if (this.state.rsvps[i] !== undefined) {
+            attendeesForDisplay.push(this.state.rsvps[i]);
           }
         }
     }
@@ -164,9 +172,21 @@ const ShowEvent = React.createClass({
           <div className="event-body">
             <div className="attendees">
               {
-                attendeesForDisplay.map( (attendee, index) =>{
-                  if (attendee.id === SessionStore.currentUser().user.id) currentUserRsvp = "current-user-rsvp";
-                  return <img src={attendee.image_url} key={attendee.id} className={currentUserRsvp} />;
+                attendeesForDisplay.map( (rsvp, index) => {
+                  if (rsvp.rsvp.user_id === SessionStore.currentUser().user.id) {
+                    hideForCurrentUser = "hide";
+                    return (
+                      <div key={rsvp.rsvp.id}>
+                        <img src={rsvp.rsvp.image_url} className="current-user-rsvp"/>
+                        <div className="tooltip">
+                          <p>Will you still be attending?</p>
+                          <span onClick={this._destroyRsvp}>No</span>
+                        </div>
+                      </div>
+                  );
+                  } else {
+                    return <img src={rsvp.rsvp.image_url} key={rsvp.rsvp.id} />;
+                  }
                 })
               }
             </div>
@@ -175,7 +195,7 @@ const ShowEvent = React.createClass({
           <div className="event-time">
             <h3>{date}</h3>
             <h4>{time}</h4>
-            <h4 className="rsvp" onClick={this._openModal}>RSVP</h4>
+              <h4 className={"rsvp " + hideForCurrentUser} onClick={this._openModal}>RSVP</h4>
             <h4><span className="bold">{this.state.attendees.length}</span> going</h4>
           </div>
         </div>

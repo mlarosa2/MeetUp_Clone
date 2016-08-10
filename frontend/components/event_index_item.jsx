@@ -16,7 +16,6 @@ const EventIndexItem = React.createClass({
     return({
       modalOpen : false,
       errors    : [],
-      attending : "",
       rsvps     : []
     });
   },
@@ -192,7 +191,7 @@ const EventIndexItem = React.createClass({
         <div className="event-body">
           <div className="attendees">
             {
-              attendeesForDisplay.map( (rsvp, index) =>{
+              attendeesForDisplay.map( (rsvp, index) => {
                 if (rsvp.rsvp.user_id === SessionStore.currentUser().user.id) {
                   hideForCurrentUser = "hide";
                   return (
