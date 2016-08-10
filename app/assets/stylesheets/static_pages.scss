@@ -932,6 +932,7 @@ SEARCH BAR
     position  : absolute;
     left      : 253px;
     top       : 21px;
+    cursor    : pointer;
   }
   input {
     width         : 280px;
@@ -940,10 +941,12 @@ SEARCH BAR
     height        : 45px;
     padding       : 0 10px;
     margin-right  : 8px;
+    color         : #000;
     &[placeholder] {
       font-style  : italic;
       font-weight : 200;
     }
+    &:focus { font-style: normal; }
   }
   .fa-pulse { font-size : 13px; }
   span {

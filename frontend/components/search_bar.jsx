@@ -2,7 +2,7 @@ const React          = require('react');
 const GroupActions   = require('../actions/group_actions');
 const GroupStore     = require('../stores/group_store');
 
-//https://maps.googleapis.com/maps/api/geocode/json?address=08053&region=es&key=AIzaSyC7mHejYETsrCCXPm_ncRFkfAVxuAOS7yM SEARCH BY CITY
+//https://maps.googleapis.com/maps/api/geocode/json?address=08053&region=us&key=AIzaSyC7mHejYETsrCCXPm_ncRFkfAVxuAOS7yM SEARCH BY CITY
 //`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=AIzaSyC7mHejYETsrCCXPm_ncRFkfAVxuAOS7yM`
 
 const SearchBar = React.createClass({
@@ -18,22 +18,48 @@ const SearchBar = React.createClass({
   },
   getLocation() {
     this.loading = (<i className="fa fa-spinner fa-pulse fa-3x fa-fw"></i>);
-    let sendString = (string) => {
+    let sendString = string => {
       this.loading = "";
       this.setState({ location : string });
     };
-    navigator.geolocation.getCurrentPosition( position => {
+    let sendZip = zip => {
       let locationString = "";
+      $.ajax({
+        url    : `http://ziptasticapi.com/${zip}`,
+        method : "GET",
+        success(dat) {
+          dat               = JSON.parse(dat);
+          locationString   += dat.city.toLowerCase();
+          locationString = locationString.split(" ");
+          for (let i = 0; i < locationString.length; i++) {
+            let splitWord     = locationString[i].split("");
+            splitWord[0]      = splitWord[0].toUpperCase();
+            locationString[i] = splitWord.join("");
+          }
+          locationString    = locationString.join(" ");
+          locationString   += ", ";
+          locationString   += dat.state;
+          sendString(locationString);
+        }
+      });
+    };
+    navigator.geolocation.getCurrentPosition( position => {
       let lat        = position.coords.latitude;
       let lng        = position.coords.longitude;
       $.ajax({
         url: `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=AIzaSyC7mHejYETsrCCXPm_ncRFkfAVxuAOS7yM`,
         method : "GET",
         success(dat) {
-          locationString += dat.results[0].address_components[3].long_name;
-          locationString += ", ";
-          locationString += dat.results[0].address_components[5].long_name;
-          sendString(locationString);
+          let zip               = "";
+          let addressComponents = dat.results[0].address_components;
+          for (let prop in addressComponents) {
+            if (addressComponents.hasOwnProperty(prop)) {
+              if (addressComponents[prop].types[0] === "postal_code") {
+                zip = addressComponents[prop].long_name;
+              }
+            }
+          }
+          sendZip(zip);
         }
       });
     });
