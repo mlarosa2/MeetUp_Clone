@@ -97,13 +97,12 @@ const GroupDetail = React.createClass({
       membersSelected = "selected";
     } else if (this.props.location.pathname.indexOf("new-event") !== -1) {
       newEventSelected = "selected";
-    } else if (this.props.location.pathname.indexOf("show-event") !== -1 || this.props.location.pathname.indexOf("edit-event")) {
+    } else if (this.props.location.pathname.indexOf("show-event") !== -1 || this.props.location.pathname.indexOf("edit-event") !== -1) {
       homeSelected     = "";
       membersSelected  = "";
       calendarSelected = "";
       newEventSelected = "";
-    }
-    else {
+    } else {
       homeSelected = "selected";
     }
 
