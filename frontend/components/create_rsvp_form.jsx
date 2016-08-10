@@ -6,7 +6,6 @@ const SessionStore = require('../stores/session_store');
 const ErrorStore   = require('../stores/error_store');
 const RsvpStore    = require('../stores/rsvp_store');
 const ErrorActions = require('../actions/error_actions');
-const ModalActions = require('../actions/modal_actions');
 const RsvpActions  = require('../actions/rsvp_actions');
 
 let attendanceError = "";
@@ -35,9 +34,6 @@ const CreateRsvp = React.createClass({
   componentWillUnmount() {
     this.errorListener.remove();
     this.rsvpListener.remove();
-  },
-  _onRsvpChange() {
-    ModalActions.closeModal();
   },
   _confirmation(e) {
     e.preventDefault();
