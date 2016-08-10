@@ -647,6 +647,7 @@ GROUPS
     .members-list {
       padding: 16px;
       .member {
+        position      : relative;
         border-bottom : $border-primary;
         line-height   : 1.45;
         list-style    : none;
@@ -655,6 +656,12 @@ GROUPS
         padding       : 16px 0;
         &:first-child {
           border-top  : $border-primary;
+        }
+        .avatar {
+          width    : 30px;
+          height   : auto;
+          position : absolute;
+          left     : 18px;
         }
         p {
           padding-left: 68px;

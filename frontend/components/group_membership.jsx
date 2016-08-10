@@ -32,6 +32,7 @@ const GroupMembership = React.createClass({
                 return (
                   <li key={membership.user.id} className="member">
                     <p>
+                      <img className="avatar" src={membership.user.image_url} />
                       <span className="name">{membership.user.username}</span>
                       <br /> Joined: {membership.user.joined}
                     </p>
