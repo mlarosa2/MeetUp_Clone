@@ -34,6 +34,23 @@ function _resetGroups(groups) {
   GroupStore.__emitChange();
 }
 
+GroupStore.filterByLocation = function (address, distance) {
+  if (distance === "any distance") {
+    return;
+  }
+
+  for (let prop in _groups) {
+    if (_groups.hasOwnProperty(prop)) {
+      let lat1, lng1, lat2, lng2;
+      $.ajax({
+        url    : `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&region=us&key=AIzaSyC7mHejYETsrCCXPm_ncRFkfAVxuAOS7yM`,
+        method : "GET",
+        success(dat) {}
+      });
+    }
+  }
+};
+
 function _addGroup(group) {
   _groups[group.group.id] = group;
 
