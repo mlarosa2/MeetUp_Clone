@@ -36,6 +36,7 @@ const ShowEvent = React.createClass({
     this.listener.remove();
     this.rsvpListener.remove();
     this.errorListener.remove();
+    jQuery('body').removeClass("stop-scrolling");
   },
   _onChange() {
     this.setState({

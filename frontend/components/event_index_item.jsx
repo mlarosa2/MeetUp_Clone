@@ -27,6 +27,7 @@ const EventIndexItem = React.createClass({
   componentWillUnmount() {
     this.errorListener.remove();
     this.rsvpListener.remove();
+    jQuery('body').removeClass("stop-scrolling");
   },
   _onRsvpChange() {
     this.setState({
