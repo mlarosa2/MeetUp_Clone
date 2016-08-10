@@ -3,6 +3,14 @@ class Event < ActiveRecord::Base
   validate :date_is_in_future?, :end_time_comes_after?
 
   has_many(
+    :rsvps,
+    class_name: "Rsvp",
+    foreign_key: :event_id,
+    primary_key: :id,
+    dependent: :destroy
+  )
+
+  has_many(
     :attendees,
     through: :rsvps,
     source: :user

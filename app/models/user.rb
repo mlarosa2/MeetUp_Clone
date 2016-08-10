@@ -22,6 +22,14 @@ class User < ActiveRecord::Base
   )
 
   has_many(
+    :rsvps,
+    class_name: "Rsvp",
+    foreign_key: :user_id,
+    primary_key: :id,
+    dependent: :destroy
+  )
+
+  has_many(
     :events,
     through: :rsvps,
     source: :event
