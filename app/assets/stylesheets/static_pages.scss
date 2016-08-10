@@ -295,6 +295,18 @@ FORMS
     }
   }
 }
+.guest {
+  width: 100%;
+  p {
+    float: left;
+  }
+  input {
+    float: left;
+    width: 20px;
+    margin-left: 5px;
+    margin-top: 3px;
+  }
+}
 .form-signup {
   border      : none;
   margin-top  : 32px;

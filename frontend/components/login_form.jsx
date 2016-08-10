@@ -17,6 +17,7 @@ const LoginForm = React.createClass({
       email    : "",
       password : "",
       errors   : [],
+      guest    : false
     };
   },
   _emailChange(e) {
@@ -47,6 +48,14 @@ const LoginForm = React.createClass({
       passwordErrors = "Password must be at least 6 characters.";
     } else if (this.state.password.length > 0 && this.state.email.length > 0) {
       invalidErrors = "Either username or password was invalid.";
+    }
+    if (this.state.guest === true) {
+      user = {
+        user: {
+          email    : "magi@karp.com",
+          password : "whatever"
+        }
+      };
     }
     SessionActions.login(user);
   },
@@ -102,6 +111,9 @@ const LoginForm = React.createClass({
             <p className="error">{passwordErrors}</p>
           </label>
           <p className="error">{invalidErrors}</p>
+          <label className="guest clearfix"><p>Sign in as Guest</p>
+            <input type="checkbox" defaultChecked={this.state.guest} onChange={() => this.setState({ guest : !this.state.guest })}/>
+          </label>
           <button onClick={this._submit}>Log in</button>
         </form>
       </div>
