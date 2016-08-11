@@ -32,7 +32,7 @@ class Api::GroupsController < ApplicationController
 
   def destroy
     @group = Group.find(params[:id])
-    
+
     group = @group
     if @group.destroy
       render json: group
@@ -43,6 +43,6 @@ class Api::GroupsController < ApplicationController
 
   private
   def group_params
-    params.require(:group).permit(:title, :moderator_id, :description, :city, :state)
+    params.require(:group).permit(:title, :moderator_id, :description, :city, :state, :lat, :lng)
   end
 end

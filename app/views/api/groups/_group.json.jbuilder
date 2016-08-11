@@ -5,6 +5,8 @@ json.group do
  json.moderator_id group.moderator_id
  json.city group.city
  json.state group.state
+ json.lat group.lat
+ json.lng group.lng
  json.members group.members.length
  json.created group.created_at.strftime("%b %d, %Y")
 end

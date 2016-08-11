@@ -14,7 +14,7 @@ GroupStore.all = function () {
       groups.push(_groups[prop]);
     }
   }
-
+  debugger
   return groups;
 };
 
@@ -35,19 +35,19 @@ function _resetGroups(groups) {
 }
 
 GroupStore.filterByLocation = function (address, distance) {
-  if (distance === "any distance") {
-    return;
-  }
-
-  for (let prop in _groups) {
-    if (_groups.hasOwnProperty(prop)) {
-      let lat1, lng1, lat2, lng2;
-      $.ajax({
-        url    : `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&region=us&key=AIzaSyC7mHejYETsrCCXPm_ncRFkfAVxuAOS7yM`,
-        method : "GET",
-        success(dat) {}
-      });
-    }
+  let calculatedDistanceInMeters = (function () {
+    const radianLat = (lat2 - lat1) * (Math.PI / 180);
+    const radianLng = (lng2 - lng1) * (Math.PI / 180);
+    const alpha     =
+      Math.sin(radianLat / 2) * Math.sin(radianLat / 2) +
+      Math.cos(lat1 * (Math.PI / 180)) * Math.cos(lat2 * (Math.PI / 180)) *
+      Math.sin(radianLng / 2) * Math.sin(radianLng / 2);
+    const beta = 2 * Math.atan2(Math.sqrt(alpha), Math.sqrt(1 - alpha));
+    return EARTH_RADIUS * beta;
+  })();
+  let distanceQueryInMeters       = distance * 1609.344;
+  if (calculatedDistanceInMeters <= distanceQueryInMeters) {
+    groups[prop] = _groups[prop];
   }
 };
 

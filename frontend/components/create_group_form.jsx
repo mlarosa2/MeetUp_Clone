@@ -22,6 +22,8 @@ const CreateGroup = React.createClass({
       state        : "",
       title        : "",
       description  : "",
+      lat          : "",
+      lng          : "",
       moderator_id : SessionStore.currentUser().user.id,
       errors       : []
     });
@@ -73,7 +75,19 @@ const CreateGroup = React.createClass({
       moderator_id : this.state.moderator_id
     };
 
-    GroupActions.createGroup(group);
+    $.ajax({
+      url    : `https://maps.googleapis.com/maps/api/geocode/json?address=${group.city},${group.state}&region=us&key=AIzaSyC7mHejYETsrCCXPm_ncRFkfAVxuAOS7yM`,
+      method : "GET",
+      success(dat1) {
+        if (group.city !== "" && group.state !== "") {
+          group.lat        = dat1.results[0].geometry.location.lat;
+          group.lng        = dat1.results[0].geometry.location.lng;
+        }
+        GroupActions.createGroup(group);
+      }
+    });
+
+
 
     cityError             = "";
     cityErrorClass        = "";

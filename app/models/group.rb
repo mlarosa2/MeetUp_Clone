@@ -1,5 +1,5 @@
 class Group < ActiveRecord::Base
-  validates :title, :moderator_id, :description, :city, :state, presence: true
+  validates :title, :moderator_id, :description, :city, :state, :lat, :lng, presence: true
 
   has_one(
     :moderator,

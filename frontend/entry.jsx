@@ -22,6 +22,10 @@ const IndexRoute       = ReactRouter.IndexRoute;
 const Router           = ReactRouter.Router;
 const Route            = ReactRouter.Route;
 
+const GroupStore = require('./stores/group_store');
+window.GroupStore = GroupStore; 
+
+
 function _ensureSignIn(nextState, replace) {
   if (!SessionStore.isUserLoggedIn()) {
     replace('/login');
