@@ -8,8 +8,11 @@ const GroupStore     = require('../stores/group_store');
 const SearchBar = React.createClass({
   getInitialState() {
     return({
-      distance : 5,
-      location : ""
+      distance    : 5,
+      location    : "",
+      lat         : "",
+      lng         : "",
+      titleSearch : "",
     });
   },
 
@@ -18,11 +21,17 @@ const SearchBar = React.createClass({
   },
   getLocation() {
     this.loading = (<i className="fa fa-spinner fa-pulse fa-3x fa-fw"></i>);
-    let sendString = string => {
+    const sendString = string => {
       this.loading = "";
       this.setState({ location : string });
     };
-    let sendZip = zip => {
+    const setLatLng = (lat, lng) => {
+      this.setState({
+        lat : lat,
+        lng : lng
+      });
+    };
+    const sendZip = zip => {
       let locationString = "";
       $.ajax({
         url    : `http://ziptasticapi.com/${zip}`,
@@ -59,6 +68,7 @@ const SearchBar = React.createClass({
               }
             }
           }
+          setLatLng(lat, lng);
           sendZip(zip);
         }
       });
@@ -73,13 +83,45 @@ const SearchBar = React.createClass({
     this.setState({ distance: jQuery(e.currentTarget).children().text() });
   },
   _chooseLocation(e) {
-    this.setState({ location : e.currentTarget.value });
+    if (e.key === "Enter") {
+      const locationText = e.currentTarget.value;
+      let lat, lng;
+      $.ajax({
+        url    : `https://maps.googleapis.com/maps/api/geocode/json?address=${e.currentTarget.value}&region=us&key=AIzaSyC7mHejYETsrCCXPm_ncRFkfAVxuAOS7yM`,
+        method : "GET",
+        success(dat) {
+          lat = dat.results[0].geometry.location.lat;
+          lng = dat.results[0].geometry.location.lng;
+          setTheState(lat, lng, locationText);
+        }
+      });
+
+      const setTheState = (lat, lng, locationText) => {
+        this.setState({
+          location : locationText,
+          lat      : lat,
+          lng      : lng
+        });
+      };
+      jQuery('.choose.location').addClass('hide');
+    }
   },
   _revealLocationMenu(e) {
     jQuery('.choose.location').removeClass('hide');
   },
   _revealDistanceMenu(e) {
     jQuery('.choose.distance').removeClass('hide');
+  },
+  _filterGroups(e) {
+    e.preventDefault();
+    if (this.state.distance === "any distance") {
+      GroupActions.fetchAllGroups();
+    } else {
+      GroupActions.filterGroups(this.state.lat, this.state.lng, this.state.distance, this.state.titleSearch);
+    }
+  },
+  _titleSearch(e) {
+    this.setState({ titleSearch : e.currentTarget.value });
   },
   render() {
     let miles = "miles";
@@ -100,8 +142,8 @@ const SearchBar = React.createClass({
     });
     return(
       <div className="search-bar">
-        <i className="fa fa-search"></i>
-        <input placeholder="All Meetups"/> within <span className="click-to-choose-distance" onClick={this._revealDistanceMenu}>{this.state.distance} {miles}</span> of {this.loading}<span className="click-to-choose-location" onClick={this._revealLocationMenu}>{this.state.location}</span>
+        <i className="fa fa-search" onClick={this._filterGroups}></i>
+        <input placeholder="All Meetups" defaultValue={this.state.titleSearch} onChange={this._titleSearch}/> within <span className="click-to-choose-distance" onClick={this._revealDistanceMenu}>{this.state.distance} {miles}</span> of {this.loading}<span className="click-to-choose-location" onClick={this._revealLocationMenu}>{this.state.location}</span>
         <div className="choose distance hide">
           <ul>
             <li onClick={this._chooseDistance}><span>2</span> miles</li>
@@ -114,7 +156,7 @@ const SearchBar = React.createClass({
           </ul>
         </div>
         <div className="choose location hide">
-          <input defaultValue="" placeholder="City or Postal Code" onChange={this._chooseLocation}/>
+          <input defaultValue="" placeholder="City or Postal Code" onKeyUp={this._chooseLocation}/>
         </div>
       </div>
     );

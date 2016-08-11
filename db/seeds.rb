@@ -16,7 +16,7 @@ users = User.create([
 groups = Group.create([
   { title: "Shock Therapy", moderator_id: 1, description: "Get shocked by this therapy", city: "Marlton", state: "NJ", lat: 39.892745, lng: -74.920662 },
   { title: "ESP Enthusiasts", moderator_id: 4, description: "Hone your ESP skills", city: "Philadelphia", state: "PA", lat: 39.950342, lng: -75.164707  },
-  { title: "Splash", moderator_id: 5, description: "Splash", city: "New York", state: "NY", lat: 40.615720, lng: -73.978031 }
+  { title: "Splash", moderator_id: 5, description: "Splash", city: "New York", state: "NY", lat: 40.7127837, lng: -74.0059413 }
 ])
 
 memberships = Membership.create([

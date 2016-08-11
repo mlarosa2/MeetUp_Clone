@@ -23,6 +23,15 @@ const GroupActions = {
   deleteGroup(id) {
     GroupApiUtil.deleteGroup(id, this.destroyGroup);
   },
+  filterGroups(lat, lng, distance, title) {
+    Dispatcher.dispatch({
+      actionType : GroupConstants.FILTER_GROUPS,
+      lat        : lat,
+      lng        : lng,
+      distance   : distance,
+      title      : title
+    });
+  },
 
   receiveGroups(groups) {
     Dispatcher.dispatch({
