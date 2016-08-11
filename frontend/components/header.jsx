@@ -27,6 +27,8 @@ const Header = React.createClass({
   },
   _goHome(e) {
     e.preventDefault();
+    GroupActions.fetchAllGroups();
+    jQuery('.meetup-search').val("");
     hashHistory.push("/");
   },
   _toggleMenu(e) {

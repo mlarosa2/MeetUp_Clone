@@ -182,7 +182,7 @@ const SearchBar = React.createClass({
     return(
       <div className="search-bar">
         <i className="fa fa-search" onClick={this._filterGroups}></i>
-        <input placeholder="All Meetups" defaultValue={this.state.titleSearch} onChange={this._titleSearch}/> within <span className="click-to-choose-distance" onClick={this._revealDistanceMenu}>{this.state.distance} {miles}</span> of {this.loading}<span className="click-to-choose-location" onClick={this._revealLocationMenu}>{this.state.location}</span>
+        <input placeholder="All Meetups" defaultValue={this.state.titleSearch} onChange={this._titleSearch} className="meetup-search" /> within <span className="click-to-choose-distance" onClick={this._revealDistanceMenu}>{this.state.distance} {miles}</span> of {this.loading}<span className="click-to-choose-location" onClick={this._revealLocationMenu}>{this.state.location}</span>
         <div className="choose distance hide">
           <ul>
             <li onClick={this._chooseDistance}><span>2</span> miles</li>
