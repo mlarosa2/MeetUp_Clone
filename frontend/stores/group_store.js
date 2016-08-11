@@ -33,21 +33,27 @@ function _resetGroups(groups) {
   GroupStore.__emitChange();
 }
 
-function _filterByLocation(lat1, lng1, distance, title) {
-  let groups = {};
+function _filterByLocation(groups, lat1, lng1, distance, title) {
+  _groups    = {};
+  let midGroups = {};
+  for (let prop in groups) {
+    if (groups.hasOwnProperty(prop)) {
+      _groups[prop] = groups[prop];
+    }
+  }
   for (let prop in _groups) {
     if (_groups.hasOwnProperty(prop)) {
       let distanceInKilometers      = calculateDistanceInKilometers(lat1, _groups[prop].group.lat, lng1, _groups[prop].group.lng);
       let distanceQueryInKilometers = distance * 1.60934;
       if (distanceInKilometers <= distanceQueryInKilometers && _groups[prop].group.title.toLowerCase().indexOf(title.toLowerCase()) !== -1) {
-        groups[prop] = _groups[prop];
+        midGroups[prop] = _groups[prop];
       }
     }
   }
   _groups = {};
-  for (let prop in groups) {
+  for (let prop in midGroups) {
     if (groups.hasOwnProperty(prop)) {
-      _groups[prop] = groups[prop];
+      _groups[prop] = midGroups[prop];
     }
   }
   GroupStore.__emitChange();
@@ -92,7 +98,7 @@ GroupStore.__onDispatch = function (payload) {
       _removeGroup(payload.group);
       break;
     case GroupConstants.FILTER_GROUPS:
-      _filterByLocation(payload.lat, payload.lng, payload.distance, payload.title);
+      _filterByLocation(payload.groups, payload.lat, payload.lng, payload.distance, payload.title);
       break;
   }
 };

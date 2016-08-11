@@ -19,6 +19,14 @@ const SearchBar = React.createClass({
   componentDidMount() {
     this.getLocation();
   },
+  componentWillUnmount() {
+    if (this.xhr !== undefined) {
+      this.xhr.abort();
+    }
+    if (this.otherXhr !== undefined) {
+      this.otherXhr.abort();
+    }
+  },
   getLocation() {
     this.loading = (<i className="fa fa-spinner fa-pulse fa-3x fa-fw"></i>);
     const sendString = string => {
@@ -33,7 +41,7 @@ const SearchBar = React.createClass({
     };
     const sendZip = zip => {
       let locationString = "";
-      $.ajax({
+      this.otherXhr = $.ajax({
         url    : `http://ziptasticapi.com/${zip}`,
         method : "GET",
         success(dat) {
@@ -55,7 +63,7 @@ const SearchBar = React.createClass({
     navigator.geolocation.getCurrentPosition( position => {
       let lat        = position.coords.latitude;
       let lng        = position.coords.longitude;
-      $.ajax({
+      this.xhr = $.ajax({
         url: `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=AIzaSyC7mHejYETsrCCXPm_ncRFkfAVxuAOS7yM`,
         method : "GET",
         success(dat) {
@@ -106,6 +114,36 @@ const SearchBar = React.createClass({
       jQuery('.choose.location').addClass('hide');
     }
   },
+  _updateLocationValue(e) {
+    this.setState({ location : e.currentTarget.value });
+  },
+  _locationClick(e) {
+    const target = e.currentTarget;
+    const setTheState = (lat, lng, locationText) => {
+      this.setState({
+        location : locationText,
+        lat      : lat,
+        lng      : lng
+      });
+    };
+    jQuery(document).on('click', clickEv => {
+      const locationText = target.value;
+      if (jQuery(clickEv.target).is('.choose.location input') === false) {
+        let lat, lng;
+        $.ajax({
+          url    : `https://maps.googleapis.com/maps/api/geocode/json?address=${locationText}&region=us&key=AIzaSyC7mHejYETsrCCXPm_ncRFkfAVxuAOS7yM`,
+          method : "GET",
+          success(dat) {
+            lat = dat.results[0].geometry.location.lat;
+            lng = dat.results[0].geometry.location.lng;
+            setTheState(lat, lng, locationText);
+          }
+        });
+
+        jQuery('.choose.location').addClass('hide');
+      }
+    });
+  },
   _revealLocationMenu(e) {
     jQuery('.choose.location').removeClass('hide');
   },
@@ -117,6 +155,7 @@ const SearchBar = React.createClass({
     if (this.state.distance === "any distance") {
       GroupActions.fetchAllGroups();
     } else {
+      let a = GroupStore.all();
       GroupActions.filterGroups(this.state.lat, this.state.lng, this.state.distance, this.state.titleSearch);
     }
   },
@@ -156,7 +195,7 @@ const SearchBar = React.createClass({
           </ul>
         </div>
         <div className="choose location hide">
-          <input defaultValue="" placeholder="City or Postal Code" onKeyUp={this._chooseLocation}/>
+          <input defaultValue={this.state.location} placeholder="City or Postal Code" onKeyUp={this._chooseLocation} onClick={this._locationClick} />
         </div>
       </div>
     );
