@@ -52,7 +52,7 @@ const Header = React.createClass({
       <nav className="nav-left">
         <ul className="clearfix">
           <li className="nav-logo" onClick={this._goHome}>logo</li>
-          <li><Link className="nav-link" to="/groups"><span>Find</span> a Meetup Group</Link></li>
+          <li onClick={this._goHome}><a className="nav-link"><span>Find</span> a Meetup Group</a></li>
           <li><Link className="nav-link" to="/groups/new"><span>Start</span> a Meetup Group</Link></li>
         </ul>
       </nav>
