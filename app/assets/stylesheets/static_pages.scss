@@ -654,6 +654,10 @@ GROUPS
       }
     }
   }
+  .group-section {
+    float: left;
+    width: 777px;
+  }
   .group-detail-section {
     float         : left;
     border-radius : 3px;
@@ -1020,16 +1024,41 @@ SEARCH BAR
             color      : #FFF;
           }
           &.selected {
-            color: $red-primary;
+            color : $red-primary;
             &:hover {
               color : #FFF;
             }
           }
           span {
-            border-bottom: none;
+            border-bottom : none;
           }
         }
       }
     }
   }
+}
+/**********
+CALENDARS
+**********/
+.calendar {
+  float      : left;
+  width      : 100%;
+  background : #FFF;
+  .day-name {
+    text-align : center;
+    display    : inline-block;
+    width      : 14%;
+  }
+  .calendar-block {
+    width      : 107px;
+    float      : left;
+    min-height : 100px;
+    margin     : 1px;
+    border     : 1px solid black;
+    position   : relative;
+    .day-number {
+      position : absoulte;
+    }
+  }
+  .calendar-hide { opacity : 0; }
 }

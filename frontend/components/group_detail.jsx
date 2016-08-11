@@ -105,7 +105,9 @@ const GroupDetail = React.createClass({
       membersSelected  = "";
       calendarSelected = "";
       newEventSelected = "";
-    } else {
+    } else if (this.props.location.pathname.indexOf("calendar") !== -1) {
+      calendarSelected = "selected";
+    }  else {
       homeSelected = "selected";
     }
 
@@ -145,7 +147,7 @@ const GroupDetail = React.createClass({
           </ul>
           { adminBlock }
         </aside>
-        <section className="clearfix">
+        <section className="clearfix group-section">
           { this.props.children }
         </section>
       </article>
