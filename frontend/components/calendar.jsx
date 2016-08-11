@@ -19,16 +19,31 @@ const Calendar   = React.createClass({
   getInitialState() {
     const current = new Date();
     return({
-      year  : current.getFullYear(),
-      month : _months[current.getMonth()],
-      day   : _days[current.getDay()]
+      year   : current.getFullYear(),
+      month  : _months[current.getMonth()],
+      day    : _days[current.getDay()],
+      events : []
     });
   },
-  componentDidMount() {},
+  componentDidMount() {
+    this.listener = EventStore.addListener(this._onChange);
+    EventActions.fetchAllEvents(this.props.params.groupId);
+  },
+  _onChange() {
+    this.setState({ events : EventStore.all() });
+  },
   render() {
     return(
       <div className="calendar">
-        here it is :)
+        <h1>{this.state.month} {this.state.year}</h1>
+        <h2>
+          {
+            Object.keys(_days).map( day =>{
+              return <span key={day}>{_days[day]} </span>;
+            })
+          }
+        </h2>
+
       </div>
     );
   }

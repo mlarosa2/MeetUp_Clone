@@ -33,6 +33,12 @@ const Header = React.createClass({
   },
   _toggleMenu(e) {
     e.preventDefault();
+    jQuery(document).on('click', function(e) {
+      if (jQuery(e.target).is('.user-menu') === false) {
+        jQuery('.user-menu').addClass('hide');
+      }
+      jQuery(document).off('click');
+    });
     jQuery('.user-menu').toggleClass('hide');
   },
   _goToGroup(id, e) {
@@ -94,11 +100,7 @@ const Header = React.createClass({
         </div>
       </nav>
     );
-    jQuery(document).on('click', function(e) {
-      if (jQuery(e.target).is('.user-menu') === false) {
-        jQuery('.user-menu').addClass('hide');
-      }
-    });
+
     return(
       <header className="clearfix">
         { navLeft }

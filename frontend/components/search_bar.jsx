@@ -140,16 +140,30 @@ const SearchBar = React.createClass({
             setTheState(lat, lng, locationText);
           }
         });
-
         jQuery('.choose.location').addClass('hide');
+        jQuery(document).off('click');
       }
     });
   },
   _revealLocationMenu(e) {
+    e.preventDefault();
     jQuery('.choose.location').removeClass('hide');
+    jQuery(document).on('click', function(ev) {
+      if (jQuery(ev.target).is('.choose.location input') === false) {
+        jQuery('.choose.location').addClass('hide');
+      }
+    });
   },
   _revealDistanceMenu(e) {
+    e.preventDefault();
     jQuery('.choose.distance').removeClass('hide');
+    jQuery(document).on('click', function(ev) {
+      if (jQuery(ev.target).is('.click-to-choose-distance') === false) {
+        jQuery('.choose.distance').addClass('hide');
+      }
+        jQuery(document).off('click');
+    });
+
   },
   _filterGroups(e) {
     e.preventDefault();
@@ -168,19 +182,15 @@ const SearchBar = React.createClass({
     if (this.state.distance === 'any distance') {
       miles = "";
     }
-    jQuery(document).on('click', function(e) {
-
-      if (jQuery(e.target).is('.choose.location input') === false) {
-        jQuery('.choose.location').addClass('hide');
-      }
-      if (jQuery(e.target).is('.click-to-choose-distance') === false) {
-        jQuery('.choose.distance').addClass('hide');
-      }
-    });
     return(
       <div className="search-bar">
         <i className="fa fa-search" onClick={this._filterGroups}></i>
-        <input placeholder="All Meetups" defaultValue={this.state.titleSearch} onChange={this._titleSearch} className="meetup-search" /> within <span className="click-to-choose-distance" onClick={this._revealDistanceMenu}>{this.state.distance} {miles}</span> of {this.loading}<span className="click-to-choose-location" onClick={this._revealLocationMenu}>{this.state.location}</span>
+        <input placeholder="All Meetups" defaultValue={this.state.titleSearch} onChange={this._titleSearch} className="meetup-search" />
+        within <span className="click-to-choose-distance" onClick={this._revealDistanceMenu}>
+        {this.state.distance} {miles}</span> of {this.loading}
+        <span className="click-to-choose-location" onClick={this._revealLocationMenu}>
+          {this.state.location}
+        </span>
         <div className="choose distance hide">
           <ul>
             <li onClick={this._chooseDistance}><span>2</span> miles</li>
