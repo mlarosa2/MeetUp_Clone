@@ -17,13 +17,14 @@ const EventIndex       = require('./components/event_index');
 const CreateEventForm  = require('./components/create_event_form');
 const EditEventForm    = require('./components/edit_event_form');
 const ShowEvent        = require('./components/show_event');
+const Calendar         = require('./components/calendar');
 const hashHistory      = ReactRouter.hashHistory;
 const IndexRoute       = ReactRouter.IndexRoute;
 const Router           = ReactRouter.Router;
 const Route            = ReactRouter.Route;
 
 const GroupStore = require('./stores/group_store');
-window.GroupStore = GroupStore; 
+window.GroupStore = GroupStore;
 
 
 function _ensureSignIn(nextState, replace) {
@@ -59,7 +60,8 @@ const routes = (
       <Route path="new-event" component={CreateEventForm} onEnter={_ensureSignIn} />
       <Route path="edit-event/:eventId" component={EditEventForm} />
       <Route path="show-event/:eventId" component={ShowEvent} />
-  </Route>
+      <Route path="calendar" component={Calendar} />
+    </Route>
   </Route>
 );
 

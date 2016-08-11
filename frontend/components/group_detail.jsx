@@ -67,6 +67,9 @@ const GroupDetail = React.createClass({
   _goHome() {
     hashHistory.push(this.props.params.groupId);
   },
+  _goToCalendar() {
+    hashHistory.push(`${this.props.params.groupId}/calendar`);
+  },
   _createNewEvent() {
     hashHistory.push(this.props.params.groupId + '/new-event');
   },
@@ -127,7 +130,7 @@ const GroupDetail = React.createClass({
               <li className={homeSelected} onClick={this._goHome}><button>Home</button></li>
               <li className={newEventSelected} onClick={this._createNewEvent}><button>New Event</button></li>
               <li className={membersSelected} onClick={this._goToMembers}><button>Members</button></li>
-              <li className={calendarSelected}><button>Calendar</button></li>
+              <li className={calendarSelected}><button onClick={this._goToCalendar}>Calendar</button></li>
             </ul>
             { joinLeaveAdmin }
           </nav>
