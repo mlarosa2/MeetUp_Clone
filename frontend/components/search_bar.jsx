@@ -2,9 +2,6 @@ const React          = require('react');
 const GroupActions   = require('../actions/group_actions');
 const GroupStore     = require('../stores/group_store');
 
-//https://maps.googleapis.com/maps/api/geocode/json?address=08053&region=us&key=AIzaSyC7mHejYETsrCCXPm_ncRFkfAVxuAOS7yM SEARCH BY CITY
-//`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=AIzaSyC7mHejYETsrCCXPm_ncRFkfAVxuAOS7yM`
-
 const SearchBar = React.createClass({
   getInitialState() {
     return({
@@ -18,30 +15,30 @@ const SearchBar = React.createClass({
 
   componentDidMount() {
     this.getLocation();
+    this._isMounted = true;
   },
   componentWillUnmount() {
-    if (this.xhr !== undefined) {
-      this.xhr.abort();
-    }
-    if (this.otherXhr !== undefined) {
-      this.otherXhr.abort();
-    }
+    this._isMounted = false;
   },
   getLocation() {
     this.loading = (<i className="fa fa-spinner fa-pulse fa-3x fa-fw"></i>);
     const sendString = string => {
       this.loading = "";
-      this.setState({ location : string });
+      if (this._isMounted) {
+        this.setState({ location : string });
+      }
     };
     const setLatLng = (lat, lng) => {
-      this.setState({
-        lat : lat,
-        lng : lng
-      });
+      if (this._isMounted) {
+        this.setState({
+          lat : lat,
+          lng : lng
+        });
+      }
     };
     const sendZip = zip => {
       let locationString = "";
-      this.otherXhr = $.ajax({
+      $.ajax({
         url    : `http://ziptasticapi.com/${zip}`,
         method : "GET",
         success(dat) {
@@ -63,7 +60,7 @@ const SearchBar = React.createClass({
     navigator.geolocation.getCurrentPosition( position => {
       let lat        = position.coords.latitude;
       let lng        = position.coords.longitude;
-      this.xhr = $.ajax({
+      $.ajax({
         url: `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=AIzaSyC7mHejYETsrCCXPm_ncRFkfAVxuAOS7yM`,
         method : "GET",
         success(dat) {
@@ -105,11 +102,13 @@ const SearchBar = React.createClass({
       });
 
       const setTheState = (lat, lng, locationText) => {
-        this.setState({
-          location : locationText,
-          lat      : lat,
-          lng      : lng
-        });
+        if (this._isMounted) {
+          this.setState({
+            location : locationText,
+            lat      : lat,
+            lng      : lng
+          });
+        }
       };
       jQuery('.choose.location').addClass('hide');
     }
@@ -120,11 +119,13 @@ const SearchBar = React.createClass({
   _locationClick(e) {
     const target = e.currentTarget;
     const setTheState = (lat, lng, locationText) => {
-      this.setState({
-        location : locationText,
-        lat      : lat,
-        lng      : lng
-      });
+      if (this._isMounted) {
+        this.setState({
+          location : locationText,
+          lat      : lat,
+          lng      : lng
+        });
+      }
     };
     jQuery(document).on('click', clickEv => {
       const locationText = target.value;
@@ -169,9 +170,6 @@ const SearchBar = React.createClass({
     }
     jQuery(document).on('click', function(e) {
 
-      if (jQuery(e.target).is('.choose.location input') === false) {
-        jQuery('.choose.location').addClass('hide');
-      }
       if (jQuery(e.target).is('.choose.location input') === false) {
         jQuery('.choose.location').addClass('hide');
       }
