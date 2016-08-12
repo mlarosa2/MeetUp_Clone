@@ -151,6 +151,7 @@ header {
       padding       : 0 10px;
       border        : $border-primary;
       box-shadow    : rgba(0, 0, 0, 0.54) 0 3px 8px 0;
+      z-index       : 20;
       &:after, &:before {
         content      : ".";
         position     : absolute;
