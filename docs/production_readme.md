@@ -28,7 +28,10 @@ calling `SessionStore.currentUser()`.
 
 Events are held by groups. An EventsIndex is rendered on the GroupDetail component, and is made up of EventDetail components. These components listen to the `EventStore`.
 
-Events are created in one table, with the columns, `id`,  `group_id`, `title`, `description`,  `start_date`, `start_time`, and `end_time`. Events are related to Groups via the `memberships` table in the database.
+Events Appear automatically on the group's calendar. They have their own details page as well. Events can only be deleted or edited by the group's creator. The interface for changing events is on the `EventIndex` rather than a control panel.
+![event]
+
+![event-admin]
 
 
 ### RSVP
@@ -38,8 +41,14 @@ RSVPs are rendered on the EventDetail component as a RSVPIndex component, made u
 
 ### Search
 
-Search filters groups via key group information (i.e. the group's name), and location within a certain range. The search feature is a fully front end feature, that fetches data from the backend.
+Search filters groups via group title, and location within a certain range of a specified city. Search happens after clicking the magnifying glass, and is cleared when the user returns to the home page.
+
+![search-bar]
 
 ### Calendar
 
-A Calendar belongs to a group and displays all of the groups events in a calendar format. Like Search, Calendar is a fully front end component, that is rendered via data fetched from the backend. The calendar listens to the `EventStore`.
+A Calendar belongs to a group and displays all of the groups events in a calendar format.
+
+[event]: ./production_img/event.png
+[event-admin]: ./production_img/event_admin.png
+[search-bar]: ./production_img/search_bar.png
