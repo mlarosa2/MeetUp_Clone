@@ -13,7 +13,7 @@ User.all.each_with_index do |user, idx|
   user.save!
 end
 description = "Lorem ipsum dolor sit amet, erat autem noster ea duo. Vide quidam ea nec. Ei quo mentitum convenire consetetur, cu eam lorem laoreet persecuti. Elit assum petentium in has, corpora suavitate tincidunt eu cum. Cu eum cetero persecuti, vix regione aliquam sententiae in, odio graecis singulis ne qui. Sit assum ludus voluptaria ei, sonet antiopam in has. Nam aliquid menandri et. Debet atomorum eu quo, et nec nostro scaevola probatus. Vide elit discere ei est. Dictas ancillae id per, ius probo reprimique id, te mundi interpretaris sit. Illud consul ridens eu has, ex aperiam deseruisse duo. Ei nec denique conclusionemque. Vel id lorem maiestatis, pro cu veniam singulis. Veniam ocurreret cu sea. Per id enim dicunt fuisset, eu usu habeo malis imperdiet. Has tamquam alterum laoreet no. Ne libris vivendum neglegentur per, ne est choro maiorum. Eos ad conceptam deseruisse, meliore electram gloriatur at vis, eam reque debitis volumus ut. Eum eu posse volutpat hendrerit, et ceteros sententiae eos, no vidisse torquatos pro. No alterum voluptaria cum, quo nisl audiam id. An novum inermis dolores usu. Vix ea hinc doctus quaestio. Eum id magna perfecto recteque, porro minim voluptaria vix te, mea sonet exerci vidisse ei. Dicat liberavisse accommodare cum cu. Libris suscipit adversarium in vis, an enim commodo scriptorem his. Usu ut nisl ignota, vim vide altera concludaturque ea"
-
+group_pictures = ["exodia.jpg", "spoon.jpeg", "splash.jpg", "mime.jpg", "fox.jpeg", "breakfast.jpg", "curling.png", "lemur.jpeg", "stamp.jpg"]
 groups = Group.create([
   { title: "Digimon Fan Club", moderator_id: 1, description: description, city: "Jersey City", state: "NJ", lat: 40.72815759999999, lng: -74.0776417 },
   { title: "ESP Enthusiasts", moderator_id: 4, description: description, city: "Philadelphia", state: "PA", lat: 39.9525839, lng: -75.1652215 },
@@ -25,7 +25,10 @@ groups = Group.create([
   { title: "Lemur Lovers", moderator_id: 1, description: description, city: "Farmingdale", state: "NY", lat: 40.7325997, lng: -73.4454009 },
   { title: "Stamp Collectors", moderator_id: 6, description: description, city: "Amityville", state: "NY", lat: 40.6789893, lng: -73.4170673 }
 ])
-
+Group.all.each_with_index do |group, idx|
+  group.image = File.new(File.join(Rails.root, 'app', 'assets', 'images', group_pictures[idx]))
+  group.save!
+end
 memberships = Membership.create([
   { group_id: 1, member_id: 1 },
   { group_id: 1, member_id: 2 },
