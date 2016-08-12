@@ -5,7 +5,7 @@ class Api::EventsController < ApplicationController
     else
       @events = Event.all
     end
-    
+
     render :index
   end
 
