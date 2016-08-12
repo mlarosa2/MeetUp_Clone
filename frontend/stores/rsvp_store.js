@@ -14,7 +14,6 @@ RsvpStore.all = function () {
       rsvps.push(_rsvps[prop]);
     }
   }
-
   return rsvps;
 };
 

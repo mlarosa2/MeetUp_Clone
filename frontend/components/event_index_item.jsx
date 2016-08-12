@@ -16,24 +16,34 @@ const EventIndexItem = React.createClass({
     return({
       modalOpen : false,
       errors    : [],
-      rsvps     : []
+      rsvps     : [],
+      event     : {}
     });
   },
   componentDidMount() {
     this.errorListener = ErrorStore.addListener(this._onErrorChange);
     this.rsvpListener  = RsvpStore.addListener(this._onRsvpChange);
+    this.eventListener = EventStore.addListener(this._onEventChange);
     RsvpActions.fetchAllRsvps(this.props.event.id);
+    EventActions.fetchAllEvents(this.props.groupId);
   },
   componentWillUnmount() {
     this.errorListener.remove();
     this.rsvpListener.remove();
+    this.eventListener.remove();
     jQuery('body').removeClass("stop-scrolling");
+  },
+  _onEventChange() {
+    this.setState({
+      event : EventStore.find(this.props.event.id)
+    });
   },
   _onRsvpChange() {
     this.setState({
       modalOpen : false,
-      rsvps     : RsvpStore.all()
+      rsvps     : RsvpStore.all(),
     });
+    EventActions.fetchAllEvents(this.props.groupId);
   },
   _confirmation(e) {
     e.preventDefault();
@@ -48,7 +58,7 @@ const EventIndexItem = React.createClass({
     if (this.state.attending === "") {
       attendanceError = "Please confirm whether you are attending or not.";
     }
-
+    jQuery('body').removeClass("stop-scrolling");
     RsvpActions.createRsvp(rsvp);
     RsvpActions.fetchAllRsvps(this.props.event.id);
   },
@@ -93,7 +103,14 @@ const EventIndexItem = React.createClass({
     jQuery('body').removeClass("stop-scrolling");
   },
   _destroyRsvp() {
-    let rsvp = RsvpStore.findByUser(SessionStore.currentUser().user.id);
+    let rsvp = {};
+
+    for (let i = 0; i < this.state.event.event.rsvps.length; i++) {
+      if (this.state.event.event.rsvps[i].rsvp.user_id === SessionStore.currentUser().user.id) {
+        rsvp = this.state.event.event.rsvps[i];
+      }
+    }
+
     RsvpActions.deleteRsvp(rsvp.rsvp.id);
     RsvpActions.fetchAllRsvps(this.props.event.id);
   },
@@ -146,12 +163,15 @@ const EventIndexItem = React.createClass({
     };
     const attendeesForDisplay = [];
     let hideForCurrentUser = "";
-    if (this.state.rsvps !== []) {
-        for (let i = 0; i < 10; i++) {
-          if (this.state.rsvps[i] !== undefined) {
-            attendeesForDisplay.push(this.state.rsvps[i]);
+
+    if (Object.keys(this.state.event).length > 0) {
+      if (this.state.event.event.rsvps !== []) {
+          for (let i = 0; i < 10; i++) {
+            if (this.state.event.event.rsvps[i] !== undefined) {
+              attendeesForDisplay.push(this.state.event.event.rsvps[i]);
+            }
           }
-        }
+      }
     }
     return (
       <div className="event-index-item clearfix">
@@ -206,7 +226,7 @@ const EventIndexItem = React.createClass({
           <h3>{date}</h3>
           <h4>{time}</h4>
           <h4 className={"rsvp " + hideForCurrentUser} onClick={this._openModal}>RSVP</h4>
-          <h4><span className="bold">{this.state.rsvps.length}</span> going</h4>
+          <h4><span className="bold">{this.props.event.rsvps.length}</span> going</h4>
         </div>
       </div>
 

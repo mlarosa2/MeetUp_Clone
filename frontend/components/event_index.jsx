@@ -28,13 +28,15 @@ const EventIndex = React.createClass({
          this.state.events[i].event.admin = admin;
        }
     }
+    let runEvents = "";
+
     return(
       <div className="group-detail-section">
         <h2>Events</h2>
         <div className="event-index">
           {
             this.state.events.map( event => {
-              return <EventIndexItem event={event.event} key={event.event.id} admin={event.event.admin}/>;
+              return <EventIndexItem event={event.event} key={event.event.id} admin={event.event.admin} groupId={this.props.groupId}/>;
             })
           }
         </div>

@@ -45,7 +45,11 @@ function _filterByLocation(groups, lat1, lng1, distance, title) {
     if (_groups.hasOwnProperty(prop)) {
       let distanceInKilometers      = calculateDistanceInKilometers(lat1, _groups[prop].group.lat, lng1, _groups[prop].group.lng);
       let distanceQueryInKilometers = distance * 1.60934;
-      if (distanceInKilometers <= distanceQueryInKilometers && _groups[prop].group.title.toLowerCase().indexOf(title.toLowerCase()) !== -1) {
+      if (distance === 'any distance') {
+        if (_groups[prop].group.title.toLowerCase().indexOf(title.toLowerCase()) !== -1) {
+          midGroups[prop] = _groups[prop];
+        }
+      } else if (distanceInKilometers <= distanceQueryInKilometers && _groups[prop].group.title.toLowerCase().indexOf(title.toLowerCase()) !== -1) {
         midGroups[prop] = _groups[prop];
       }
     }

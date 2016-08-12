@@ -171,12 +171,8 @@ const SearchBar = React.createClass({
   },
   _filterGroups(e) {
     e.preventDefault();
-    if (this.state.distance === "any distance") {
-      GroupActions.fetchAllGroups();
-    } else {
-      let a = GroupStore.all();
-      GroupActions.filterGroups(this.state.lat, this.state.lng, this.state.distance, this.state.titleSearch);
-    }
+    let a = GroupStore.all();
+    GroupActions.filterGroups(this.state.lat, this.state.lng, this.state.distance, this.state.titleSearch);
   },
   _titleSearch(e) {
     this.setState({ titleSearch : e.currentTarget.value });
