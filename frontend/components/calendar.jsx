@@ -111,18 +111,17 @@ const Calendar = React.createClass({
           time    = time.join(":");
           time   += " AM";
         }
-        eventTime        = <span className="calendar-event-time">{time}</span>;
-        eventTitle       = <span className="calendar-event-title">{eventsWithDays[j].event.title}</span>;
+        eventTime        = <p className="calendar-event-time">{time}</p>;
+        eventTitle       = <p className="calendar-event-title">{eventsWithDays[j].event.title}</p>;
       }
 
       let hide         = this.state.first_day > j ? "calendar-hide" : "";
       let endHide      = j > (this.state.last_day + (this.state.first_day - 1)) ? "hide" : "";
-      let noLeftBorder = (j + 1) % 7 === 0 ? "no-right-border" : "";
+      let noRightBorder = (j + 1) % 7 === 0 ? "no-right-border" : "";
       if (hide === "" && endHide === "") dayCount++;
       if (hide !== "" || endHide !== "") dayCount = "";
-
       let fullBlock = (
-        <div className={hide + " calendar-block " + endHide + " " + noLeftBorder} key={j}>
+        <div className={hide + " calendar-block " + endHide + " " + noRightBorder} key={j}>
         <span className="day-number">{dayCount}</span>
         { eventTime }
         { eventTitle }
@@ -133,13 +132,13 @@ const Calendar = React.createClass({
     }
 
     let disabled = "";
-    if (this.current.getMonth() === new Date().getMonth()) disabled = "disabled"
+    if (this.current.getMonth() === new Date().getMonth()) disabled = "hide";
     return(
       <div className="calendar">
-        <div className="calendar-header">
+        <div className="calendar-header clearfix">
+          <img src={window.MeetupCloneAssets.leftCalendarArrow} className={disabled} onClick={this._prevMonth} />
           <h1>{this.state.month} {this.state.year}</h1>
-          <button onClick={this._nextMonth}>Next Month</button>
-          <button className={disabled} onClick={this._prevMonth}>Previous Month</button>
+          <img src={window.MeetupCloneAssets.rightCalendarArrow} onClick={this._nextMonth} />
         </div>
         <h2>
           {

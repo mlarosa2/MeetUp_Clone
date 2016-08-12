@@ -73,7 +73,7 @@ button {
 }
 .hide { display: none; }
 .clearfix::after {
-  content: "";
+  content: " ";
   display: block;
   clear  : both;
 
@@ -1046,6 +1046,21 @@ CALENDARS
   width      : 100%;
   background : #FFF;
   padding    : 16px;
+  .calendar-header {
+    margin-bottom : 16px;
+    h1 {
+      font-size   : 20px;
+      font-weight : 600;
+      line-height : 1.25;
+      float       : left;
+      padding     : 0 8px;
+    }
+    img {
+      float   : left;
+      cursor  : pointer;
+      padding : 5px 0 0;
+    }
+  }
   .day-name {
     display        : inline-block;
     width          : 120px;
@@ -1068,6 +1083,7 @@ CALENDARS
     border-bottom : 1px solid #E7E7E7;
     position      : relative;
     padding       : 7px;
+    line-height   : 1s;
     &.no-right-border {
       border-right: none;
     }
@@ -1076,4 +1092,14 @@ CALENDARS
     }
   }
   .calendar-hide .day-number { opacity : 0; }
+  .calendar-event-time {
+    margin-top  : 2px;
+    font-size   : 13px;
+    color       : $red-primary;
+    font-weight : 600;
+  }
+  .calendar-event-title {
+    font-size : 13px;
+    color     : $red-primary;
+  }
 }
