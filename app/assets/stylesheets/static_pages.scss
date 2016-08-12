@@ -342,6 +342,7 @@ form.form-group {
     width         : 100%;
     height        : 200px;
     border-radius : 3px;
+    padding       : 8px;
     border        : $border-primary;
     background    : #FAFAFA;
   }
@@ -851,6 +852,7 @@ EVENTS
   textarea {
     height       : 150px;
     width        : 100%;
+    padding      : 8px;
     background   : #FAFAFA;
     border-radius: 3px;
     border       : $border-tertiary;

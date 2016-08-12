@@ -24,6 +24,7 @@ const CreateGroup = React.createClass({
       description  : "",
       lat          : "",
       lng          : "",
+      imageUrl     : "",
       moderator_id : SessionStore.currentUser().user.id,
       errors       : []
     });
@@ -70,20 +71,23 @@ const CreateGroup = React.createClass({
     const group = {
       city         : this.state.city,
       state        : this.state.state,
-      title        : this.state.title,
-      description  : this.state.description,
-      moderator_id : this.state.moderator_id
     };
+    let formData = new FormData();
+    formData.append("group[city]", this.state.city);
+    formData.append("group[state]", this.state.state);
+    formData.append("group[title]", this.state.title);
+    formData.append("group[moderator_id]", this.state.moderator_id);
+    formData.append("group[description]", this.state.description);
 
     $.ajax({
       url    : `https://maps.googleapis.com/maps/api/geocode/json?address=${group.city},${group.state}&region=us&key=AIzaSyC7mHejYETsrCCXPm_ncRFkfAVxuAOS7yM`,
       method : "GET",
       success(dat1) {
         if (group.city !== "" && group.state !== "") {
-          group.lat        = dat1.results[0].geometry.location.lat;
-          group.lng        = dat1.results[0].geometry.location.lng;
+          formData.append("group[lat]", dat1.results[0].geometry.location.lat);
+          formData.append("group[lng]", dat1.results[0].geometry.location.lng);
         }
-        GroupActions.createGroup(group);
+        GroupActions.createGroup(formData);
       }
     });
 
@@ -127,6 +131,24 @@ const CreateGroup = React.createClass({
   },
   _goToIndex() {
     hashHistory.replace("/");
+  },
+  _updateFile(e) {
+    let reader = new FileReader();
+    let file   = e.currentTarget.files[0];
+    reader.onloadend = function () {
+      this.setState({
+        imageUrl  : reader.result,
+        imageFile : file
+      });
+    }.bind(this);
+    if (file) {
+      reader.readAsDataURL(file);
+    } else {
+      this.setState({
+        imageUrl  : "",
+        imageFile : ""
+      });
+    }
   },
   render() {
     return(
@@ -206,6 +228,9 @@ const CreateGroup = React.createClass({
               <h2>What will your Meetup&#39;s name be?</h2>
               <input type="text" name="title" defaultValue="" onChange={this._updateTitle} className={titleErrorClass}/>
               <p className="error">{titleError}</p>
+              <h2>Choose an image for your group</h2>
+              <input type="file" onChange={this._updateFile} />
+              <img src={this.state.imageUrl} />
               <h2>Describe who should join, and what your Meetup will do.</h2>
               <textarea name="description" onChange={this._updateDescription} className={descriptionErrorClass}></textarea>
               <p className="error">{descriptionError}</p>

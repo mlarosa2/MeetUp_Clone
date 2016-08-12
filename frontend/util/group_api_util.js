@@ -24,10 +24,14 @@ const GroupApiUtil = {
     });
   },
   editGroup(data, successCallback) {
+    debugger
     $.ajax({
-      url    : `/api/groups/${data.id}`,
-      method : "PATCH",
-      data   : { group: data },
+      url         : `/api/groups/${data.id}`,
+      method      : "PATCH",
+      processData : false,
+      contentType : false,
+      dataType    : 'json',
+      data        : data ,
       success(dat) {
         successCallback(dat);
       },
@@ -50,9 +54,12 @@ const GroupApiUtil = {
   },
   createGroup(data, successCallback, errorCallback) {
     $.ajax({
-      url    : "/api/groups",
-      method : "POST",
-      data   : { group: data },
+      url         : "/api/groups",
+      method      : "POST",
+      processData : false,
+      contentType : false,
+      dataType    : 'json',
+      data        : data ,
       success(dat) {
         successCallback(dat);
       },
