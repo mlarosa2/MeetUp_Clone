@@ -1,5 +1,7 @@
 class Group < ActiveRecord::Base
   validates :title, :moderator_id, :description, :city, :state, :lat, :lng, presence: true
+  has_attached_file :image, default_url: "liberty_code.jpeg"
+  validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
 
   has_one(
     :moderator,

@@ -148,7 +148,9 @@ const GroupDetail = React.createClass({
           </nav>
         </header>
         <aside className="sidebar">
-          <div className="group-detail-image"></div>
+          <div className="group-detail-image">
+            <img src={this.state.group.group.image_url} />  
+          </div>
           <ul>
             <li><span className="location">{this.state.group.group.city}, {this.state.group.group.state}</span>
             <br />Founded {this.state.group.group.created}</li>

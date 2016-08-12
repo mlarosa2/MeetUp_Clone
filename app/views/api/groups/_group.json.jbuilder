@@ -7,6 +7,7 @@ json.group do
  json.state group.state
  json.lat group.lat
  json.lng group.lng
+ json.image_url asset_path(group.image.url(:original))
  json.members group.members.length
  json.created group.created_at.strftime("%b %d, %Y")
 end
