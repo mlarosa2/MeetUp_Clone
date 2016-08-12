@@ -1,6 +1,11 @@
 class Api::EventsController < ApplicationController
   def index
-    @events = Event.where(group_id: params[:group_id])
+    if params[:group_id]
+      @events = Event.where(group_id: params[:group_id])
+    else
+      @events = Event.all
+    end
+    
     render :index
   end
 
