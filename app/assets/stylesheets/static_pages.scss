@@ -633,6 +633,11 @@ GROUPS
         color         : $red-primary;
         text-align    : center;
         margin-bottom : 8px;
+        img {
+          width         : 36px;
+          height        : auto;
+          padding-right : 3px;  
+        }
       }
       button {
         display          : block;

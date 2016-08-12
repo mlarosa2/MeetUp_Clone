@@ -128,7 +128,7 @@ const GroupDetail = React.createClass({
       adminBlock = (
         <div className="group-detail-moderator">
           <h3>Organizer:</h3>
-          <p>{admin.user.username}</p>
+          <p><img src={admin.user.image_url} /> {admin.user.username}</p>
           <button><a href={mailto}><i className="fa fa-envelope"></i>Contact</a></button>
         </div>
       );
