@@ -49,6 +49,10 @@ Search filters groups via group title, and location within a certain range of a 
 
 A Calendar belongs to a group and displays all of the groups events in a calendar format.
 
+### Pending Features
+
+The rsvps table has an extraneous attending column. In the future, I hope to implement pending RSVPs that gets sent to the user as a notification.
+
 [event]: ./production_img/event.png
 [event-admin]: ./production_img/event_admin.png
 [search-bar]: ./production_img/search_bar.png
