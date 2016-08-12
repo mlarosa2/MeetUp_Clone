@@ -655,8 +655,8 @@ GROUPS
     }
   }
   .group-section {
-    float: left;
-    width: 777px;
+    float   : left;
+    width   : 777px;
   }
   .group-detail-section {
     float         : left;
@@ -1040,25 +1040,40 @@ SEARCH BAR
 /**********
 CALENDARS
 **********/
+.group-section.full { width : 100%; }
 .calendar {
   float      : left;
   width      : 100%;
   background : #FFF;
+  padding    : 16px;
   .day-name {
-    text-align : center;
-    display    : inline-block;
-    width      : 14%;
+    display        : inline-block;
+    width          : 120px;
+    padding        : 7px;
+    font-weight    : 400;
+    border-top     : 1px solid #E7E7E7;
+    border-bottom  : 1px solid #E7E7E7;
+    border-right   : 1px solid #E7E7E7;
+    border-left    : none;
+    text-transform : uppercase;
+    &:last-child  {
+      border-right : none;
+    }
   }
   .calendar-block {
-    width      : 107px;
-    float      : left;
-    min-height : 100px;
-    margin     : 1px;
-    border     : 1px solid black;
-    position   : relative;
+    width         : 135px;
+    float         : left;
+    min-height    : 100px;
+    border-right  : 1px solid #E7E7E7;
+    border-bottom : 1px solid #E7E7E7;
+    position      : relative;
+    padding       : 7px;
+    &.no-right-border {
+      border-right: none;
+    }
     .day-number {
       position : absoulte;
     }
   }
-  .calendar-hide { opacity : 0; }
+  .calendar-hide .day-number { opacity : 0; }
 }

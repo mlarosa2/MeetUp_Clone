@@ -11,8 +11,8 @@ const _months = {
 };
 
 const _days = {
-  0 : "Sunday", 1 : "Monday", 2 : "Tuesday", 3 : "Wednesday", 4 : "Thursday",
-  5 : "Friday", 6 : "Saturday"
+  0 : "Sun", 1 : "Mon", 2 : "Tue", 3 : "Wed", 4 : "Thur",
+  5 : "Fri", 6 : "Sat"
 };
 
 const Calendar = React.createClass({
@@ -85,24 +85,47 @@ const Calendar = React.createClass({
 
 
     for (let j = 0; j < 43; j++) {
+      let eventTitle = "";
+      let eventTime  = "";
 
-      let hide     = this.state.first_day > j ? "calendar-hide" : "";
-      let endHide  = j > (this.state.last_day + (this.state.first_day - 1)) ? "hide" : "";
-
-      if (hide === "" && endHide === "") dayCount++;
-
-      let eventTitle       = "";
-      let eventDescription = "";
       if (eventsWithDays[j]) {
+        let startTime = eventsWithDays[j].event.start_time;
+        let date      = new Date(startTime.split("T")[0]);
+        date          = date.toDateString().split(" ").slice(0, 3);
+        date[2]       = parseInt(date[2]);
+        date          = date.join(" ");
+        let time      = startTime.split("T")[1].slice(0, startTime.split("T")[1].indexOf("."));
+        time          = time.split(":");
+        time          = time.slice(0, 2);
+
+        if (parseInt(time[0]) > 12) {
+          time[0] = parseInt(time[0]) - 12;
+          time    = time.join(":");
+          time   += " PM";
+        } else if (parseInt(time[0]) === 0) {
+          time[0] = 12;
+          time    = time.join(":");
+          time   += " AM";
+        } else {
+          time[0] = parseInt(time[0]);
+          time    = time.join(":");
+          time   += " AM";
+        }
+        eventTime        = <span className="calendar-event-time">{time}</span>;
         eventTitle       = <span className="calendar-event-title">{eventsWithDays[j].event.title}</span>;
-        eventDescription = <span className="calendar-event-description">{eventsWithDays[j].event.description.slice(0, 50) + "..."}</span>;
       }
 
+      let hide         = this.state.first_day > j ? "calendar-hide" : "";
+      let endHide      = j > (this.state.last_day + (this.state.first_day - 1)) ? "hide" : "";
+      let noLeftBorder = (j + 1) % 7 === 0 ? "no-right-border" : "";
+      if (hide === "" && endHide === "") dayCount++;
+      if (hide !== "" || endHide !== "") dayCount = "";
+
       let fullBlock = (
-        <div className={hide + " calendar-block " + endHide} key={j}>
+        <div className={hide + " calendar-block " + endHide + " " + noLeftBorder} key={j}>
         <span className="day-number">{dayCount}</span>
+        { eventTime }
         { eventTitle }
-        { eventDescription }
         </div>
       );
 

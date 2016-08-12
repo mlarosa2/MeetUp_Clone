@@ -98,17 +98,27 @@ const GroupDetail = React.createClass({
 
     if (this.props.location.pathname.indexOf("members") !== -1) {
       membersSelected = "selected";
+        jQuery('.sidebar').removeClass('hide');
+        jQuery('.group-section').removeClass('full');
     } else if (this.props.location.pathname.indexOf("new-event") !== -1) {
       newEventSelected = "selected";
+        jQuery('.sidebar').removeClass('hide');
+        jQuery('.group-section').removeClass('full');
     } else if (this.props.location.pathname.indexOf("show-event") !== -1 || this.props.location.pathname.indexOf("edit-event") !== -1) {
       homeSelected     = "";
       membersSelected  = "";
       calendarSelected = "";
       newEventSelected = "";
+        jQuery('.sidebar').removeClass('hide');
+        jQuery('.group-section').removeClass('full');
     } else if (this.props.location.pathname.indexOf("calendar") !== -1) {
       calendarSelected = "selected";
+      jQuery('.sidebar').addClass('hide');
+      jQuery('.group-section').addClass('full');
     }  else {
       homeSelected = "selected";
+        jQuery('.sidebar').removeClass('hide');
+        jQuery('.group-section').removeClass('full');
     }
 
     let admin = MembershipStore.findMemberById(this.state.group.group.moderator_id);
@@ -137,7 +147,7 @@ const GroupDetail = React.createClass({
             { joinLeaveAdmin }
           </nav>
         </header>
-        <aside>
+        <aside className="sidebar">
           <div className="group-detail-image"></div>
           <ul>
             <li><span className="location">{this.state.group.group.city}, {this.state.group.group.state}</span>
