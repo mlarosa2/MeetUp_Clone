@@ -57,26 +57,30 @@ const SearchBar = React.createClass({
         }
       });
     };
-    navigator.geolocation.getCurrentPosition( position => {
-      let lat        = position.coords.latitude;
-      let lng        = position.coords.longitude;
-      $.ajax({
-        url: `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=AIzaSyC7mHejYETsrCCXPm_ncRFkfAVxuAOS7yM`,
-        method : "GET",
-        success(dat) {
-          let zip               = "";
-          let addressComponents = dat.results[0].address_components;
-          for (let prop in addressComponents) {
-            if (addressComponents.hasOwnProperty(prop)) {
-              if (addressComponents[prop].types[0] === "postal_code") {
-                zip = addressComponents[prop].long_name;
+    $.ajax({
+      url    : 'https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyC7mHejYETsrCCXPm_ncRFkfAVxuAOS7yM',
+      method : 'POST',
+      success(dat) {
+        let lat        = dat.location.lat;
+        let lng        = dat.location.lng;
+        $.ajax({
+          url: `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=AIzaSyC7mHejYETsrCCXPm_ncRFkfAVxuAOS7yM`,
+          method : "GET",
+          success(data) {
+            let zip               = "";
+            let addressComponents = data.results[0].address_components;
+            for (let prop in addressComponents) {
+              if (addressComponents.hasOwnProperty(prop)) {
+                if (addressComponents[prop].types[0] === "postal_code") {
+                  zip = addressComponents[prop].long_name;
+                }
               }
             }
+            setLatLng(lat, lng);
+            sendZip(zip);
           }
-          setLatLng(lat, lng);
-          sendZip(zip);
-        }
-      });
+        });
+      }
     });
   },
   _chooseDistance(e) {
