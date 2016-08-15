@@ -23,10 +23,9 @@ const GroupApiUtil = {
       }
     });
   },
-  editGroup(data, successCallback) {
-    debugger
+  editGroup(id, data, successCallback) {
     $.ajax({
-      url         : `/api/groups/${data.id}`,
+      url         : `/api/groups/${id}`,
       method      : "PATCH",
       processData : false,
       contentType : false,

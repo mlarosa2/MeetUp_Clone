@@ -12,8 +12,8 @@ const GroupActions = {
     GroupApiUtil.fetchSingleGroup(group, this.receiveGroup);
   },
 
-  editGroup(data) {
-    GroupApiUtil.editGroup(data, this.receiveGroup);
+  editGroup(id, data) {
+    GroupApiUtil.editGroup(id, data, this.receiveGroup);
   },
 
   createGroup(data) {

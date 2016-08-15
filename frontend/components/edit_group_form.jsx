@@ -64,16 +64,15 @@ const EditGroup = React.createClass({
   _editGroup(e) {
     e.preventDefault();
     const group = {
+      id           : this.state.id,
       city         : this.state.city,
       state        : this.state.state,
     };
     let formData = new FormData();
-    formData.append("id", this.state.id);
     formData.append("group[city]", this.state.city);
     formData.append("group[state]", this.state.state);
     formData.append("group[title]", this.state.title);
     formData.append("group[description]", this.state.description);
-
     $.ajax({
       url    : `https://maps.googleapis.com/maps/api/geocode/json?address=${group.city},${group.state}&region=us&key=AIzaSyC7mHejYETsrCCXPm_ncRFkfAVxuAOS7yM`,
       method : "GET",
@@ -82,8 +81,7 @@ const EditGroup = React.createClass({
           formData.append("group[lat]", dat1.results[0].geometry.location.lat);
           formData.append("group[lng]", dat1.results[0].geometry.location.lng);
         }
-        debugger
-        GroupActions.editGroup(formData);
+        GroupActions.editGroup(group.id, formData);
       }
     });
 
