@@ -53,6 +53,6 @@ A Calendar belongs to a group and displays all of the groups events in a calenda
 
 The rsvps table has an extraneous attending column. In the future, I hope to implement pending RSVPs that gets sent to the user as a notification.
 
-[event]: ./production_img/event.png
-[event-admin]: ./production_img/event_admin.png
-[search-bar]: ./production_img/search_bar.png
+[event]: ./docs/production_img/event.png
+[event-admin]: ./docs/production_img/event_admin.png
+[search-bar]: ./docs/production_img/search_bar.png
