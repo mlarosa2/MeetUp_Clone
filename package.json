@@ -22,8 +22,7 @@
     "webpack": "^1.13.1"
   },
   "scripts": {
-    "webpack": "webpack -w",
-    "postinstall": "./node_modules/.bin/webpack"
+    "heroku-postbuild": "webpack --config webpack.config.prod.js"
   },
   "engines": {
     "node": "6.3.0",
