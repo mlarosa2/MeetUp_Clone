@@ -29,6 +29,7 @@ calling `SessionStore.currentUser()`.
 Events are held by groups. An EventsIndex is rendered on the GroupDetail component, and is made up of EventDetail components. These components listen to the `EventStore`.
 
 Events Appear automatically on the group's calendar. They have their own details page as well. Events can only be deleted or edited by the group's creator. The interface for changing events is on the `EventIndex` rather than a control panel.
+
 ![event]
 
 ![event-admin]
