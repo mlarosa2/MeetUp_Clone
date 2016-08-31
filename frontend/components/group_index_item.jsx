@@ -11,8 +11,10 @@ const GroupIndexItem = React.createClass({
     hashHistory.push(`/${this.props.group.id}`);
   },
   render() {
+    const image_url = this.props.group.image_url;
+    const divStyle = { backgroundImage: 'url(' + image_url + ')' };
     return(
-      <div className="group" onClick={this._goToGroup}>
+      <div className="group" onClick={this._goToGroup} style={divStyle}>
         <div className="group-title">
           <h3>{ this.props.group.title }</h3>
           <p>We are { this.props.group.members } Members</p>
