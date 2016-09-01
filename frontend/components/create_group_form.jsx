@@ -25,6 +25,7 @@ const CreateGroup = React.createClass({
       lat          : "",
       lng          : "",
       imageUrl     : "",
+      imageFile    : "",
       moderator_id : SessionStore.currentUser().user.id,
       errors       : []
     });
@@ -67,6 +68,7 @@ const CreateGroup = React.createClass({
     jQuery('.form-group-three').removeClass('hide');
   },
   _createGroup(e) {
+
     e.preventDefault();
     const group = {
       city         : this.state.city,
@@ -78,6 +80,7 @@ const CreateGroup = React.createClass({
     formData.append("group[title]", this.state.title);
     formData.append("group[moderator_id]", this.state.moderator_id);
     formData.append("group[description]", this.state.description);
+    formData.append("group[image]", this.state.imageFile);
 
     $.ajax({
       url    : `https://maps.googleapis.com/maps/api/geocode/json?address=${group.city},${group.state}&region=us&key=AIzaSyC7mHejYETsrCCXPm_ncRFkfAVxuAOS7yM`,
@@ -90,8 +93,6 @@ const CreateGroup = React.createClass({
         GroupActions.createGroup(formData);
       }
     });
-
-
 
     cityError             = "";
     cityErrorClass        = "";
@@ -133,6 +134,7 @@ const CreateGroup = React.createClass({
     hashHistory.replace("/");
   },
   _updateFile(e) {
+
     let reader = new FileReader();
     let file   = e.currentTarget.files[0];
     reader.onloadend = function () {
@@ -140,15 +142,18 @@ const CreateGroup = React.createClass({
         imageUrl  : reader.result,
         imageFile : file
       });
+
     }.bind(this);
     if (file) {
       reader.readAsDataURL(file);
+
     } else {
       this.setState({
         imageUrl  : "",
         imageFile : ""
       });
     }
+
   },
   render() {
     return(
