@@ -19,6 +19,14 @@ class Group < ActiveRecord::Base
   )
 
   has_many(
+    :events,
+    class_name: "Event",
+    foreign_key: :group_id,
+    primary_key: :id,
+    dependent: :destroy
+  )
+
+  has_many(
     :members,
     through: :memberships,
     source: :member
