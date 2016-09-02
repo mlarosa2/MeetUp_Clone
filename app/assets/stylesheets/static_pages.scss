@@ -223,19 +223,19 @@ MAIN CONTENT
 FORMS
 ***************************/
 .errors {
-  border-radius     : 3px;
-  border            : $border-secondary;
-  border-bottom     : $border-tertiary;
-  background        : #FBE1E3;
-  max-width         : 720px;
-  margin            : 32px auto 48px;
-  padding           : 16px 32px 16px;
+  border-radius : 3px;
+  border        : $border-secondary;
+  border-bottom : $border-tertiary;
+  background    : #FBE1E3;
+  max-width     : 720px;
+  margin        : 32px auto 48px;
+  padding       : 16px 32px 16px;
   h2 {
-    color       : #C00;
-    font-size   : 34px;
+    color     : #C00;
+    font-size : 34px;
   }
   p {
-    color    : #222;
+    color : #222;
   }
 }
 .form-header {
@@ -253,10 +253,10 @@ FORMS
     font-size   : 42px;
   }
   p {
-    font-size    : 13px;
-    line-height  : 1.6;
-    font-weight  : 600;
-    margin-bottom: 16px;
+    font-size     : 13px;
+    line-height   : 1.6;
+    font-weight   : 600;
+    margin-bottom : 16px;
   }
 }
 
@@ -274,27 +274,31 @@ FORMS
     line-height  : 1.6;
     font-weight  : 600;
     &.error {
-      margin     : 4px 4px 8px;
-      padding    : 4px;
-      font-size  : 16px;
-      color      : #C00;
-      font-weight: 400;
+      margin      : 4px 4px 8px;
+      padding     : 4px;
+      font-size   : 16px;
+      color       : #C00;
+      font-weight : 400;
     }
   }
   input {
-    width        : 100%;
-    background   : #FAFAFA;
-    border-radius: 3px;
-    border       : $border-primary;
-    display      : block;
-    line-height  : 1.45;
-    padding      : 4px;
-    margin-bottom: 16px;
-    color        : rgba(0, 0, 0, .87);
+    width         : 100%;
+    background    : #FAFAFA;
+    border-radius : 3px;
+    border        : $border-primary;
+    display       : block;
+    line-height   : 1.45;
+    padding       : 4px;
+    margin-bottom : 16px;
+    color         : rgba(0, 0, 0, .87);
     &:focus {
       background   : #FFF;
       border-color : $border-focus;
     }
+  }
+  img {
+    max-width : 400px;
+    height    : auto;
   }
 }
 .guest {
