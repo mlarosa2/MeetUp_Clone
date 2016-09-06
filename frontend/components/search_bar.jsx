@@ -64,7 +64,7 @@ const SearchBar = React.createClass({
         let lat        = dat.location.lat;
         let lng        = dat.location.lng;
         $.ajax({
-          url: `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=AIzaSyC7mHejYETsrCCXPm_ncRFkfAVxuAOS7yM`,
+          url    : `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=AIzaSyC7mHejYETsrCCXPm_ncRFkfAVxuAOS7yM`,
           method : "GET",
           success(data) {
             let zip               = "";
@@ -156,6 +156,9 @@ const SearchBar = React.createClass({
       if (jQuery(ev.target).is('.choose.location input') === false) {
         jQuery('.choose.location').addClass('hide');
       }
+      if (jQuery(ev.target).is('.click-to-choose-location') === true) {
+        jQuery('.choose.location').removeClass('hide');
+      }
     });
   },
   _revealDistanceMenu(e) {
@@ -165,7 +168,6 @@ const SearchBar = React.createClass({
       if (jQuery(ev.target).is('.click-to-choose-distance') === false) {
         jQuery('.choose.distance').addClass('hide');
       }
-        jQuery(document).off('click');
     });
 
   },
