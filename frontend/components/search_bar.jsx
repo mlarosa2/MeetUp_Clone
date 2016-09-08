@@ -173,11 +173,15 @@ const SearchBar = React.createClass({
   },
   _filterGroups(e) {
     e.preventDefault();
-    let a = GroupStore.all();
     GroupActions.filterGroups(this.state.lat, this.state.lng, this.state.distance, this.state.titleSearch);
   },
   _titleSearch(e) {
     this.setState({ titleSearch : e.currentTarget.value });
+  },
+  _isEnter(e) {
+    if (e.key === 'Enter') {
+      this._filterGroups(e);
+    }
   },
   render() {
     let miles = "miles";
@@ -187,7 +191,7 @@ const SearchBar = React.createClass({
     return(
       <div className="search-bar">
         <i className="fa fa-search" onClick={this._filterGroups}></i>
-        <input placeholder="All Meetups" defaultValue={this.state.titleSearch} onChange={this._titleSearch} className="meetup-search" />
+        <input placeholder="All Meetups" defaultValue={this.state.titleSearch} onChange={this._titleSearch} onKeyUp={this._isEnter} className="meetup-search" />
         within <span className="click-to-choose-distance" onClick={this._revealDistanceMenu}>
         {this.state.distance} {miles}</span> of {this.loading}
         <span className="click-to-choose-location" onClick={this._revealLocationMenu}>
