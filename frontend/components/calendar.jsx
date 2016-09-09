@@ -84,6 +84,7 @@ const Calendar = React.createClass({
 
     let disabled = "";
     if (this.current.getMonth() === new Date().getMonth()) disabled = "hide";
+    
     return(
       <div className="calendar">
         <div className="calendar-header clearfix">
