@@ -2,9 +2,6 @@ const React        = require('react');
 const EventStore   = require('../stores/event_store');
 const EventActions = require('../actions/event_actions');
 
-function daysInMonth(year, month) {
-  return 32 - new Date(year, month, 32).getDate();
-}
 const _months = {
   0 : "January", 1 : "February", 2 : "March", 3 : "April", 4 : "May", 5 : "June",
   6 : "July", 7 : "August", 8 : "September", 9 : "October", 10 : "November", 11 : "December"
@@ -95,22 +92,9 @@ const Calendar = React.createClass({
         date[2]       = parseInt(date[2]);
         date          = date.join(" ");
         let time      = startTime.split("T")[1].slice(0, startTime.split("T")[1].indexOf("."));
-        time          = time.split(":");
-        time          = time.slice(0, 2);
 
-        if (parseInt(time[0]) > 12) {
-          time[0] = parseInt(time[0]) - 12;
-          time    = time.join(":");
-          time   += " PM";
-        } else if (parseInt(time[0]) === 0) {
-          time[0] = 12;
-          time    = time.join(":");
-          time   += " AM";
-        } else {
-          time[0] = parseInt(time[0]);
-          time    = time.join(":");
-          time   += " AM";
-        }
+        time = parseTime(time);
+
         eventTime        = <p className="calendar-event-time">{time}</p>;
         eventTitle       = <p className="calendar-event-title">{eventsWithDays[j].event.title}</p>;
       }
@@ -120,13 +104,8 @@ const Calendar = React.createClass({
       let noRightBorder = (j + 1) % 7 === 0 ? "no-right-border" : "";
       if (hide === "" && endHide === "") dayCount++;
       if (hide !== "" || endHide !== "") dayCount = "";
-      let fullBlock = (
-        <div className={hide + " calendar-block " + endHide + " " + noRightBorder} key={j}>
-        <span className="day-number">{dayCount}</span>
-        { eventTime }
-        { eventTitle }
-        </div>
-      );
+
+      let fullBlock = buildCalendarBlock(hide, endHide, noRightBorder, j, dayCount, eventTime, eventTitle);
 
       _calendarDays.push(fullBlock);
     }
@@ -160,3 +139,34 @@ const Calendar = React.createClass({
 });
 
 module.exports = Calendar;
+
+function parseTime(time) {
+  time          = time.split(":");
+  time          = time.slice(0, 2);
+
+  if (parseInt(time[0]) > 12) {
+    time[0] = parseInt(time[0]) - 12;
+    time    = time.join(":");
+    time   += " PM";
+  } else if (parseInt(time[0]) === 0) {
+    time[0] = 12;
+    time    = time.join(":");
+    time   += " AM";
+  } else {
+    time[0] = parseInt(time[0]);
+    time    = time.join(":");
+    time   += " AM";
+  }
+
+  return time;
+}
+
+function buildCalendarBlock(hide, endHide, noRightBorder, j, dayCount, eventTime, eventTitle) {
+  return (
+    <div className={hide + " calendar-block " + endHide + " " + noRightBorder} key={j}>
+    <span className="day-number">{dayCount}</span>
+    { eventTime }
+    { eventTitle }
+    </div>
+  );
+}
