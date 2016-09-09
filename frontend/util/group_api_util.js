@@ -23,7 +23,7 @@ const GroupApiUtil = {
       }
     });
   },
-  editGroup(id, data, successCallback) {
+  editGroup(id, data, successCallback, errorCallback) {
     $.ajax({
       url         : `/api/groups/${id}`,
       method      : "PATCH",
@@ -35,7 +35,7 @@ const GroupApiUtil = {
         successCallback(dat);
       },
       error(dat) {
-        return dat;
+        errorCallback(dat);
       }
     });
   },

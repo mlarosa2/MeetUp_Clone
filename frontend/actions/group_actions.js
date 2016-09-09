@@ -13,7 +13,7 @@ const GroupActions = {
   },
 
   editGroup(id, data) {
-    GroupApiUtil.editGroup(id, data, this.receiveGroup);
+    GroupApiUtil.editGroup(id, data, this.receiveGroup, ErrorActions.setErrors);
   },
 
   createGroup(data) {

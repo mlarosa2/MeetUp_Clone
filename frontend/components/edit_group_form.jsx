@@ -70,6 +70,25 @@ const EditGroup = React.createClass({
       state        : this.state.state,
     };
 
+    let formData = new FormData();
+    formData.append("group[city]", this.state.city);
+    formData.append("group[state]", this.state.state);
+    formData.append("group[title]", this.state.title);
+    formData.append("group[description]", this.state.description);
+    formData.append("group[image]", this.state.imageFile);
+
+    $.ajax({
+      url    : `https://maps.googleapis.com/maps/api/geocode/json?address=${group.city},${group.state}&region=us&key=AIzaSyC7mHejYETsrCCXPm_ncRFkfAVxuAOS7yM`,
+      method : "GET",
+      success(dat1) {
+        if (group.city !== "" && group.state !== "") {
+          formData.append("group[lat]", dat1.results[0].geometry.location.lat);
+          formData.append("group[lng]", dat1.results[0].geometry.location.lng);
+        }
+        GroupActions.editGroup(group.id, formData);
+      }
+    });
+
     let totalErrors       = 0;
     cityError             = "";
     cityErrorClass        = "";
@@ -99,22 +118,6 @@ const EditGroup = React.createClass({
       totalErrors++;
     }
     if (totalErrors === 0) {
-      let formData = new FormData();
-      formData.append("group[city]", this.state.city);
-      formData.append("group[state]", this.state.state);
-      formData.append("group[title]", this.state.title);
-      formData.append("group[description]", this.state.description);
-      $.ajax({
-        url    : `https://maps.googleapis.com/maps/api/geocode/json?address=${group.city},${group.state}&region=us&key=AIzaSyC7mHejYETsrCCXPm_ncRFkfAVxuAOS7yM`,
-        method : "GET",
-        success(dat1) {
-          if (group.city !== "" && group.state !== "") {
-            formData.append("group[lat]", dat1.results[0].geometry.location.lat);
-            formData.append("group[lng]", dat1.results[0].geometry.location.lng);
-          }
-          GroupActions.editGroup(group.id, formData);
-        }
-      });
       hashHistory.replace(`/groups/${this.state.id}`);
     }
   },
