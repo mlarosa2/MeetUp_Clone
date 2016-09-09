@@ -146,7 +146,6 @@ const CreateGroup = React.createClass({
     }.bind(this);
     if (file) {
       reader.readAsDataURL(file);
-
     } else {
       this.setState({
         imageUrl  : "",
