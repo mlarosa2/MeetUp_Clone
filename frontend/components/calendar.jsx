@@ -72,14 +72,13 @@ const Calendar = React.createClass({
   render() {
     let _calendarDays    = [];
     let eventsWithDays   = {};
-    let dayCount = 0;
+    let dayCount         = 0;
 
     for (let i = 0; i < this.state.events.length; i++) {
       if (parseInt(this.state.events[i].event.start_time.split("-")[1] - 1) === this.current.getMonth()) {
         eventsWithDays[parseInt(this.state.events[i].event.start_time.split("-")[2].split("T")[0])] = this.state.events[i];
       }
     }
-
 
     for (let j = 0; j < 43; j++) {
       let eventTitle = "";
@@ -88,9 +87,7 @@ const Calendar = React.createClass({
       if (eventsWithDays[j]) {
         let startTime = eventsWithDays[j].event.start_time;
         let date      = new Date(startTime.split("T")[0]);
-        date          = date.toDateString().split(" ").slice(0, 3);
-        date[2]       = parseInt(date[2]);
-        date          = date.join(" ");
+        date          = parseDateString(date);
         let time      = startTime.split("T")[1].slice(0, startTime.split("T")[1].indexOf("."));
 
         time = parseTime(time);
@@ -169,4 +166,12 @@ function buildCalendarBlock(hide, endHide, noRightBorder, j, dayCount, eventTime
     { eventTitle }
     </div>
   );
+}
+
+function parseDateString(date) {
+  date          = date.toDateString().split(" ").slice(0, 3);
+  date[2]       = parseInt(date[2]);
+  date          = date.join(" ");
+
+  return date;
 }
