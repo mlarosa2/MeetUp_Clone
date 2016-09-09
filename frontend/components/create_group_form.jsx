@@ -74,6 +74,7 @@ const CreateGroup = React.createClass({
       city         : this.state.city,
       state        : this.state.state,
     };
+    
     let formData = new FormData();
     formData.append("group[city]", this.state.city);
     formData.append("group[state]", this.state.state);
