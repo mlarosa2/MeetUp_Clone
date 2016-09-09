@@ -80,32 +80,7 @@ const Calendar = React.createClass({
       }
     }
 
-    for (let j = 0; j < 43; j++) {
-      let eventTitle = "";
-      let eventTime  = "";
-
-      if (eventsWithDays[j]) {
-        let startTime = eventsWithDays[j].event.start_time;
-        let date      = new Date(startTime.split("T")[0]);
-        date          = parseDateString(date);
-        let time      = startTime.split("T")[1].slice(0, startTime.split("T")[1].indexOf("."));
-
-        time = parseTime(time);
-
-        eventTime        = <p className="calendar-event-time">{time}</p>;
-        eventTitle       = <p className="calendar-event-title">{eventsWithDays[j].event.title}</p>;
-      }
-
-      let hide         = this.state.first_day > j ? "calendar-hide" : "";
-      let endHide      = j > (this.state.last_day + (this.state.first_day - 1)) ? "hide" : "";
-      let noRightBorder = (j + 1) % 7 === 0 ? "no-right-border" : "";
-      if (hide === "" && endHide === "") dayCount++;
-      if (hide !== "" || endHide !== "") dayCount = "";
-
-      let fullBlock = buildCalendarBlock(hide, endHide, noRightBorder, j, dayCount, eventTime, eventTitle);
-
-      _calendarDays.push(fullBlock);
-    }
+    buildCalendar(eventsWithDays, _calendarDays);
 
     let disabled = "";
     if (this.current.getMonth() === new Date().getMonth()) disabled = "hide";
@@ -174,4 +149,33 @@ function parseDateString(date) {
   date          = date.join(" ");
 
   return date;
+}
+
+function buildCalendar(eventsWithDays, calendarDays) {
+  for (let j = 0; j < 43; j++) {
+    let eventTitle = "";
+    let eventTime  = "";
+
+    if (eventsWithDays[j]) {
+      let startTime = eventsWithDays[j].event.start_time;
+      let date      = new Date(startTime.split("T")[0]);
+      date          = parseDateString(date);
+      let time      = startTime.split("T")[1].slice(0, startTime.split("T")[1].indexOf("."));
+
+      time = parseTime(time);
+
+      eventTime        = <p className="calendar-event-time">{time}</p>;
+      eventTitle       = <p className="calendar-event-title">{eventsWithDays[j].event.title}</p>;
+    }
+
+    let hide         = this.state.first_day > j ? "calendar-hide" : "";
+    let endHide      = j > (this.state.last_day + (this.state.first_day - 1)) ? "hide" : "";
+    let noRightBorder = (j + 1) % 7 === 0 ? "no-right-border" : "";
+    if (hide === "" && endHide === "") dayCount++;
+    if (hide !== "" || endHide !== "") dayCount = "";
+
+    let fullBlock = buildCalendarBlock(hide, endHide, noRightBorder, j, dayCount, eventTime, eventTitle);
+
+    _calendarDays.push(fullBlock);
+  }
 }
