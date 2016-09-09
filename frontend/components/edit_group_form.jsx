@@ -55,7 +55,8 @@ const EditGroup = React.createClass({
       description  : GroupStore.find(this.props.params.groupId).group.description,
       lat          : GroupStore.find(this.props.params.groupId).group.lat,
       lng          : GroupStore.find(this.props.params.groupId).group.lng,
-      moderator_id : GroupStore.find(this.props.params.groupId).group.moderator_id
+      moderator_id : GroupStore.find(this.props.params.groupId).group.moderator_id,
+      imageUrl     : GroupStore.find(this.props.params.groupId).group.image_url
     });
   },
   _onErrorChange() {
@@ -68,22 +69,6 @@ const EditGroup = React.createClass({
       city         : this.state.city,
       state        : this.state.state,
     };
-    let formData = new FormData();
-    formData.append("group[city]", this.state.city);
-    formData.append("group[state]", this.state.state);
-    formData.append("group[title]", this.state.title);
-    formData.append("group[description]", this.state.description);
-    $.ajax({
-      url    : `https://maps.googleapis.com/maps/api/geocode/json?address=${group.city},${group.state}&region=us&key=AIzaSyC7mHejYETsrCCXPm_ncRFkfAVxuAOS7yM`,
-      method : "GET",
-      success(dat1) {
-        if (group.city !== "" && group.state !== "") {
-          formData.append("group[lat]", dat1.results[0].geometry.location.lat);
-          formData.append("group[lng]", dat1.results[0].geometry.location.lng);
-        }
-        GroupActions.editGroup(group.id, formData);
-      }
-    });
 
     let totalErrors       = 0;
     cityError             = "";
@@ -114,6 +99,22 @@ const EditGroup = React.createClass({
       totalErrors++;
     }
     if (totalErrors === 0) {
+      let formData = new FormData();
+      formData.append("group[city]", this.state.city);
+      formData.append("group[state]", this.state.state);
+      formData.append("group[title]", this.state.title);
+      formData.append("group[description]", this.state.description);
+      $.ajax({
+        url    : `https://maps.googleapis.com/maps/api/geocode/json?address=${group.city},${group.state}&region=us&key=AIzaSyC7mHejYETsrCCXPm_ncRFkfAVxuAOS7yM`,
+        method : "GET",
+        success(dat1) {
+          if (group.city !== "" && group.state !== "") {
+            formData.append("group[lat]", dat1.results[0].geometry.location.lat);
+            formData.append("group[lng]", dat1.results[0].geometry.location.lng);
+          }
+          GroupActions.editGroup(group.id, formData);
+        }
+      });
       hashHistory.replace(`/groups/${this.state.id}`);
     }
   },
