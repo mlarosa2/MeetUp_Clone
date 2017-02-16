@@ -12,7 +12,7 @@ a frontend created with React.js following the Flux architecture.
 
 ### Single-Page App
 
-This app utilizes React.js and the Flux architecture to create and app that delivers
+This app utilizes React.js and the Flux architecture to create an app that delivers
 content as needed on a single static page. Content is rendered based on the current user.
 By listening to a `SessionStore`, information about the current user can be retrieved by
 calling `SessionStore.currentUser()`.
